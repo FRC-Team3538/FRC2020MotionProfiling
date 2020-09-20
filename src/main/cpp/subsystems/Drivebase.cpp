@@ -11,11 +11,19 @@ using namespace frc;
 
 Drivebase::Drivebase()
 {
-
     motorLeft1.ConfigFactoryDefault();
     motorLeft2.ConfigFactoryDefault();
     motorRight1.ConfigFactoryDefault();
     motorRight2.ConfigFactoryDefault();
+
+    motorLeft1.SetInverted(true);
+
+    navx.Reset();
+
+    motorLeft1.SetSelectedSensorPosition(0);
+    motorRight1.SetSelectedSensorPosition(0);
+
+    ResetOdometry();
 }
 
 void Drivebase::Arcade(double forward, double turn)
@@ -35,4 +43,11 @@ void Drivebase::Arcade(double forward, double turn)
     motorRight1.Set(forward + turn);
     motorRight2.Set(forward + turn);
 }
-    
+
+void Drivebase::LogState() {
+    auto pose = odometry.GetPose();
+    wpi::json j;
+    frc::to_json(j, pose);
+    auto timestamp = frc::Timer::GetFPGATimestamp();
+    wpi::outs() << "[" << timestamp << "]: " << motorLeft1.GetSelectedSensorPosition() << ", " << motorRight1.GetSelectedSensorPosition() << " => " << j.dump() << "\n";
+}

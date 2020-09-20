@@ -1,6 +1,6 @@
 #pragma once
 
-#include "json.hpp"
+#include <wpi/json.h>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -26,7 +26,7 @@ public:
             json_file.read(&contents[0], contents.size());
             json_file.close();
 
-            auto json_contents = nlohmann::json::parse(contents);
+            auto json_contents = wpi::json::parse(contents);
             return json_contents.get<T>();
         }
         
@@ -39,7 +39,7 @@ public:
             return Get<T>(file);
         } catch (int i) {
             wpi::outs() << "Error while reading " << file << ": " << strerror(i) << "\n";
-        } catch (nlohmann::detail::exception e) {
+        } catch (wpi::detail::exception e) {
             wpi::outs() << "Error while reading " << file << ": " << e.what() << "\n";
         }
 
@@ -52,7 +52,7 @@ public:
         std::ofstream json_file(get_path() + file);
         if (json_file.is_open()) {
             std::string contents;
-            nlohmann::json j = data;
+            wpi::json j = data;
             json_file << j.dump(4);
             json_file.close();
             return;
@@ -67,7 +67,7 @@ public:
             Put<T>(file, data);
         } catch (int i) {
             wpi::outs() << "Error while writing to " << file << ": " << strerror(i) << "\n";
-        } catch (nlohmann::detail::exception e) {
+        } catch (wpi::detail::exception e) {
             wpi::outs() << "Error while writing to " << file << ": " << e.what() << "\n";
         }
     }
