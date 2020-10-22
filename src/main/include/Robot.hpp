@@ -17,11 +17,14 @@
 #include "Robotmap.hpp"
 #include "lib/Configuration.hpp"
 #include "config/Trajectory.hpp"
+#include <frc/Timer.h>
 
 class Robot : public frc::TimedRobot
 {
 private:
   Robotmap IO;
+  double autoStartTime;
+  frc::Trajectory currentTrajectory;
 
 public:
 

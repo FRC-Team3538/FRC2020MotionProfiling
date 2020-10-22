@@ -16,22 +16,34 @@ void Robot::RobotPeriodic() {
 void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic() {}
 void Robot::AutonomousInit() {
-  const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(180_deg));
-  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(180_deg));
+  const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(0_deg));
+  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(0_deg));
 
   std::vector<frc::Translation2d> interiorWaypoints{};
 
-  frc::TrajectoryConfig config(5_fps, 5_fps_sq);
+  frc::TrajectoryConfig config(15_fps, 5_fps_sq);
 
-  auto trajectory = frc::TrajectoryGenerator::GenerateTrajectory(forward_5, interiorWaypoints, zero, config);
+  currentTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(zero, interiorWaypoints, forward_5, config);
 
   //wpi::outs() << "time: " << trajectory.TotalTime() << "\n";
 
-  wpi::json states = trajectory.States();
+  auto states = currentTrajectory.States();
 
-  wpi::outs() << "states: " << states.dump() << "\n";
+  wpi::outs() << "states: " << states.size() << "\n";
+  //for (wpi::json state: states) {
+  //  wpi::outs() << "state: " << state.dump() << "\n";
+  //}
+
+  autoStartTime = frc::Timer::GetFPGATimestamp();
 }
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() {
+  auto currentTime = frc::Timer::GetFPGATimestamp();
+  wpi::json state = currentTrajectory.Sample(units::second_t(currentTime - autoStartTime));
+  if (units::second_t(currentTime - autoStartTime) <= currentTrajectory.TotalTime()) {
+    wpi::outs() << "time: " << (currentTime - autoStartTime) << " state: " << state.dump() << "\n";
+  }
+
+}
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {}
 void Robot::TestInit() {}
