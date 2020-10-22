@@ -8,8 +8,15 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
+#include <frc/geometry/Pose2d.h>
+#include <frc/geometry/Rotation2d.h>
+#include <frc/trajectory/TrajectoryConfig.h>
+#include <frc/trajectory/TrajectoryGenerator.h>
+#include <units/units.h>
+#include <wpi/raw_ostream.h>
 #include "Robotmap.hpp"
 #include "lib/Configuration.hpp"
+#include "config/Trajectory.hpp"
 
 class Robot : public frc::TimedRobot
 {

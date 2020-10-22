@@ -11,11 +11,26 @@ void Robot::RobotInit() { IO.drivebase.ResetOdometry(); }
 void Robot::RobotPeriodic() {
 
   IO.drivebase.UpdateOdometry();
-  IO.drivebase.LogState();
+  //IO.drivebase.LogState();
 }
 void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic() {}
-void Robot::AutonomousInit() {}
+void Robot::AutonomousInit() {
+  const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(180_deg));
+  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(180_deg));
+
+  std::vector<frc::Translation2d> interiorWaypoints{};
+
+  frc::TrajectoryConfig config(5_fps, 5_fps_sq);
+
+  auto trajectory = frc::TrajectoryGenerator::GenerateTrajectory(forward_5, interiorWaypoints, zero, config);
+
+  //wpi::outs() << "time: " << trajectory.TotalTime() << "\n";
+
+  wpi::json states = trajectory.States();
+
+  wpi::outs() << "states: " << states.dump() << "\n";
+}
 void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {}
