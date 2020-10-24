@@ -11,7 +11,7 @@ void Robot::RobotInit() { IO.drivebase.ResetOdometry(); }
 void Robot::RobotPeriodic() {
 
   IO.drivebase.UpdateOdometry();
-  //IO.drivebase.LogState();
+  // IO.drivebase.LogState();
 }
 void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic() {}
@@ -23,14 +23,15 @@ void Robot::AutonomousInit() {
 
   frc::TrajectoryConfig config(15_fps, 5_fps_sq);
 
-  currentTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(zero, interiorWaypoints, forward_5, config);
+  auto trajectory = frc::TrajectoryGenerator::GenerateTrajectory(
+      zero, interiorWaypoints, forward_5, config);
 
-  //wpi::outs() << "time: " << trajectory.TotalTime() << "\n";
+  // wpi::outs() << "time: " << trajectory.TotalTime() << "\n";
 
   auto states = currentTrajectory.States();
 
   wpi::outs() << "states: " << states.size() << "\n";
-  //for (wpi::json state: states) {
+  // for (wpi::json state: states) {
   //  wpi::outs() << "state: " << state.dump() << "\n";
   //}
 
@@ -38,11 +39,19 @@ void Robot::AutonomousInit() {
 }
 void Robot::AutonomousPeriodic() {
   auto currentTime = frc::Timer::GetFPGATimestamp();
-  wpi::json state = currentTrajectory.Sample(units::second_t(currentTime - autoStartTime));
-  if (units::second_t(currentTime - autoStartTime) <= currentTrajectory.TotalTime()) {
-    wpi::outs() << "time: " << (currentTime - autoStartTime) << " state: " << state.dump() << "\n";
+  wpi::json state =
+      currentTrajectory.Sample(units::second_t(currentTime - autoStartTime));
+  if (units::second_t(currentTime - autoStartTime) <=
+      currentTrajectory.TotalTime()) {
+    IO.drivebase.SetRamseteTarget(state);
+    IO.drivebase.StepRamsete();
+    wpi::outs() << "time: " << (currentTime - autoStartTime)
+                << " state: " << state.dump() << "\n";
+  } else {
+    IO.drivebase.StopFollowing();
   }
 
+  IO.drivebase.StepRamsete();
 }
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {}

@@ -7,27 +7,25 @@
 
 #pragma once
 
+#include "Robotmap.hpp"
+#include "config/Trajectory.hpp"
+#include "lib/Configuration.hpp"
 #include <frc/TimedRobot.h>
+#include <frc/Timer.h>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Rotation2d.h>
 #include <frc/trajectory/TrajectoryConfig.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <units/units.h>
 #include <wpi/raw_ostream.h>
-#include "Robotmap.hpp"
-#include "lib/Configuration.hpp"
-#include "config/Trajectory.hpp"
-#include <frc/Timer.h>
 
-class Robot : public frc::TimedRobot
-{
+class Robot : public frc::TimedRobot {
 private:
   Robotmap IO;
   double autoStartTime;
   frc::Trajectory currentTrajectory;
 
 public:
-
   void RobotInit() override;
   void RobotPeriodic() override;
   void DisabledInit() override;

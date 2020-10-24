@@ -14,8 +14,8 @@
 #include <units/units.h>
 #include <wpi/raw_ostream.h>
 
-#include <wpi/json.h>
 #include "Constants.hpp"
+#include <wpi/json.h>
 
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
@@ -41,11 +41,18 @@ public:
 
   void UpdateOdometry() {
     odometry.Update(GetGyroHeading(),
-                    units::meter_t(motorLeft1.GetSelectedSensorPosition() / Constants::ticks_per_meter),
-                    units::meter_t(motorRight1.GetSelectedSensorPosition() / Constants::ticks_per_meter));
+                    units::meter_t(motorLeft1.GetSelectedSensorPosition() /
+                                   Constants::ticks_per_meter),
+                    units::meter_t(motorRight1.GetSelectedSensorPosition() /
+                                   Constants::ticks_per_meter));
   }
 
   void LogState();
+
+  void SetRamseteTarget(frc::Trajectory::State state);
+  void StepRamsete();
+  void StopFollowing();
+
 
 private:
   // Hardware setup
@@ -61,4 +68,7 @@ private:
 
   DifferentialDriveKinematics kinematics{27_in};
   DifferentialDriveOdometry odometry{GetGyroHeading()};
+
+  frc::Trajectory currentTrajectory;
+  double trajectoryStartTime;
 };
