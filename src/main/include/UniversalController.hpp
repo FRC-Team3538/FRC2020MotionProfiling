@@ -7,9 +7,9 @@
 
 #pragma once
 
+#include "PS4Controller.hpp"
 #include "frc/GenericHID.h"
 #include "frc/XboxController.h"
-#include "PS4Controller.hpp"
 
 namespace frc {
 
@@ -21,15 +21,17 @@ namespace frc {
  * instance for each controller and the mapping of ports to hardware buttons
  * depends on the code in the Driver Station.
  */
-class UniversalController : public GenericHID {
- public:
+class UniversalController : public GenericHID
+{
+public:
   explicit UniversalController(int port);
   virtual ~UniversalController() = default;
 
   UniversalController(const UniversalController&) = delete;
   UniversalController& operator=(const UniversalController&) = delete;
 
-  enum class ControllerType {
+  enum class ControllerType
+  {
     kXbox = 0,
     kPS4
   };
@@ -84,12 +86,11 @@ class UniversalController : public GenericHID {
   bool GetDownButton() const;
   bool GetLeftButton() const;
 
- private:
+private:
   ControllerType m_type = ControllerType::kPS4;
 
   XboxController* xb;
   PS4Controller* ps;
-
 };
 
-}  // namespace frc
+} // namespace frc

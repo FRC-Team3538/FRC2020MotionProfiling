@@ -9,7 +9,6 @@
 
 #include "Robotmap.hpp"
 //#include "config/Trajectory.hpp"
-#include "lib/Configuration.hpp"
 #include <frc/TimedRobot.h>
 #include <frc/Timer.h>
 #include <frc/geometry/Pose2d.h>
@@ -19,7 +18,10 @@
 #include <units/units.h>
 #include <wpi/raw_ostream.h>
 
-class Robot : public frc::TimedRobot {
+#include "lib/Configuration.hpp"
+
+class Robot : public frc::TimedRobot
+{
 private:
   Robotmap IO;
   double autoStartTime;

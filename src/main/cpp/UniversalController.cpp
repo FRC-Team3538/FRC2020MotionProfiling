@@ -21,7 +21,7 @@ using namespace frc;
  */
 UniversalController::UniversalController(int port) : GenericHID(port) {
   HAL_Report(HALUsageReporting::kResourceType_Joystick, port);
-  
+
   // Physical Hardware
   xb = new XboxController(port);
   ps = new PS4Controller(port);
@@ -32,7 +32,7 @@ UniversalController::UniversalController(int port) : GenericHID(port) {
  *
  * @param type ControllerType to use {kXbox, kPS4}
  */
-void UniversalController::SetControllerType(ControllerType type){
+void UniversalController::SetControllerType(ControllerType type) {
   m_type = type;
 }
 
@@ -483,7 +483,7 @@ bool UniversalController::GetTouchPadButtonReleased() {
  * @return The state of the button.
  */
 bool UniversalController::GetUpButton() const {
-  return (GetPOV() == 315 || GetPOV() == 0 || GetPOV() == 45 );
+  return (GetPOV() == 315 || GetPOV() == 0 || GetPOV() == 45);
 }
 
 /**
@@ -493,7 +493,7 @@ bool UniversalController::GetUpButton() const {
  * @return The state of the button.
  */
 bool UniversalController::GetRightButton() const {
-  return (GetPOV() == 45 || GetPOV() == 90 || GetPOV() == 135 );
+  return (GetPOV() == 45 || GetPOV() == 90 || GetPOV() == 135);
 }
 
 /**
@@ -503,7 +503,7 @@ bool UniversalController::GetRightButton() const {
  * @return The state of the button.
  */
 bool UniversalController::GetDownButton() const {
-  return (GetPOV() == 135 || GetPOV() == 180 || GetPOV() == 225 );
+  return (GetPOV() == 135 || GetPOV() == 180 || GetPOV() == 225);
 }
 
 /**
@@ -513,5 +513,5 @@ bool UniversalController::GetDownButton() const {
  * @return The state of the button.
  */
 bool UniversalController::GetLeftButton() const {
-  return (GetPOV() == 225 || GetPOV() == 270 || GetPOV() == 315 );
+  return (GetPOV() == 225 || GetPOV() == 270 || GetPOV() == 315);
 }

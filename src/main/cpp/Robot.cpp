@@ -8,16 +8,14 @@
 #include "Robot.hpp"
 
 void Robot::RobotInit() { IO.drivebase.ResetOdometry(); }
-void Robot::RobotPeriodic()
-{
+void Robot::RobotPeriodic() {
 
   IO.drivebase.UpdateOdometry();
   // IO.drivebase.LogState();
 }
 void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic() {}
-void Robot::AutonomousInit()
-{
+void Robot::AutonomousInit() {
   const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(0_deg));
   const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(0_deg));
 
@@ -32,28 +30,23 @@ void Robot::AutonomousInit()
 
   autoStartTime = frc::Timer::GetFPGATimestamp();
 }
-void Robot::AutonomousPeriodic()
-{
+void Robot::AutonomousPeriodic() {
   auto currentTime = frc::Timer::GetFPGATimestamp();
   auto state =
       currentTrajectory.Sample(units::second_t(currentTime - autoStartTime));
 
   if (units::second_t(currentTime - autoStartTime) <=
-      currentTrajectory.TotalTime())
-  {
+      currentTrajectory.TotalTime()) {
     IO.drivebase.SetRamseteTarget(state);
     IO.drivebase.StepRamsete();
-  }
-  else
-  {
+  } else {
     IO.drivebase.StopFollowing();
   }
 
   IO.drivebase.StepRamsete();
 }
 void Robot::TeleopInit() {}
-void Robot::TeleopPeriodic()
-{
+void Robot::TeleopPeriodic() {
   double left = -IO.ds.Driver.GetY(frc::GenericHID::JoystickHand::kLeftHand);
   double right = -IO.ds.Driver.GetY(frc::GenericHID::JoystickHand::kRightHand);
 
@@ -63,8 +56,5 @@ void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
 
 #ifndef RUNNING_FRC_TESTS
-int main()
-{
-  return frc::StartRobot<Robot>();
-}
+int main() { return frc::StartRobot<Robot>(); }
 #endif

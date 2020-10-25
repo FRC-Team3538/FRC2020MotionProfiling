@@ -1,9 +1,10 @@
 #pragma once
 #include "ctre/Phoenix.h"
-#include "lib/json.hpp"
 #include "lib/ctreJsonSerde.hpp"
+#include "lib/json.hpp"
 
-class TestConfig {
+class TestConfig
+{
 public:
   int a = 0;
   ctre::phoenix::CustomParamConfiguration cpc;
@@ -11,4 +12,3 @@ public:
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(TestConfig, a, cpc, fx)
-

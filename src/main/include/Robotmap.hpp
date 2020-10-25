@@ -6,6 +6,6 @@
 class Robotmap
 {
 public:
-    DS ds;
-    Drivebase drivebase;
+  DS ds;
+  Drivebase drivebase;
 };

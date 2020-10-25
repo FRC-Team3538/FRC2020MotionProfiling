@@ -1,25 +1,24 @@
 #pragma once
 
-#include <ctre/Phoenix.h>
-#include <iostream>
-#include <string>
-
 #include <AHRS.h>
+#include <ctre/Phoenix.h>
 #include <frc/SPI.h>
 #include <frc/Timer.h>
+#include <frc/controller/RamseteController.h>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Rotation2d.h>
+#include <frc/kinematics/ChassisSpeeds.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
-#include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
-#include <frc/kinematics/ChassisSpeeds.h>
-#include <frc/controller/RamseteController.h>
 #include <units/units.h>
+#include <wpi/json.h>
 #include <wpi/raw_ostream.h>
 
+#include <iostream>
+#include <string>
+
 #include "Constants.hpp"
-#include <wpi/json.h>
 
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
@@ -27,23 +26,27 @@ using namespace frc;
 using namespace units;
 using namespace units::angle;
 
-class Drivebase {
+class Drivebase
+{
 public:
   Drivebase();
 
   void Arcade(double forward, double rotate);
 
-  frc::Rotation2d GetGyroHeading() {
+  frc::Rotation2d GetGyroHeading()
+  {
     return frc::Rotation2d(angle::degree_t(-navx.GetAngle()));
   }
 
-  void ResetOdometry() {
+  void ResetOdometry()
+  {
     auto heading = GetGyroHeading();
     odometry.ResetPosition(
-        frc::Pose2d(units::meter_t(0), units::meter_t(0), heading), heading);
+      frc::Pose2d(units::meter_t(0), units::meter_t(0), heading), heading);
   }
 
-  void UpdateOdometry() {
+  void UpdateOdometry()
+  {
     odometry.Update(GetGyroHeading(),
                     units::meter_t(motorLeft1.GetSelectedSensorPosition() /
                                    Constants::ticks_per_meter),
@@ -59,25 +62,32 @@ public:
 
   void SetOpenLoop(double left, double right);
 
-
 private:
   // Hardware setup
-  enum motors { L1 = 0, L2, L3, R1, R2, R3 };
+  enum motors
+  {
+    L1 = 0,
+    L2,
+    L3,
+    R1,
+    R2,
+    R3
+  };
 
-  WPI_TalonSRX motorLeft1{11};
-  WPI_VictorSPX motorLeft2{13};
+  WPI_TalonSRX motorLeft1{ 11 };
+  WPI_VictorSPX motorLeft2{ 13 };
 
-  WPI_TalonSRX motorRight1{12};
-  WPI_VictorSPX motorRight2{14};
+  WPI_TalonSRX motorRight1{ 12 };
+  WPI_VictorSPX motorRight2{ 14 };
 
-  AHRS navx{frc::SPI::Port::kMXP};
+  AHRS navx{ frc::SPI::Port::kMXP };
 
-  DifferentialDriveKinematics kinematics{25_in};
-  DifferentialDriveOdometry odometry{GetGyroHeading()};
+  DifferentialDriveKinematics kinematics{ 25_in };
+  DifferentialDriveOdometry odometry{ GetGyroHeading() };
 
   frc::Trajectory currentTrajectory;
   double trajectoryStartTime;
-  frc::RamseteController ramsete{2, 0.7};
+  frc::RamseteController ramsete{ 2, 0.7 };
 
   frc::DifferentialDriveWheelSpeeds wheelSpeeds;
 };

@@ -55,15 +55,15 @@ double PS4Controller::GetY(JoystickHand hand) const {
  * @param hand Side of controller whose value should be returned.
  */
 double PS4Controller::GetTriggerAxis(JoystickHand hand) const {
-  if (GetRawAxis(3) == 0.0 && GetRawAxis(4) == 0.0){
-    //Controller is unplugged
+  if (GetRawAxis(3) == 0.0 && GetRawAxis(4) == 0.0) {
+    // Controller is unplugged
     return 0.0;
-  } 
+  }
 
   if (hand == kLeftHand) {
-    return GetRawAxis(3)/2.0 + 0.5;
+    return GetRawAxis(3) / 2.0 + 0.5;
   } else {
-    return GetRawAxis(4)/2.0 + 0.5;
+    return GetRawAxis(4) / 2.0 + 0.5;
   }
 }
 
@@ -377,7 +377,7 @@ bool PS4Controller::GetTouchPadButtonReleased() {
  * @return The state of the button.
  */
 bool PS4Controller::GetUpButton() const {
-  return (GetPOV() == 315 || GetPOV() == 0 || GetPOV() == 45 );
+  return (GetPOV() == 315 || GetPOV() == 0 || GetPOV() == 45);
 }
 
 /**
@@ -387,7 +387,7 @@ bool PS4Controller::GetUpButton() const {
  * @return The state of the button.
  */
 bool PS4Controller::GetRightButton() const {
-  return (GetPOV() == 45 || GetPOV() == 90 || GetPOV() == 135 );
+  return (GetPOV() == 45 || GetPOV() == 90 || GetPOV() == 135);
 }
 
 /**
@@ -397,7 +397,7 @@ bool PS4Controller::GetRightButton() const {
  * @return The state of the button.
  */
 bool PS4Controller::GetDownButton() const {
-  return (GetPOV() == 135 || GetPOV() == 180 || GetPOV() == 225 );
+  return (GetPOV() == 135 || GetPOV() == 180 || GetPOV() == 225);
 }
 
 /**
@@ -407,5 +407,5 @@ bool PS4Controller::GetDownButton() const {
  * @return The state of the button.
  */
 bool PS4Controller::GetLeftButton() const {
-  return (GetPOV() == 225 || GetPOV() == 270 || GetPOV() == 315 );
+  return (GetPOV() == 225 || GetPOV() == 270 || GetPOV() == 315);
 }
