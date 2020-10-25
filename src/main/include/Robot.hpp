@@ -8,7 +8,7 @@
 #pragma once
 
 #include "Robotmap.hpp"
-#include "config/Trajectory.hpp"
+//#include "config/Trajectory.hpp"
 #include "lib/Configuration.hpp"
 #include <frc/TimedRobot.h>
 #include <frc/Timer.h>

@@ -11,6 +11,10 @@
 #include <frc/geometry/Rotation2d.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
+#include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
+#include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
+#include <frc/kinematics/ChassisSpeeds.h>
+#include <frc/controller/RamseteController.h>
 #include <units/units.h>
 #include <wpi/raw_ostream.h>
 
@@ -30,7 +34,7 @@ public:
   void Arcade(double forward, double rotate);
 
   frc::Rotation2d GetGyroHeading() {
-    return frc::Rotation2d(angle::degree_t(navx.GetAngle()));
+    return frc::Rotation2d(angle::degree_t(-navx.GetAngle()));
   }
 
   void ResetOdometry() {
@@ -53,6 +57,8 @@ public:
   void StepRamsete();
   void StopFollowing();
 
+  void SetOpenLoop(double left, double right);
+
 
 private:
   // Hardware setup
@@ -66,9 +72,12 @@ private:
 
   AHRS navx{frc::SPI::Port::kMXP};
 
-  DifferentialDriveKinematics kinematics{27_in};
+  DifferentialDriveKinematics kinematics{25_in};
   DifferentialDriveOdometry odometry{GetGyroHeading()};
 
   frc::Trajectory currentTrajectory;
   double trajectoryStartTime;
+  frc::RamseteController ramsete{2, 0.7};
+
+  frc::DifferentialDriveWheelSpeeds wheelSpeeds;
 };
