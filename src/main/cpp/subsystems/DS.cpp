@@ -1,6 +1,7 @@
 #include "subsystems/DS.hpp"
 
-DS::DS() {
+DS::DS()
+{
 
   chooseController.SetDefaultOption(sPS4, sPS4);
   chooseController.AddOption(sXBX, sXBX);
@@ -8,7 +9,9 @@ DS::DS() {
   chooseController.AddOption(sXboxDriver, sPS4Operator);
 }
 
-void DS::SmartDash() {
+void
+DS::SmartDash()
+{
   frc::SmartDashboard::PutData("_SelectedController", &chooseController);
 
   //  Controller Type

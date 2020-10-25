@@ -97,10 +97,11 @@ model {
 /* NOTE: used to standardize Code Format
     This requires installing clang-format from LLVM so it's commented out by default.
     If you want to format your code, run `clang-format` version and replace the current version with yours.
+*/
+/*
 spotless {
     cpp {
-        target 'src/main/cpp/**'
-        target 'src/main/include/**'
+        target 'src/main/cpp/**', 'src/main/include/**'
 
         clangFormat('10.0.0-4ubuntu1').style('Mozilla')
     }

@@ -19,7 +19,9 @@ using namespace frc;
  * @param port The port on the Driver Station that the controller is plugged
  *             into (0-5).
  */
-UniversalController::UniversalController(int port) : GenericHID(port) {
+UniversalController::UniversalController(int port)
+  : GenericHID(port)
+{
   HAL_Report(HALUsageReporting::kResourceType_Joystick, port);
 
   // Physical Hardware
@@ -32,7 +34,9 @@ UniversalController::UniversalController(int port) : GenericHID(port) {
  *
  * @param type ControllerType to use {kXbox, kPS4}
  */
-void UniversalController::SetControllerType(ControllerType type) {
+void
+UniversalController::SetControllerType(ControllerType type)
+{
   m_type = type;
 }
 
@@ -41,7 +45,9 @@ void UniversalController::SetControllerType(ControllerType type) {
  *
  * @param hand Side of controller whose value should be returned.
  */
-double UniversalController::GetX(JoystickHand hand) const {
+double
+UniversalController::GetX(JoystickHand hand) const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetX(hand);
   } else {
@@ -54,7 +60,9 @@ double UniversalController::GetX(JoystickHand hand) const {
  *
  * @param hand Side of controller whose value should be returned.
  */
-double UniversalController::GetY(JoystickHand hand) const {
+double
+UniversalController::GetY(JoystickHand hand) const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetY(hand);
   } else {
@@ -67,7 +75,9 @@ double UniversalController::GetY(JoystickHand hand) const {
  *
  * @param hand Side of controller whose value should be returned.
  */
-double UniversalController::GetTriggerAxis(JoystickHand hand) const {
+double
+UniversalController::GetTriggerAxis(JoystickHand hand) const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetTriggerAxis(hand);
   } else {
@@ -80,7 +90,9 @@ double UniversalController::GetTriggerAxis(JoystickHand hand) const {
  *
  * @param hand Side of controller whose value should be returned.
  */
-bool UniversalController::GetBumper(JoystickHand hand) const {
+bool
+UniversalController::GetBumper(JoystickHand hand) const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBumper(hand);
   } else {
@@ -94,7 +106,9 @@ bool UniversalController::GetBumper(JoystickHand hand) const {
  * @param hand Side of controller whose value should be returned.
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetBumperPressed(JoystickHand hand) {
+bool
+UniversalController::GetBumperPressed(JoystickHand hand)
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBumperPressed(hand);
   } else {
@@ -108,7 +122,9 @@ bool UniversalController::GetBumperPressed(JoystickHand hand) {
  * @param hand Side of controller whose value should be returned.
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetBumperReleased(JoystickHand hand) {
+bool
+UniversalController::GetBumperReleased(JoystickHand hand)
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBumperReleased(hand);
   } else {
@@ -122,7 +138,9 @@ bool UniversalController::GetBumperReleased(JoystickHand hand) {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetStickButton(JoystickHand hand) const {
+bool
+UniversalController::GetStickButton(JoystickHand hand) const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetStickButton(hand);
   } else {
@@ -136,7 +154,9 @@ bool UniversalController::GetStickButton(JoystickHand hand) const {
  * @param hand Side of controller whose value should be returned.
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetStickButtonPressed(JoystickHand hand) {
+bool
+UniversalController::GetStickButtonPressed(JoystickHand hand)
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetStickButtonPressed(hand);
   } else {
@@ -150,7 +170,9 @@ bool UniversalController::GetStickButtonPressed(JoystickHand hand) {
  * @param hand Side of controller whose value should be returned.
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetStickButtonReleased(JoystickHand hand) {
+bool
+UniversalController::GetStickButtonReleased(JoystickHand hand)
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetStickButtonReleased(hand);
   } else {
@@ -163,7 +185,9 @@ bool UniversalController::GetStickButtonReleased(JoystickHand hand) {
  *
  * @return The state of the button.
  */
-bool UniversalController::GetCrossButton() const {
+bool
+UniversalController::GetCrossButton() const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetAButton();
   } else {
@@ -176,7 +200,9 @@ bool UniversalController::GetCrossButton() const {
  *
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetCrossButtonPressed() {
+bool
+UniversalController::GetCrossButtonPressed()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetAButtonPressed();
   } else {
@@ -189,7 +215,9 @@ bool UniversalController::GetCrossButtonPressed() {
  *
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetCrossButtonReleased() {
+bool
+UniversalController::GetCrossButtonReleased()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetAButtonReleased();
   } else {
@@ -202,7 +230,9 @@ bool UniversalController::GetCrossButtonReleased() {
  *
  * @return The state of the button.
  */
-bool UniversalController::GetCircleButton() const {
+bool
+UniversalController::GetCircleButton() const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBButton();
   } else {
@@ -215,7 +245,9 @@ bool UniversalController::GetCircleButton() const {
  *
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetCircleButtonPressed() {
+bool
+UniversalController::GetCircleButtonPressed()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBButtonPressed();
   } else {
@@ -228,7 +260,9 @@ bool UniversalController::GetCircleButtonPressed() {
  *
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetCircleButtonReleased() {
+bool
+UniversalController::GetCircleButtonReleased()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBButtonReleased();
   } else {
@@ -241,7 +275,9 @@ bool UniversalController::GetCircleButtonReleased() {
  *
  * @return The state of the button.
  */
-bool UniversalController::GetSquareButton() const {
+bool
+UniversalController::GetSquareButton() const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetXButton();
   } else {
@@ -254,7 +290,9 @@ bool UniversalController::GetSquareButton() const {
  *
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetSquareButtonPressed() {
+bool
+UniversalController::GetSquareButtonPressed()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetXButtonPressed();
   } else {
@@ -267,7 +305,9 @@ bool UniversalController::GetSquareButtonPressed() {
  *
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetSquareButtonReleased() {
+bool
+UniversalController::GetSquareButtonReleased()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetXButtonReleased();
   } else {
@@ -280,7 +320,9 @@ bool UniversalController::GetSquareButtonReleased() {
  *
  * @return The state of the button.
  */
-bool UniversalController::GetTriangleButton() const {
+bool
+UniversalController::GetTriangleButton() const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetYButton();
   } else {
@@ -293,7 +335,9 @@ bool UniversalController::GetTriangleButton() const {
  *
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetTriangleButtonPressed() {
+bool
+UniversalController::GetTriangleButtonPressed()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetYButtonPressed();
   } else {
@@ -306,7 +350,9 @@ bool UniversalController::GetTriangleButtonPressed() {
  *
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetTriangleButtonReleased() {
+bool
+UniversalController::GetTriangleButtonReleased()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetYButtonReleased();
   } else {
@@ -320,7 +366,9 @@ bool UniversalController::GetTriangleButtonReleased() {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetScreenShotButton() const {
+bool
+UniversalController::GetScreenShotButton() const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBackButton();
   } else {
@@ -333,7 +381,9 @@ bool UniversalController::GetScreenShotButton() const {
  *
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetScreenShotButtonPressed() {
+bool
+UniversalController::GetScreenShotButtonPressed()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBackButtonPressed();
   } else {
@@ -346,7 +396,9 @@ bool UniversalController::GetScreenShotButtonPressed() {
  *
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetScreenShotButtonReleased() {
+bool
+UniversalController::GetScreenShotButtonReleased()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetBackButtonReleased();
   } else {
@@ -360,7 +412,9 @@ bool UniversalController::GetScreenShotButtonReleased() {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetOptionsButton() const {
+bool
+UniversalController::GetOptionsButton() const
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetStartButton();
   } else {
@@ -373,7 +427,9 @@ bool UniversalController::GetOptionsButton() const {
  *
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetOptionsButtonPressed() {
+bool
+UniversalController::GetOptionsButtonPressed()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetStartButtonPressed();
   } else {
@@ -386,7 +442,9 @@ bool UniversalController::GetOptionsButtonPressed() {
  *
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetOptionsButtonReleased() {
+bool
+UniversalController::GetOptionsButtonReleased()
+{
   if (m_type == ControllerType::kXbox) {
     return xb->GetStartButtonReleased();
   } else {
@@ -400,7 +458,9 @@ bool UniversalController::GetOptionsButtonReleased() {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetPSButton() const {
+bool
+UniversalController::GetPSButton() const
+{
   if (m_type == ControllerType::kXbox) {
     return false;
   } else {
@@ -413,7 +473,9 @@ bool UniversalController::GetPSButton() const {
  *
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetPSButtonPressed() {
+bool
+UniversalController::GetPSButtonPressed()
+{
   if (m_type == ControllerType::kXbox) {
     return false;
   } else {
@@ -426,7 +488,9 @@ bool UniversalController::GetPSButtonPressed() {
  *
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetPSButtonReleased() {
+bool
+UniversalController::GetPSButtonReleased()
+{
   if (m_type == ControllerType::kXbox) {
     return false;
   } else {
@@ -440,7 +504,9 @@ bool UniversalController::GetPSButtonReleased() {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetTouchPadButton() const {
+bool
+UniversalController::GetTouchPadButton() const
+{
   if (m_type == ControllerType::kXbox) {
     return false;
   } else {
@@ -453,7 +519,9 @@ bool UniversalController::GetTouchPadButton() const {
  *
  * @return Whether the button was pressed since the last check.
  */
-bool UniversalController::GetTouchPadButtonPressed() {
+bool
+UniversalController::GetTouchPadButtonPressed()
+{
   if (m_type == ControllerType::kXbox) {
     return false;
   } else {
@@ -466,7 +534,9 @@ bool UniversalController::GetTouchPadButtonPressed() {
  *
  * @return Whether the button was released since the last check.
  */
-bool UniversalController::GetTouchPadButtonReleased() {
+bool
+UniversalController::GetTouchPadButtonReleased()
+{
   if (m_type == ControllerType::kXbox) {
     return false;
   } else {
@@ -482,7 +552,9 @@ bool UniversalController::GetTouchPadButtonReleased() {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetUpButton() const {
+bool
+UniversalController::GetUpButton() const
+{
   return (GetPOV() == 315 || GetPOV() == 0 || GetPOV() == 45);
 }
 
@@ -492,7 +564,9 @@ bool UniversalController::GetUpButton() const {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetRightButton() const {
+bool
+UniversalController::GetRightButton() const
+{
   return (GetPOV() == 45 || GetPOV() == 90 || GetPOV() == 135);
 }
 
@@ -502,7 +576,9 @@ bool UniversalController::GetRightButton() const {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetDownButton() const {
+bool
+UniversalController::GetDownButton() const
+{
   return (GetPOV() == 135 || GetPOV() == 180 || GetPOV() == 225);
 }
 
@@ -512,6 +588,8 @@ bool UniversalController::GetDownButton() const {
  * @param hand Side of controller whose value should be returned.
  * @return The state of the button.
  */
-bool UniversalController::GetLeftButton() const {
+bool
+UniversalController::GetLeftButton() const
+{
   return (GetPOV() == 225 || GetPOV() == 270 || GetPOV() == 315);
 }
