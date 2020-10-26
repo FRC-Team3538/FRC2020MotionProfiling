@@ -41,8 +41,7 @@ public:
   void ResetOdometry()
   {
     auto heading = GetGyroHeading();
-    odometry.ResetPosition(
-      frc::Pose2d(units::meter_t(0), units::meter_t(0), heading), heading);
+    odometry.ResetPosition(frc::Pose2d(0_m, 0_m, heading), heading);
   }
 
   void UpdateOdometry()

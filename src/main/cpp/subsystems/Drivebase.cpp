@@ -9,7 +9,8 @@
 
 using namespace frc;
 
-Drivebase::Drivebase() {
+Drivebase::Drivebase()
+{
   motorLeft1.ConfigFactoryDefault();
   motorLeft2.ConfigFactoryDefault();
   motorRight1.ConfigFactoryDefault();
@@ -26,8 +27,8 @@ Drivebase::Drivebase() {
 
   // do the thing
   config.primaryPID.selectedFeedbackSensor = FeedbackDevice::QuadEncoder;
-  config.slot0.kF = 0.777;
-  config.slot0.kP = 0.0032;
+  config.slot0.kF = 0.468 / 12.0;
+  config.slot0.kP = 0.833 / 1023.0;
 
   motorLeft1.ConfigAllSettings(config);
 
@@ -35,8 +36,11 @@ Drivebase::Drivebase() {
 
   // do it again
   config.primaryPID.selectedFeedbackSensor = FeedbackDevice::QuadEncoder;
-  config.slot0.kF = 0.777;
-  config.slot0.kP = 0.0032;
+  // based on observations kF is on a scale from 0 to 1, it may be from 0 to 1023.
+  config.slot0.kF = 0.853 / 12.0;
+  // PID controller output is for sure on a scale from 0 to 1023, 
+  // so the kP that FRC-characterization gives us needs to be scaled appropriately
+  config.slot0.kP = 0.983 / 1023.0;
 
   motorRight1.ConfigAllSettings(config);
 
@@ -48,7 +52,9 @@ Drivebase::Drivebase() {
   ResetOdometry();
 }
 
-void Drivebase::Arcade(double forward, double turn) {
+void
+Drivebase::Arcade(double forward, double turn)
+{
   // Constrain input to +/- 1.0
   if (std::abs(forward) > 1.0) {
     forward /= std::abs(forward);
@@ -61,39 +67,50 @@ void Drivebase::Arcade(double forward, double turn) {
   motorRight1.Set(forward + turn);
 }
 
-void Drivebase::LogState() {
+void
+Drivebase::LogState()
+{
+
   auto pose = odometry.GetPose();
   wpi::json j;
   frc::to_json(j, pose);
   auto timestamp = frc::Timer::GetFPGATimestamp();
   wpi::outs() << "[" << timestamp
-              << "]: " << motorLeft1.GetSelectedSensorPosition() << ", "
-              << motorRight1.GetSelectedSensorPosition() << " => " << j.dump()
-              << "\n";
+              << "]: lv:" << motorLeft1.GetSelectedSensorVelocity() * 10 / Constants::ticks_per_meter
+              << ", rv:" << motorRight1.GetSelectedSensorVelocity() * 10 / Constants::ticks_per_meter << " => "
+              << j.dump() << "\n";
 }
 
-void Drivebase::SetRamseteTarget(frc::Trajectory::State state) {
+void
+Drivebase::SetRamseteTarget(frc::Trajectory::State state)
+{
   frc::Pose2d currentPose = odometry.GetPose();
   frc::ChassisSpeeds output = ramsete.Calculate(currentPose, state);
   wheelSpeeds = kinematics.ToWheelSpeeds(output);
 }
 
-void Drivebase::StepRamsete() {
+void
+Drivebase::StepRamsete()
+{
   double left = wheelSpeeds.left.to<double>() * Constants::ticks_per_meter;
   double right = wheelSpeeds.right.to<double>() * Constants::ticks_per_meter;
 
-  wpi::outs() << "left: " << left << " right: " << right << "\n";
+  wpi::outs() << "\tleft: " << left << " right: " << right << "\n";
 
   motorLeft1.Set(motorcontrol::ControlMode::Velocity, left);
   motorRight1.Set(motorcontrol::ControlMode::Velocity, right);
 }
 
-void Drivebase::StopFollowing() {
-  wheelSpeeds = DifferentialDriveWheelSpeeds{0_mps, 0_mps};
+void
+Drivebase::StopFollowing()
+{
+  wheelSpeeds = DifferentialDriveWheelSpeeds{ 0_mps, 0_mps };
 }
 
-void Drivebase::SetOpenLoop(double left, double right) {
-  wpi::outs() << "left: " << left << " right: " << right << "\n";
+void
+Drivebase::SetOpenLoop(double left, double right)
+{
+  // wpi::outs() << "left: " << left << " right: " << right << "\n";
   motorLeft1.Set(motorcontrol::ControlMode::PercentOutput, left);
   motorRight1.Set(motorcontrol::ControlMode::PercentOutput, right);
 }
