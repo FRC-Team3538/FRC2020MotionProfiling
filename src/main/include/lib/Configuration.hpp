@@ -1,6 +1,7 @@
 #pragma once
 
 #include <wpi/json.h>
+#include <wpi/raw_ostream.h>
 
 #include <fstream>
 #include <iostream>

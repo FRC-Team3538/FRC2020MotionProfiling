@@ -36,10 +36,12 @@ Drivebase::Drivebase()
 
   // do it again
   config.primaryPID.selectedFeedbackSensor = FeedbackDevice::QuadEncoder;
-  // based on observations kF is on a scale from 0 to 1, it may be from 0 to 1023.
+  // based on observations kF is on a scale from 0 to 1, it may be from 0 to
+  // 1023.
   config.slot0.kF = 0.853 / 12.0;
-  // PID controller output is for sure on a scale from 0 to 1023, 
-  // so the kP that FRC-characterization gives us needs to be scaled appropriately
+  // PID controller output is for sure on a scale from 0 to 1023,
+  // so the kP that FRC-characterization gives us needs to be scaled
+  // appropriately
   config.slot0.kP = 0.983 / 1023.0;
 
   motorRight1.ConfigAllSettings(config);
@@ -75,10 +77,13 @@ Drivebase::LogState()
   wpi::json j;
   frc::to_json(j, pose);
   auto timestamp = frc::Timer::GetFPGATimestamp();
-  wpi::outs() << "[" << timestamp
-              << "]: lv:" << motorLeft1.GetSelectedSensorVelocity() * 10 / Constants::ticks_per_meter
-              << ", rv:" << motorRight1.GetSelectedSensorVelocity() * 10 / Constants::ticks_per_meter << " => "
-              << j.dump() << "\n";
+  wpi::outs() << "[" << timestamp << "]: lv:"
+              << motorLeft1.GetSelectedSensorVelocity() * 10 /
+                   Constants::ticks_per_meter
+              << ", rv:"
+              << motorRight1.GetSelectedSensorVelocity() * 10 /
+                   Constants::ticks_per_meter
+              << " => " << j.dump() << "\n";
 }
 
 void

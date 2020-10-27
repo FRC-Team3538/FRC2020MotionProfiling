@@ -1,7 +1,6 @@
 #pragma once
 #include <ctre/Phoenix.h>
-
-#include "<wpi/json.h>"
+#include <wpi/json.h>
 
 // enums
 namespace ctre {
