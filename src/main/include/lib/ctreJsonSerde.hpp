@@ -2504,13 +2504,14 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           CustomParamConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
 }
 
 inline void
@@ -2535,28 +2536,34 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           CANifierConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementPeriod"),
-    nlohmann_json_t.velocityMeasurementPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementWindow"),
-    nlohmann_json_t.velocityMeasurementWindow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitF"),
-    nlohmann_json_t.clearPositionOnLimitF);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitR"),
-    nlohmann_json_t.clearPositionOnLimitR);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnQuadIdx"),
-    nlohmann_json_t.clearPositionOnQuadIdx);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementPeriod),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementPeriod"),
+                     nlohmann_json_t.velocityMeasurementPeriod);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementWindow),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementWindow"),
+                     nlohmann_json_t.velocityMeasurementWindow);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitF),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitF"),
+                                       nlohmann_json_t.clearPositionOnLimitF);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitR),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitR"),
+                                       nlohmann_json_t.clearPositionOnLimitR);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnQuadIdx),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnQuadIdx"),
+                                       nlohmann_json_t.clearPositionOnQuadIdx);
 }
 
 inline void
@@ -2578,28 +2585,28 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           CANifier::PinValues& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("QUAD_IDX"),
-                                             nlohmann_json_t.QUAD_IDX);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("QUAD_B"),
-                                             nlohmann_json_t.QUAD_B);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("QUAD_A"),
-                                             nlohmann_json_t.QUAD_A);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("LIMR"),
-                                             nlohmann_json_t.LIMR);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("LIMF"),
-                                             nlohmann_json_t.LIMF);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("SDA"),
-                                             nlohmann_json_t.SDA);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("SCL"),
-                                             nlohmann_json_t.SCL);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("SPI_CS_PWM3"),
-                                             nlohmann_json_t.SPI_CS_PWM3);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.QUAD_IDX), void>::from_json(
+    nlohmann_json_j.at("QUAD_IDX"), nlohmann_json_t.QUAD_IDX);
+  wpi::adl_serializer<decltype(nlohmann_json_t.QUAD_B), void>::from_json(
+    nlohmann_json_j.at("QUAD_B"), nlohmann_json_t.QUAD_B);
+  wpi::adl_serializer<decltype(nlohmann_json_t.QUAD_A), void>::from_json(
+    nlohmann_json_j.at("QUAD_A"), nlohmann_json_t.QUAD_A);
+  wpi::adl_serializer<decltype(nlohmann_json_t.LIMR), void>::from_json(
+    nlohmann_json_j.at("LIMR"), nlohmann_json_t.LIMR);
+  wpi::adl_serializer<decltype(nlohmann_json_t.LIMF), void>::from_json(
+    nlohmann_json_j.at("LIMF"), nlohmann_json_t.LIMF);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SDA), void>::from_json(
+    nlohmann_json_j.at("SDA"), nlohmann_json_t.SDA);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SCL), void>::from_json(
+    nlohmann_json_j.at("SCL"), nlohmann_json_t.SCL);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SPI_CS_PWM3), void>::from_json(
+    nlohmann_json_j.at("SPI_CS_PWM3"), nlohmann_json_t.SPI_CS_PWM3);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SPI_MISO_PWM2), void>::from_json(
     nlohmann_json_j.at("SPI_MISO_PWM2"), nlohmann_json_t.SPI_MISO_PWM2);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.SPI_MOSI_PWM1), void>::from_json(
     nlohmann_json_j.at("SPI_MOSI_PWM1"), nlohmann_json_t.SPI_MOSI_PWM1);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("SPI_CLK_PWM0"),
-                                             nlohmann_json_t.SPI_CLK_PWM0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SPI_CLK_PWM0), void>::from_json(
+    nlohmann_json_j.at("SPI_CLK_PWM0"), nlohmann_json_t.SPI_CLK_PWM0);
 }
 
 namespace motion {
@@ -2622,33 +2629,34 @@ to_json(wpi::json& nlohmann_json_j, const TrajectoryPoint& nlohmann_json_t)
 inline void
 from_json(const wpi::json& nlohmann_json_j, TrajectoryPoint& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("position"),
-                                             nlohmann_json_t.position);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("velocity"),
-                                             nlohmann_json_t.velocity);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("arbFeedFwd"),
-                                             nlohmann_json_t.arbFeedFwd);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("auxiliaryPos"),
-                                             nlohmann_json_t.auxiliaryPos);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("auxiliaryVel"),
-                                             nlohmann_json_t.auxiliaryVel);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("auxiliaryArbFeedFwd"),
-    nlohmann_json_t.auxiliaryArbFeedFwd);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("profileSlotSelect0"),
-    nlohmann_json_t.profileSlotSelect0);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("profileSlotSelect1"),
-    nlohmann_json_t.profileSlotSelect1);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("isLastPoint"),
-                                             nlohmann_json_t.isLastPoint);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("zeroPos"),
-                                             nlohmann_json_t.zeroPos);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("timeDur"),
-                                             nlohmann_json_t.timeDur);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("useAuxPID"),
-                                             nlohmann_json_t.useAuxPID);
+  wpi::adl_serializer<decltype(nlohmann_json_t.position), void>::from_json(
+    nlohmann_json_j.at("position"), nlohmann_json_t.position);
+  wpi::adl_serializer<decltype(nlohmann_json_t.velocity), void>::from_json(
+    nlohmann_json_j.at("velocity"), nlohmann_json_t.velocity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.arbFeedFwd), void>::from_json(
+    nlohmann_json_j.at("arbFeedFwd"), nlohmann_json_t.arbFeedFwd);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxiliaryPos), void>::from_json(
+    nlohmann_json_j.at("auxiliaryPos"), nlohmann_json_t.auxiliaryPos);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxiliaryVel), void>::from_json(
+    nlohmann_json_j.at("auxiliaryVel"), nlohmann_json_t.auxiliaryVel);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxiliaryArbFeedFwd),
+                      void>::from_json(nlohmann_json_j
+                                         .at("auxiliaryArbFeedFwd"),
+                                       nlohmann_json_t.auxiliaryArbFeedFwd);
+  wpi::adl_serializer<decltype(nlohmann_json_t.profileSlotSelect0),
+                      void>::from_json(nlohmann_json_j.at("profileSlotSelect0"),
+                                       nlohmann_json_t.profileSlotSelect0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.profileSlotSelect1),
+                      void>::from_json(nlohmann_json_j.at("profileSlotSelect1"),
+                                       nlohmann_json_t.profileSlotSelect1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.isLastPoint), void>::from_json(
+    nlohmann_json_j.at("isLastPoint"), nlohmann_json_t.isLastPoint);
+  wpi::adl_serializer<decltype(nlohmann_json_t.zeroPos), void>::from_json(
+    nlohmann_json_j.at("zeroPos"), nlohmann_json_t.zeroPos);
+  wpi::adl_serializer<decltype(nlohmann_json_t.timeDur), void>::from_json(
+    nlohmann_json_j.at("timeDur"), nlohmann_json_t.timeDur);
+  wpi::adl_serializer<decltype(nlohmann_json_t.useAuxPID), void>::from_json(
+    nlohmann_json_j.at("useAuxPID"), nlohmann_json_t.useAuxPID);
 }
 
 inline void
@@ -2670,30 +2678,31 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           MotionProfileStatus& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("topBufferRem"),
-                                             nlohmann_json_t.topBufferRem);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("topBufferCnt"),
-                                             nlohmann_json_t.topBufferCnt);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("btmBufferCnt"),
-                                             nlohmann_json_t.btmBufferCnt);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("hasUnderrun"),
-                                             nlohmann_json_t.hasUnderrun);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("isUnderrun"),
-                                             nlohmann_json_t.isUnderrun);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("activePointValid"), nlohmann_json_t.activePointValid);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("isLast"),
-                                             nlohmann_json_t.isLast);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("profileSlotSelect0"),
-    nlohmann_json_t.profileSlotSelect0);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("profileSlotSelect1"),
-    nlohmann_json_t.profileSlotSelect1);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("outputEnable"),
-                                             nlohmann_json_t.outputEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("timeDurMs"),
-                                             nlohmann_json_t.timeDurMs);
+  wpi::adl_serializer<decltype(nlohmann_json_t.topBufferRem), void>::from_json(
+    nlohmann_json_j.at("topBufferRem"), nlohmann_json_t.topBufferRem);
+  wpi::adl_serializer<decltype(nlohmann_json_t.topBufferCnt), void>::from_json(
+    nlohmann_json_j.at("topBufferCnt"), nlohmann_json_t.topBufferCnt);
+  wpi::adl_serializer<decltype(nlohmann_json_t.btmBufferCnt), void>::from_json(
+    nlohmann_json_j.at("btmBufferCnt"), nlohmann_json_t.btmBufferCnt);
+  wpi::adl_serializer<decltype(nlohmann_json_t.hasUnderrun), void>::from_json(
+    nlohmann_json_j.at("hasUnderrun"), nlohmann_json_t.hasUnderrun);
+  wpi::adl_serializer<decltype(nlohmann_json_t.isUnderrun), void>::from_json(
+    nlohmann_json_j.at("isUnderrun"), nlohmann_json_t.isUnderrun);
+  wpi::adl_serializer<decltype(nlohmann_json_t.activePointValid),
+                      void>::from_json(nlohmann_json_j.at("activePointValid"),
+                                       nlohmann_json_t.activePointValid);
+  wpi::adl_serializer<decltype(nlohmann_json_t.isLast), void>::from_json(
+    nlohmann_json_j.at("isLast"), nlohmann_json_t.isLast);
+  wpi::adl_serializer<decltype(nlohmann_json_t.profileSlotSelect0),
+                      void>::from_json(nlohmann_json_j.at("profileSlotSelect0"),
+                                       nlohmann_json_t.profileSlotSelect0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.profileSlotSelect1),
+                      void>::from_json(nlohmann_json_j.at("profileSlotSelect1"),
+                                       nlohmann_json_t.profileSlotSelect1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.outputEnable), void>::from_json(
+    nlohmann_json_j.at("outputEnable"), nlohmann_json_t.outputEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.timeDurMs), void>::from_json(
+    nlohmann_json_j.at("timeDurMs"), nlohmann_json_t.timeDurMs);
 }
 
 }
@@ -2720,37 +2729,44 @@ to_json(wpi::json& nlohmann_json_j, const Faults& nlohmann_json_t)
 inline void
 from_json(const wpi::json& nlohmann_json_j, Faults& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("UnderVoltage"),
-                                             nlohmann_json_t.UnderVoltage);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("ForwardLimitSwitch"),
-    nlohmann_json_t.ForwardLimitSwitch);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("ReverseLimitSwitch"),
-    nlohmann_json_t.ReverseLimitSwitch);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("ForwardSoftLimit"), nlohmann_json_t.ForwardSoftLimit);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("ReverseSoftLimit"), nlohmann_json_t.ReverseSoftLimit);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("HardwareFailure"), nlohmann_json_t.HardwareFailure);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.UnderVoltage), void>::from_json(
+    nlohmann_json_j.at("UnderVoltage"), nlohmann_json_t.UnderVoltage);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ForwardLimitSwitch),
+                      void>::from_json(nlohmann_json_j.at("ForwardLimitSwitch"),
+                                       nlohmann_json_t.ForwardLimitSwitch);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ReverseLimitSwitch),
+                      void>::from_json(nlohmann_json_j.at("ReverseLimitSwitch"),
+                                       nlohmann_json_t.ReverseLimitSwitch);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ForwardSoftLimit),
+                      void>::from_json(nlohmann_json_j.at("ForwardSoftLimit"),
+                                       nlohmann_json_t.ForwardSoftLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ReverseSoftLimit),
+                      void>::from_json(nlohmann_json_j.at("ReverseSoftLimit"),
+                                       nlohmann_json_t.ReverseSoftLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.HardwareFailure),
+                      void>::from_json(nlohmann_json_j.at("HardwareFailure"),
+                                       nlohmann_json_t.HardwareFailure);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ResetDuringEn), void>::from_json(
     nlohmann_json_j.at("ResetDuringEn"), nlohmann_json_t.ResetDuringEn);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("SensorOverflow"), nlohmann_json_t.SensorOverflow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("SensorOutOfPhase"), nlohmann_json_t.SensorOutOfPhase);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("HardwareESDReset"), nlohmann_json_t.HardwareESDReset);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("RemoteLossOfSignal"),
-    nlohmann_json_t.RemoteLossOfSignal);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("APIError"),
-                                             nlohmann_json_t.APIError);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("SupplyOverV"),
-                                             nlohmann_json_t.SupplyOverV);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("SupplyUnstable"), nlohmann_json_t.SupplyUnstable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SensorOverflow),
+                      void>::from_json(nlohmann_json_j.at("SensorOverflow"),
+                                       nlohmann_json_t.SensorOverflow);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SensorOutOfPhase),
+                      void>::from_json(nlohmann_json_j.at("SensorOutOfPhase"),
+                                       nlohmann_json_t.SensorOutOfPhase);
+  wpi::adl_serializer<decltype(nlohmann_json_t.HardwareESDReset),
+                      void>::from_json(nlohmann_json_j.at("HardwareESDReset"),
+                                       nlohmann_json_t.HardwareESDReset);
+  wpi::adl_serializer<decltype(nlohmann_json_t.RemoteLossOfSignal),
+                      void>::from_json(nlohmann_json_j.at("RemoteLossOfSignal"),
+                                       nlohmann_json_t.RemoteLossOfSignal);
+  wpi::adl_serializer<decltype(nlohmann_json_t.APIError), void>::from_json(
+    nlohmann_json_j.at("APIError"), nlohmann_json_t.APIError);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SupplyOverV), void>::from_json(
+    nlohmann_json_j.at("SupplyOverV"), nlohmann_json_t.SupplyOverV);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SupplyUnstable),
+                      void>::from_json(nlohmann_json_j.at("SupplyUnstable"),
+                                       nlohmann_json_t.SupplyUnstable);
 }
 
 inline void
@@ -2773,35 +2789,41 @@ to_json(wpi::json& nlohmann_json_j, const StickyFaults& nlohmann_json_t)
 inline void
 from_json(const wpi::json& nlohmann_json_j, StickyFaults& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("UnderVoltage"),
-                                             nlohmann_json_t.UnderVoltage);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("ForwardLimitSwitch"),
-    nlohmann_json_t.ForwardLimitSwitch);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("ReverseLimitSwitch"),
-    nlohmann_json_t.ReverseLimitSwitch);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("ForwardSoftLimit"), nlohmann_json_t.ForwardSoftLimit);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("ReverseSoftLimit"), nlohmann_json_t.ReverseSoftLimit);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.UnderVoltage), void>::from_json(
+    nlohmann_json_j.at("UnderVoltage"), nlohmann_json_t.UnderVoltage);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ForwardLimitSwitch),
+                      void>::from_json(nlohmann_json_j.at("ForwardLimitSwitch"),
+                                       nlohmann_json_t.ForwardLimitSwitch);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ReverseLimitSwitch),
+                      void>::from_json(nlohmann_json_j.at("ReverseLimitSwitch"),
+                                       nlohmann_json_t.ReverseLimitSwitch);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ForwardSoftLimit),
+                      void>::from_json(nlohmann_json_j.at("ForwardSoftLimit"),
+                                       nlohmann_json_t.ForwardSoftLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ReverseSoftLimit),
+                      void>::from_json(nlohmann_json_j.at("ReverseSoftLimit"),
+                                       nlohmann_json_t.ReverseSoftLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ResetDuringEn), void>::from_json(
     nlohmann_json_j.at("ResetDuringEn"), nlohmann_json_t.ResetDuringEn);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("SensorOverflow"), nlohmann_json_t.SensorOverflow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("SensorOutOfPhase"), nlohmann_json_t.SensorOutOfPhase);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("HardwareESDReset"), nlohmann_json_t.HardwareESDReset);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("RemoteLossOfSignal"),
-    nlohmann_json_t.RemoteLossOfSignal);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("APIError"),
-                                             nlohmann_json_t.APIError);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("SupplyOverV"),
-                                             nlohmann_json_t.SupplyOverV);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("SupplyUnstable"), nlohmann_json_t.SupplyUnstable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SensorOverflow),
+                      void>::from_json(nlohmann_json_j.at("SensorOverflow"),
+                                       nlohmann_json_t.SensorOverflow);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SensorOutOfPhase),
+                      void>::from_json(nlohmann_json_j.at("SensorOutOfPhase"),
+                                       nlohmann_json_t.SensorOutOfPhase);
+  wpi::adl_serializer<decltype(nlohmann_json_t.HardwareESDReset),
+                      void>::from_json(nlohmann_json_j.at("HardwareESDReset"),
+                                       nlohmann_json_t.HardwareESDReset);
+  wpi::adl_serializer<decltype(nlohmann_json_t.RemoteLossOfSignal),
+                      void>::from_json(nlohmann_json_j.at("RemoteLossOfSignal"),
+                                       nlohmann_json_t.RemoteLossOfSignal);
+  wpi::adl_serializer<decltype(nlohmann_json_t.APIError), void>::from_json(
+    nlohmann_json_j.at("APIError"), nlohmann_json_t.APIError);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SupplyOverV), void>::from_json(
+    nlohmann_json_j.at("SupplyOverV"), nlohmann_json_t.SupplyOverV);
+  wpi::adl_serializer<decltype(nlohmann_json_t.SupplyUnstable),
+                      void>::from_json(nlohmann_json_j.at("SupplyUnstable"),
+                                       nlohmann_json_t.SupplyUnstable);
 }
 
 inline void
@@ -2819,16 +2841,18 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           StatorCurrentLimitConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("enable"),
-                                             nlohmann_json_t.enable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("currentLimit"),
-                                             nlohmann_json_t.currentLimit);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("triggerThresholdCurrent"),
-    nlohmann_json_t.triggerThresholdCurrent);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("triggerThresholdTime"),
-    nlohmann_json_t.triggerThresholdTime);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enable), void>::from_json(
+    nlohmann_json_j.at("enable"), nlohmann_json_t.enable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.currentLimit), void>::from_json(
+    nlohmann_json_j.at("currentLimit"), nlohmann_json_t.currentLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.triggerThresholdCurrent),
+                      void>::from_json(nlohmann_json_j
+                                         .at("triggerThresholdCurrent"),
+                                       nlohmann_json_t.triggerThresholdCurrent);
+  wpi::adl_serializer<decltype(nlohmann_json_t.triggerThresholdTime),
+                      void>::from_json(nlohmann_json_j
+                                         .at("triggerThresholdTime"),
+                                       nlohmann_json_t.triggerThresholdTime);
 }
 
 inline void
@@ -2846,16 +2870,18 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           SupplyCurrentLimitConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("enable"),
-                                             nlohmann_json_t.enable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("currentLimit"),
-                                             nlohmann_json_t.currentLimit);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("triggerThresholdCurrent"),
-    nlohmann_json_t.triggerThresholdCurrent);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("triggerThresholdTime"),
-    nlohmann_json_t.triggerThresholdTime);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enable), void>::from_json(
+    nlohmann_json_j.at("enable"), nlohmann_json_t.enable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.currentLimit), void>::from_json(
+    nlohmann_json_j.at("currentLimit"), nlohmann_json_t.currentLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.triggerThresholdCurrent),
+                      void>::from_json(nlohmann_json_j
+                                         .at("triggerThresholdCurrent"),
+                                       nlohmann_json_t.triggerThresholdCurrent);
+  wpi::adl_serializer<decltype(nlohmann_json_t.triggerThresholdTime),
+                      void>::from_json(nlohmann_json_j
+                                         .at("triggerThresholdTime"),
+                                       nlohmann_json_t.triggerThresholdTime);
 }
 
 namespace can {
@@ -2870,9 +2896,10 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           BasePIDSetConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackCoefficient"),
-    nlohmann_json_t.selectedFeedbackCoefficient);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.selectedFeedbackCoefficient),
+    void>::from_json(nlohmann_json_j.at("selectedFeedbackCoefficient"),
+                     nlohmann_json_t.selectedFeedbackCoefficient);
 }
 
 inline void
@@ -2886,12 +2913,13 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           FilterConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("remoteSensorDeviceID"),
-    nlohmann_json_t.remoteSensorDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("remoteSensorSource"),
-    nlohmann_json_t.remoteSensorSource);
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteSensorDeviceID),
+                      void>::from_json(nlohmann_json_j
+                                         .at("remoteSensorDeviceID"),
+                                       nlohmann_json_t.remoteSensorDeviceID);
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteSensorSource),
+                      void>::from_json(nlohmann_json_j.at("remoteSensorSource"),
+                                       nlohmann_json_t.remoteSensorSource);
 }
 
 inline void
@@ -2913,27 +2941,31 @@ to_json(wpi::json& nlohmann_json_j, const SlotConfiguration& nlohmann_json_t)
 inline void
 from_json(const wpi::json& nlohmann_json_j, SlotConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("kP"),
-                                             nlohmann_json_t.kP);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("kI"),
-                                             nlohmann_json_t.kI);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("kD"),
-                                             nlohmann_json_t.kD);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("kF"),
-                                             nlohmann_json_t.kF);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("integralZone"),
-                                             nlohmann_json_t.integralZone);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("allowableClosedloopError"),
-    nlohmann_json_t.allowableClosedloopError);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("maxIntegralAccumulator"),
-    nlohmann_json_t.maxIntegralAccumulator);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("closedLoopPeakOutput"),
-    nlohmann_json_t.closedLoopPeakOutput);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("closedLoopPeriod"), nlohmann_json_t.closedLoopPeriod);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kP), void>::from_json(
+    nlohmann_json_j.at("kP"), nlohmann_json_t.kP);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kI), void>::from_json(
+    nlohmann_json_j.at("kI"), nlohmann_json_t.kI);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kD), void>::from_json(
+    nlohmann_json_j.at("kD"), nlohmann_json_t.kD);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kF), void>::from_json(
+    nlohmann_json_j.at("kF"), nlohmann_json_t.kF);
+  wpi::adl_serializer<decltype(nlohmann_json_t.integralZone), void>::from_json(
+    nlohmann_json_j.at("integralZone"), nlohmann_json_t.integralZone);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.allowableClosedloopError),
+    void>::from_json(nlohmann_json_j.at("allowableClosedloopError"),
+                     nlohmann_json_t.allowableClosedloopError);
+  wpi::adl_serializer<decltype(nlohmann_json_t.maxIntegralAccumulator),
+                      void>::from_json(nlohmann_json_j
+                                         .at("maxIntegralAccumulator"),
+                                       nlohmann_json_t.maxIntegralAccumulator);
+  wpi::adl_serializer<decltype(nlohmann_json_t.closedLoopPeakOutput),
+                      void>::from_json(nlohmann_json_j
+                                         .at("closedLoopPeakOutput"),
+                                       nlohmann_json_t.closedLoopPeakOutput);
+  wpi::adl_serializer<decltype(nlohmann_json_t.closedLoopPeriod),
+                      void>::from_json(nlohmann_json_j.at("closedLoopPeriod"),
+                                       nlohmann_json_t.closedLoopPeriod);
 }
 
 inline void
@@ -3006,109 +3038,139 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           BaseMotorControllerConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("openloopRamp"),
-                                             nlohmann_json_t.openloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("closedloopRamp"), nlohmann_json_t.closedloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputForward"), nlohmann_json_t.peakOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputReverse"), nlohmann_json_t.peakOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputForward"),
-    nlohmann_json_t.nominalOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputReverse"),
-    nlohmann_json_t.nominalOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("neutralDeadband"), nlohmann_json_t.neutralDeadband);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageCompSaturation"),
-    nlohmann_json_t.voltageCompSaturation);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageMeasurementFilter"),
-    nlohmann_json_t.voltageMeasurementFilter);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementPeriod"),
-    nlohmann_json_t.velocityMeasurementPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementWindow"),
-    nlohmann_json_t.velocityMeasurementWindow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitThreshold"),
-    nlohmann_json_t.forwardSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitThreshold"),
-    nlohmann_json_t.reverseSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitEnable"),
-    nlohmann_json_t.forwardSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitEnable"),
-    nlohmann_json_t.reverseSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot0"),
-                                             nlohmann_json_t.slot0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot1"),
-                                             nlohmann_json_t.slot1);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot2"),
-                                             nlohmann_json_t.slot2);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot3"),
-                                             nlohmann_json_t.slot3);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("auxPIDPolarity"), nlohmann_json_t.auxPIDPolarity);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<decltype(nlohmann_json_t.openloopRamp), void>::from_json(
+    nlohmann_json_j.at("openloopRamp"), nlohmann_json_t.openloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.closedloopRamp),
+                      void>::from_json(nlohmann_json_j.at("closedloopRamp"),
+                                       nlohmann_json_t.closedloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputForward),
+                      void>::from_json(nlohmann_json_j.at("peakOutputForward"),
+                                       nlohmann_json_t.peakOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputReverse),
+                      void>::from_json(nlohmann_json_j.at("peakOutputReverse"),
+                                       nlohmann_json_t.peakOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputForward),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputForward"),
+                                       nlohmann_json_t.nominalOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputReverse),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputReverse"),
+                                       nlohmann_json_t.nominalOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.neutralDeadband),
+                      void>::from_json(nlohmann_json_j.at("neutralDeadband"),
+                                       nlohmann_json_t.neutralDeadband);
+  wpi::adl_serializer<decltype(nlohmann_json_t.voltageCompSaturation),
+                      void>::from_json(nlohmann_json_j
+                                         .at("voltageCompSaturation"),
+                                       nlohmann_json_t.voltageCompSaturation);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.voltageMeasurementFilter),
+    void>::from_json(nlohmann_json_j.at("voltageMeasurementFilter"),
+                     nlohmann_json_t.voltageMeasurementFilter);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementPeriod),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementPeriod"),
+                     nlohmann_json_t.velocityMeasurementPeriod);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementWindow),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementWindow"),
+                     nlohmann_json_t.velocityMeasurementWindow);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("forwardSoftLimitThreshold"),
+                     nlohmann_json_t.forwardSoftLimitThreshold);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("reverseSoftLimitThreshold"),
+                     nlohmann_json_t.reverseSoftLimitThreshold);
+  wpi::adl_serializer<decltype(nlohmann_json_t.forwardSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("forwardSoftLimitEnable"),
+                                       nlohmann_json_t.forwardSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.reverseSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("reverseSoftLimitEnable"),
+                                       nlohmann_json_t.reverseSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot0), void>::from_json(
+    nlohmann_json_j.at("slot0"), nlohmann_json_t.slot0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot1), void>::from_json(
+    nlohmann_json_j.at("slot1"), nlohmann_json_t.slot1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot2), void>::from_json(
+    nlohmann_json_j.at("slot2"), nlohmann_json_t.slot2);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot3), void>::from_json(
+    nlohmann_json_j.at("slot3"), nlohmann_json_t.slot3);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxPIDPolarity),
+                      void>::from_json(nlohmann_json_j.at("auxPIDPolarity"),
+                                       nlohmann_json_t.auxPIDPolarity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter0), void>::from_json(
     nlohmann_json_j.at("remoteFilter0"), nlohmann_json_t.remoteFilter0);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter1), void>::from_json(
     nlohmann_json_j.at("remoteFilter1"), nlohmann_json_t.remoteFilter1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCruiseVelocity"),
-    nlohmann_json_t.motionCruiseVelocity);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionAcceleration"),
-    nlohmann_json_t.motionAcceleration);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCurveStrength"),
-    nlohmann_json_t.motionCurveStrength);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
-    nlohmann_json_t.motionProfileTrajectoryPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("feedbackNotContinuous"),
-    nlohmann_json_t.feedbackNotContinuous);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("remoteSensorClosedLoopDisableNeutralOnLOS"),
-    nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitF"),
-    nlohmann_json_t.clearPositionOnLimitF);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitR"),
-    nlohmann_json_t.clearPositionOnLimitR);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnQuadIdx"),
-    nlohmann_json_t.clearPositionOnQuadIdx);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
-    nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
-    nlohmann_json_t.softLimitDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
-    nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
-    nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("trajectoryInterpolationEnable"),
-    nlohmann_json_t.trajectoryInterpolationEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCruiseVelocity),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCruiseVelocity"),
+                                       nlohmann_json_t.motionCruiseVelocity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionAcceleration),
+                      void>::from_json(nlohmann_json_j.at("motionAcceleration"),
+                                       nlohmann_json_t.motionAcceleration);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCurveStrength),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCurveStrength"),
+                                       nlohmann_json_t.motionCurveStrength);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.motionProfileTrajectoryPeriod),
+    void>::from_json(nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
+                     nlohmann_json_t.motionProfileTrajectoryPeriod);
+  wpi::adl_serializer<decltype(nlohmann_json_t.feedbackNotContinuous),
+                      void>::from_json(nlohmann_json_j
+                                         .at("feedbackNotContinuous"),
+                                       nlohmann_json_t.feedbackNotContinuous);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j
+                       .at("remoteSensorClosedLoopDisableNeutralOnLOS"),
+                     nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitF),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitF"),
+                                       nlohmann_json_t.clearPositionOnLimitF);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitR),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitR"),
+                                       nlohmann_json_t.clearPositionOnLimitR);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnQuadIdx),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnQuadIdx"),
+                                       nlohmann_json_t.clearPositionOnQuadIdx);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.limitSwitchDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
+                     nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.softLimitDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
+                     nlohmann_json_t.softLimitDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_EdgesPerRot),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
+                     nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_FilterWindowSz),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
+                     nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.trajectoryInterpolationEnable),
+    void>::from_json(nlohmann_json_j.at("trajectoryInterpolationEnable"),
+                     nlohmann_json_t.trajectoryInterpolationEnable);
 }
 
 inline void
@@ -3124,12 +3186,14 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           BaseTalonPIDSetConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackCoefficient"),
-    nlohmann_json_t.selectedFeedbackCoefficient);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackSensor"),
-    nlohmann_json_t.selectedFeedbackSensor);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.selectedFeedbackCoefficient),
+    void>::from_json(nlohmann_json_j.at("selectedFeedbackCoefficient"),
+                     nlohmann_json_t.selectedFeedbackCoefficient);
+  wpi::adl_serializer<decltype(nlohmann_json_t.selectedFeedbackSensor),
+                      void>::from_json(nlohmann_json_j
+                                         .at("selectedFeedbackSensor"),
+                                       nlohmann_json_t.selectedFeedbackSensor);
 }
 
 inline void
@@ -3220,139 +3284,175 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           BaseTalonConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("openloopRamp"),
-                                             nlohmann_json_t.openloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("closedloopRamp"), nlohmann_json_t.closedloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputForward"), nlohmann_json_t.peakOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputReverse"), nlohmann_json_t.peakOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputForward"),
-    nlohmann_json_t.nominalOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputReverse"),
-    nlohmann_json_t.nominalOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("neutralDeadband"), nlohmann_json_t.neutralDeadband);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageCompSaturation"),
-    nlohmann_json_t.voltageCompSaturation);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageMeasurementFilter"),
-    nlohmann_json_t.voltageMeasurementFilter);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementPeriod"),
-    nlohmann_json_t.velocityMeasurementPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementWindow"),
-    nlohmann_json_t.velocityMeasurementWindow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitThreshold"),
-    nlohmann_json_t.forwardSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitThreshold"),
-    nlohmann_json_t.reverseSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitEnable"),
-    nlohmann_json_t.forwardSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitEnable"),
-    nlohmann_json_t.reverseSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot0"),
-                                             nlohmann_json_t.slot0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot1"),
-                                             nlohmann_json_t.slot1);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot2"),
-                                             nlohmann_json_t.slot2);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot3"),
-                                             nlohmann_json_t.slot3);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("auxPIDPolarity"), nlohmann_json_t.auxPIDPolarity);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<decltype(nlohmann_json_t.openloopRamp), void>::from_json(
+    nlohmann_json_j.at("openloopRamp"), nlohmann_json_t.openloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.closedloopRamp),
+                      void>::from_json(nlohmann_json_j.at("closedloopRamp"),
+                                       nlohmann_json_t.closedloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputForward),
+                      void>::from_json(nlohmann_json_j.at("peakOutputForward"),
+                                       nlohmann_json_t.peakOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputReverse),
+                      void>::from_json(nlohmann_json_j.at("peakOutputReverse"),
+                                       nlohmann_json_t.peakOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputForward),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputForward"),
+                                       nlohmann_json_t.nominalOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputReverse),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputReverse"),
+                                       nlohmann_json_t.nominalOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.neutralDeadband),
+                      void>::from_json(nlohmann_json_j.at("neutralDeadband"),
+                                       nlohmann_json_t.neutralDeadband);
+  wpi::adl_serializer<decltype(nlohmann_json_t.voltageCompSaturation),
+                      void>::from_json(nlohmann_json_j
+                                         .at("voltageCompSaturation"),
+                                       nlohmann_json_t.voltageCompSaturation);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.voltageMeasurementFilter),
+    void>::from_json(nlohmann_json_j.at("voltageMeasurementFilter"),
+                     nlohmann_json_t.voltageMeasurementFilter);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementPeriod),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementPeriod"),
+                     nlohmann_json_t.velocityMeasurementPeriod);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementWindow),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementWindow"),
+                     nlohmann_json_t.velocityMeasurementWindow);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("forwardSoftLimitThreshold"),
+                     nlohmann_json_t.forwardSoftLimitThreshold);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("reverseSoftLimitThreshold"),
+                     nlohmann_json_t.reverseSoftLimitThreshold);
+  wpi::adl_serializer<decltype(nlohmann_json_t.forwardSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("forwardSoftLimitEnable"),
+                                       nlohmann_json_t.forwardSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.reverseSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("reverseSoftLimitEnable"),
+                                       nlohmann_json_t.reverseSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot0), void>::from_json(
+    nlohmann_json_j.at("slot0"), nlohmann_json_t.slot0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot1), void>::from_json(
+    nlohmann_json_j.at("slot1"), nlohmann_json_t.slot1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot2), void>::from_json(
+    nlohmann_json_j.at("slot2"), nlohmann_json_t.slot2);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot3), void>::from_json(
+    nlohmann_json_j.at("slot3"), nlohmann_json_t.slot3);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxPIDPolarity),
+                      void>::from_json(nlohmann_json_j.at("auxPIDPolarity"),
+                                       nlohmann_json_t.auxPIDPolarity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter0), void>::from_json(
     nlohmann_json_j.at("remoteFilter0"), nlohmann_json_t.remoteFilter0);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter1), void>::from_json(
     nlohmann_json_j.at("remoteFilter1"), nlohmann_json_t.remoteFilter1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCruiseVelocity"),
-    nlohmann_json_t.motionCruiseVelocity);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionAcceleration"),
-    nlohmann_json_t.motionAcceleration);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCurveStrength"),
-    nlohmann_json_t.motionCurveStrength);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
-    nlohmann_json_t.motionProfileTrajectoryPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("feedbackNotContinuous"),
-    nlohmann_json_t.feedbackNotContinuous);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("remoteSensorClosedLoopDisableNeutralOnLOS"),
-    nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitF"),
-    nlohmann_json_t.clearPositionOnLimitF);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitR"),
-    nlohmann_json_t.clearPositionOnLimitR);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnQuadIdx"),
-    nlohmann_json_t.clearPositionOnQuadIdx);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
-    nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
-    nlohmann_json_t.softLimitDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
-    nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
-    nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("trajectoryInterpolationEnable"),
-    nlohmann_json_t.trajectoryInterpolationEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("primaryPID"),
-                                             nlohmann_json_t.primaryPID);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("auxiliaryPID"),
-                                             nlohmann_json_t.auxiliaryPID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchSource"),
-    nlohmann_json_t.forwardLimitSwitchSource);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchSource"),
-    nlohmann_json_t.reverseLimitSwitchSource);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchDeviceID"),
-    nlohmann_json_t.forwardLimitSwitchDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchDeviceID"),
-    nlohmann_json_t.reverseLimitSwitchDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchNormal"),
-    nlohmann_json_t.forwardLimitSwitchNormal);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchNormal"),
-    nlohmann_json_t.reverseLimitSwitchNormal);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("sum0Term"),
-                                             nlohmann_json_t.sum0Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("sum1Term"),
-                                             nlohmann_json_t.sum1Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("diff0Term"),
-                                             nlohmann_json_t.diff0Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("diff1Term"),
-                                             nlohmann_json_t.diff1Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCruiseVelocity),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCruiseVelocity"),
+                                       nlohmann_json_t.motionCruiseVelocity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionAcceleration),
+                      void>::from_json(nlohmann_json_j.at("motionAcceleration"),
+                                       nlohmann_json_t.motionAcceleration);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCurveStrength),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCurveStrength"),
+                                       nlohmann_json_t.motionCurveStrength);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.motionProfileTrajectoryPeriod),
+    void>::from_json(nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
+                     nlohmann_json_t.motionProfileTrajectoryPeriod);
+  wpi::adl_serializer<decltype(nlohmann_json_t.feedbackNotContinuous),
+                      void>::from_json(nlohmann_json_j
+                                         .at("feedbackNotContinuous"),
+                                       nlohmann_json_t.feedbackNotContinuous);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j
+                       .at("remoteSensorClosedLoopDisableNeutralOnLOS"),
+                     nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitF),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitF"),
+                                       nlohmann_json_t.clearPositionOnLimitF);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitR),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitR"),
+                                       nlohmann_json_t.clearPositionOnLimitR);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnQuadIdx),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnQuadIdx"),
+                                       nlohmann_json_t.clearPositionOnQuadIdx);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.limitSwitchDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
+                     nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.softLimitDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
+                     nlohmann_json_t.softLimitDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_EdgesPerRot),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
+                     nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_FilterWindowSz),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
+                     nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.trajectoryInterpolationEnable),
+    void>::from_json(nlohmann_json_j.at("trajectoryInterpolationEnable"),
+                     nlohmann_json_t.trajectoryInterpolationEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.primaryPID), void>::from_json(
+    nlohmann_json_j.at("primaryPID"), nlohmann_json_t.primaryPID);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxiliaryPID), void>::from_json(
+    nlohmann_json_j.at("auxiliaryPID"), nlohmann_json_t.auxiliaryPID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchSource),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchSource"),
+                     nlohmann_json_t.forwardLimitSwitchSource);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchSource),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchSource"),
+                     nlohmann_json_t.reverseLimitSwitchSource);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchDeviceID),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchDeviceID"),
+                     nlohmann_json_t.forwardLimitSwitchDeviceID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchDeviceID),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchDeviceID"),
+                     nlohmann_json_t.reverseLimitSwitchDeviceID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchNormal),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchNormal"),
+                     nlohmann_json_t.forwardLimitSwitchNormal);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchNormal),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchNormal"),
+                     nlohmann_json_t.reverseLimitSwitchNormal);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sum0Term), void>::from_json(
+    nlohmann_json_j.at("sum0Term"), nlohmann_json_t.sum0Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sum1Term), void>::from_json(
+    nlohmann_json_j.at("sum1Term"), nlohmann_json_t.sum1Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.diff0Term), void>::from_json(
+    nlohmann_json_j.at("diff0Term"), nlohmann_json_t.diff0Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.diff1Term), void>::from_json(
+    nlohmann_json_j.at("diff1Term"), nlohmann_json_t.diff1Term);
 }
 
 inline void
@@ -3368,12 +3468,14 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           TalonFXPIDSetConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackCoefficient"),
-    nlohmann_json_t.selectedFeedbackCoefficient);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackSensor"),
-    nlohmann_json_t.selectedFeedbackSensor);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.selectedFeedbackCoefficient),
+    void>::from_json(nlohmann_json_j.at("selectedFeedbackCoefficient"),
+                     nlohmann_json_t.selectedFeedbackCoefficient);
+  wpi::adl_serializer<decltype(nlohmann_json_t.selectedFeedbackSensor),
+                      void>::from_json(nlohmann_json_j
+                                         .at("selectedFeedbackSensor"),
+                                       nlohmann_json_t.selectedFeedbackSensor);
 }
 
 inline void
@@ -3471,154 +3573,196 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           TalonFXConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("openloopRamp"),
-                                             nlohmann_json_t.openloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("closedloopRamp"), nlohmann_json_t.closedloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputForward"), nlohmann_json_t.peakOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputReverse"), nlohmann_json_t.peakOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputForward"),
-    nlohmann_json_t.nominalOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputReverse"),
-    nlohmann_json_t.nominalOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("neutralDeadband"), nlohmann_json_t.neutralDeadband);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageCompSaturation"),
-    nlohmann_json_t.voltageCompSaturation);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageMeasurementFilter"),
-    nlohmann_json_t.voltageMeasurementFilter);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementPeriod"),
-    nlohmann_json_t.velocityMeasurementPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementWindow"),
-    nlohmann_json_t.velocityMeasurementWindow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitThreshold"),
-    nlohmann_json_t.forwardSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitThreshold"),
-    nlohmann_json_t.reverseSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitEnable"),
-    nlohmann_json_t.forwardSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitEnable"),
-    nlohmann_json_t.reverseSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot0"),
-                                             nlohmann_json_t.slot0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot1"),
-                                             nlohmann_json_t.slot1);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot2"),
-                                             nlohmann_json_t.slot2);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot3"),
-                                             nlohmann_json_t.slot3);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("auxPIDPolarity"), nlohmann_json_t.auxPIDPolarity);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<decltype(nlohmann_json_t.openloopRamp), void>::from_json(
+    nlohmann_json_j.at("openloopRamp"), nlohmann_json_t.openloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.closedloopRamp),
+                      void>::from_json(nlohmann_json_j.at("closedloopRamp"),
+                                       nlohmann_json_t.closedloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputForward),
+                      void>::from_json(nlohmann_json_j.at("peakOutputForward"),
+                                       nlohmann_json_t.peakOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputReverse),
+                      void>::from_json(nlohmann_json_j.at("peakOutputReverse"),
+                                       nlohmann_json_t.peakOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputForward),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputForward"),
+                                       nlohmann_json_t.nominalOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputReverse),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputReverse"),
+                                       nlohmann_json_t.nominalOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.neutralDeadband),
+                      void>::from_json(nlohmann_json_j.at("neutralDeadband"),
+                                       nlohmann_json_t.neutralDeadband);
+  wpi::adl_serializer<decltype(nlohmann_json_t.voltageCompSaturation),
+                      void>::from_json(nlohmann_json_j
+                                         .at("voltageCompSaturation"),
+                                       nlohmann_json_t.voltageCompSaturation);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.voltageMeasurementFilter),
+    void>::from_json(nlohmann_json_j.at("voltageMeasurementFilter"),
+                     nlohmann_json_t.voltageMeasurementFilter);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementPeriod),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementPeriod"),
+                     nlohmann_json_t.velocityMeasurementPeriod);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementWindow),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementWindow"),
+                     nlohmann_json_t.velocityMeasurementWindow);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("forwardSoftLimitThreshold"),
+                     nlohmann_json_t.forwardSoftLimitThreshold);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("reverseSoftLimitThreshold"),
+                     nlohmann_json_t.reverseSoftLimitThreshold);
+  wpi::adl_serializer<decltype(nlohmann_json_t.forwardSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("forwardSoftLimitEnable"),
+                                       nlohmann_json_t.forwardSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.reverseSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("reverseSoftLimitEnable"),
+                                       nlohmann_json_t.reverseSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot0), void>::from_json(
+    nlohmann_json_j.at("slot0"), nlohmann_json_t.slot0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot1), void>::from_json(
+    nlohmann_json_j.at("slot1"), nlohmann_json_t.slot1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot2), void>::from_json(
+    nlohmann_json_j.at("slot2"), nlohmann_json_t.slot2);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot3), void>::from_json(
+    nlohmann_json_j.at("slot3"), nlohmann_json_t.slot3);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxPIDPolarity),
+                      void>::from_json(nlohmann_json_j.at("auxPIDPolarity"),
+                                       nlohmann_json_t.auxPIDPolarity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter0), void>::from_json(
     nlohmann_json_j.at("remoteFilter0"), nlohmann_json_t.remoteFilter0);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter1), void>::from_json(
     nlohmann_json_j.at("remoteFilter1"), nlohmann_json_t.remoteFilter1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCruiseVelocity"),
-    nlohmann_json_t.motionCruiseVelocity);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionAcceleration"),
-    nlohmann_json_t.motionAcceleration);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCurveStrength"),
-    nlohmann_json_t.motionCurveStrength);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
-    nlohmann_json_t.motionProfileTrajectoryPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("feedbackNotContinuous"),
-    nlohmann_json_t.feedbackNotContinuous);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("remoteSensorClosedLoopDisableNeutralOnLOS"),
-    nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitF"),
-    nlohmann_json_t.clearPositionOnLimitF);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitR"),
-    nlohmann_json_t.clearPositionOnLimitR);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnQuadIdx"),
-    nlohmann_json_t.clearPositionOnQuadIdx);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
-    nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
-    nlohmann_json_t.softLimitDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
-    nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
-    nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("trajectoryInterpolationEnable"),
-    nlohmann_json_t.trajectoryInterpolationEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("primaryPID"),
-                                             nlohmann_json_t.primaryPID);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("auxiliaryPID"),
-                                             nlohmann_json_t.auxiliaryPID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchSource"),
-    nlohmann_json_t.forwardLimitSwitchSource);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchSource"),
-    nlohmann_json_t.reverseLimitSwitchSource);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchDeviceID"),
-    nlohmann_json_t.forwardLimitSwitchDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchDeviceID"),
-    nlohmann_json_t.reverseLimitSwitchDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchNormal"),
-    nlohmann_json_t.forwardLimitSwitchNormal);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchNormal"),
-    nlohmann_json_t.reverseLimitSwitchNormal);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("sum0Term"),
-                                             nlohmann_json_t.sum0Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("sum1Term"),
-                                             nlohmann_json_t.sum1Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("diff0Term"),
-                                             nlohmann_json_t.diff0Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("diff1Term"),
-                                             nlohmann_json_t.diff1Term);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("supplyCurrLimit"), nlohmann_json_t.supplyCurrLimit);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("statorCurrLimit"), nlohmann_json_t.statorCurrLimit);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motorCommutation"), nlohmann_json_t.motorCommutation);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("absoluteSensorRange"),
-    nlohmann_json_t.absoluteSensorRange);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("integratedSensorOffsetDegrees"),
-    nlohmann_json_t.integratedSensorOffsetDegrees);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("initializationStrategy"),
-    nlohmann_json_t.initializationStrategy);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCruiseVelocity),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCruiseVelocity"),
+                                       nlohmann_json_t.motionCruiseVelocity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionAcceleration),
+                      void>::from_json(nlohmann_json_j.at("motionAcceleration"),
+                                       nlohmann_json_t.motionAcceleration);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCurveStrength),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCurveStrength"),
+                                       nlohmann_json_t.motionCurveStrength);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.motionProfileTrajectoryPeriod),
+    void>::from_json(nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
+                     nlohmann_json_t.motionProfileTrajectoryPeriod);
+  wpi::adl_serializer<decltype(nlohmann_json_t.feedbackNotContinuous),
+                      void>::from_json(nlohmann_json_j
+                                         .at("feedbackNotContinuous"),
+                                       nlohmann_json_t.feedbackNotContinuous);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j
+                       .at("remoteSensorClosedLoopDisableNeutralOnLOS"),
+                     nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitF),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitF"),
+                                       nlohmann_json_t.clearPositionOnLimitF);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitR),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitR"),
+                                       nlohmann_json_t.clearPositionOnLimitR);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnQuadIdx),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnQuadIdx"),
+                                       nlohmann_json_t.clearPositionOnQuadIdx);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.limitSwitchDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
+                     nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.softLimitDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
+                     nlohmann_json_t.softLimitDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_EdgesPerRot),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
+                     nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_FilterWindowSz),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
+                     nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.trajectoryInterpolationEnable),
+    void>::from_json(nlohmann_json_j.at("trajectoryInterpolationEnable"),
+                     nlohmann_json_t.trajectoryInterpolationEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.primaryPID), void>::from_json(
+    nlohmann_json_j.at("primaryPID"), nlohmann_json_t.primaryPID);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxiliaryPID), void>::from_json(
+    nlohmann_json_j.at("auxiliaryPID"), nlohmann_json_t.auxiliaryPID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchSource),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchSource"),
+                     nlohmann_json_t.forwardLimitSwitchSource);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchSource),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchSource"),
+                     nlohmann_json_t.reverseLimitSwitchSource);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchDeviceID),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchDeviceID"),
+                     nlohmann_json_t.forwardLimitSwitchDeviceID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchDeviceID),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchDeviceID"),
+                     nlohmann_json_t.reverseLimitSwitchDeviceID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchNormal),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchNormal"),
+                     nlohmann_json_t.forwardLimitSwitchNormal);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchNormal),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchNormal"),
+                     nlohmann_json_t.reverseLimitSwitchNormal);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sum0Term), void>::from_json(
+    nlohmann_json_j.at("sum0Term"), nlohmann_json_t.sum0Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sum1Term), void>::from_json(
+    nlohmann_json_j.at("sum1Term"), nlohmann_json_t.sum1Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.diff0Term), void>::from_json(
+    nlohmann_json_j.at("diff0Term"), nlohmann_json_t.diff0Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.diff1Term), void>::from_json(
+    nlohmann_json_j.at("diff1Term"), nlohmann_json_t.diff1Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.supplyCurrLimit),
+                      void>::from_json(nlohmann_json_j.at("supplyCurrLimit"),
+                                       nlohmann_json_t.supplyCurrLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.statorCurrLimit),
+                      void>::from_json(nlohmann_json_j.at("statorCurrLimit"),
+                                       nlohmann_json_t.statorCurrLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motorCommutation),
+                      void>::from_json(nlohmann_json_j.at("motorCommutation"),
+                                       nlohmann_json_t.motorCommutation);
+  wpi::adl_serializer<decltype(nlohmann_json_t.absoluteSensorRange),
+                      void>::from_json(nlohmann_json_j
+                                         .at("absoluteSensorRange"),
+                                       nlohmann_json_t.absoluteSensorRange);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.integratedSensorOffsetDegrees),
+    void>::from_json(nlohmann_json_j.at("integratedSensorOffsetDegrees"),
+                     nlohmann_json_t.integratedSensorOffsetDegrees);
+  wpi::adl_serializer<decltype(nlohmann_json_t.initializationStrategy),
+                      void>::from_json(nlohmann_json_j
+                                         .at("initializationStrategy"),
+                                       nlohmann_json_t.initializationStrategy);
 }
 
 inline void
@@ -3634,12 +3778,14 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           TalonSRXPIDSetConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackCoefficient"),
-    nlohmann_json_t.selectedFeedbackCoefficient);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackSensor"),
-    nlohmann_json_t.selectedFeedbackSensor);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.selectedFeedbackCoefficient),
+    void>::from_json(nlohmann_json_j.at("selectedFeedbackCoefficient"),
+                     nlohmann_json_t.selectedFeedbackCoefficient);
+  wpi::adl_serializer<decltype(nlohmann_json_t.selectedFeedbackSensor),
+                      void>::from_json(nlohmann_json_j
+                                         .at("selectedFeedbackSensor"),
+                                       nlohmann_json_t.selectedFeedbackSensor);
 }
 
 inline void
@@ -3732,144 +3878,182 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           TalonSRXConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("openloopRamp"),
-                                             nlohmann_json_t.openloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("closedloopRamp"), nlohmann_json_t.closedloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputForward"), nlohmann_json_t.peakOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputReverse"), nlohmann_json_t.peakOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputForward"),
-    nlohmann_json_t.nominalOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputReverse"),
-    nlohmann_json_t.nominalOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("neutralDeadband"), nlohmann_json_t.neutralDeadband);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageCompSaturation"),
-    nlohmann_json_t.voltageCompSaturation);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageMeasurementFilter"),
-    nlohmann_json_t.voltageMeasurementFilter);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementPeriod"),
-    nlohmann_json_t.velocityMeasurementPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementWindow"),
-    nlohmann_json_t.velocityMeasurementWindow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitThreshold"),
-    nlohmann_json_t.forwardSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitThreshold"),
-    nlohmann_json_t.reverseSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitEnable"),
-    nlohmann_json_t.forwardSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitEnable"),
-    nlohmann_json_t.reverseSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot0"),
-                                             nlohmann_json_t.slot0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot1"),
-                                             nlohmann_json_t.slot1);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot2"),
-                                             nlohmann_json_t.slot2);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot3"),
-                                             nlohmann_json_t.slot3);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("auxPIDPolarity"), nlohmann_json_t.auxPIDPolarity);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<decltype(nlohmann_json_t.openloopRamp), void>::from_json(
+    nlohmann_json_j.at("openloopRamp"), nlohmann_json_t.openloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.closedloopRamp),
+                      void>::from_json(nlohmann_json_j.at("closedloopRamp"),
+                                       nlohmann_json_t.closedloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputForward),
+                      void>::from_json(nlohmann_json_j.at("peakOutputForward"),
+                                       nlohmann_json_t.peakOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputReverse),
+                      void>::from_json(nlohmann_json_j.at("peakOutputReverse"),
+                                       nlohmann_json_t.peakOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputForward),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputForward"),
+                                       nlohmann_json_t.nominalOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputReverse),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputReverse"),
+                                       nlohmann_json_t.nominalOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.neutralDeadband),
+                      void>::from_json(nlohmann_json_j.at("neutralDeadband"),
+                                       nlohmann_json_t.neutralDeadband);
+  wpi::adl_serializer<decltype(nlohmann_json_t.voltageCompSaturation),
+                      void>::from_json(nlohmann_json_j
+                                         .at("voltageCompSaturation"),
+                                       nlohmann_json_t.voltageCompSaturation);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.voltageMeasurementFilter),
+    void>::from_json(nlohmann_json_j.at("voltageMeasurementFilter"),
+                     nlohmann_json_t.voltageMeasurementFilter);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementPeriod),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementPeriod"),
+                     nlohmann_json_t.velocityMeasurementPeriod);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementWindow),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementWindow"),
+                     nlohmann_json_t.velocityMeasurementWindow);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("forwardSoftLimitThreshold"),
+                     nlohmann_json_t.forwardSoftLimitThreshold);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("reverseSoftLimitThreshold"),
+                     nlohmann_json_t.reverseSoftLimitThreshold);
+  wpi::adl_serializer<decltype(nlohmann_json_t.forwardSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("forwardSoftLimitEnable"),
+                                       nlohmann_json_t.forwardSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.reverseSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("reverseSoftLimitEnable"),
+                                       nlohmann_json_t.reverseSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot0), void>::from_json(
+    nlohmann_json_j.at("slot0"), nlohmann_json_t.slot0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot1), void>::from_json(
+    nlohmann_json_j.at("slot1"), nlohmann_json_t.slot1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot2), void>::from_json(
+    nlohmann_json_j.at("slot2"), nlohmann_json_t.slot2);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot3), void>::from_json(
+    nlohmann_json_j.at("slot3"), nlohmann_json_t.slot3);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxPIDPolarity),
+                      void>::from_json(nlohmann_json_j.at("auxPIDPolarity"),
+                                       nlohmann_json_t.auxPIDPolarity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter0), void>::from_json(
     nlohmann_json_j.at("remoteFilter0"), nlohmann_json_t.remoteFilter0);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter1), void>::from_json(
     nlohmann_json_j.at("remoteFilter1"), nlohmann_json_t.remoteFilter1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCruiseVelocity"),
-    nlohmann_json_t.motionCruiseVelocity);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionAcceleration"),
-    nlohmann_json_t.motionAcceleration);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCurveStrength"),
-    nlohmann_json_t.motionCurveStrength);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
-    nlohmann_json_t.motionProfileTrajectoryPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("feedbackNotContinuous"),
-    nlohmann_json_t.feedbackNotContinuous);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("remoteSensorClosedLoopDisableNeutralOnLOS"),
-    nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitF"),
-    nlohmann_json_t.clearPositionOnLimitF);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitR"),
-    nlohmann_json_t.clearPositionOnLimitR);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnQuadIdx"),
-    nlohmann_json_t.clearPositionOnQuadIdx);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
-    nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
-    nlohmann_json_t.softLimitDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
-    nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
-    nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("trajectoryInterpolationEnable"),
-    nlohmann_json_t.trajectoryInterpolationEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("primaryPID"),
-                                             nlohmann_json_t.primaryPID);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("auxiliaryPID"),
-                                             nlohmann_json_t.auxiliaryPID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchSource"),
-    nlohmann_json_t.forwardLimitSwitchSource);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchSource"),
-    nlohmann_json_t.reverseLimitSwitchSource);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchDeviceID"),
-    nlohmann_json_t.forwardLimitSwitchDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchDeviceID"),
-    nlohmann_json_t.reverseLimitSwitchDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchNormal"),
-    nlohmann_json_t.forwardLimitSwitchNormal);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchNormal"),
-    nlohmann_json_t.reverseLimitSwitchNormal);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("sum0Term"),
-                                             nlohmann_json_t.sum0Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("sum1Term"),
-                                             nlohmann_json_t.sum1Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("diff0Term"),
-                                             nlohmann_json_t.diff0Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("diff1Term"),
-                                             nlohmann_json_t.diff1Term);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakCurrentLimit"), nlohmann_json_t.peakCurrentLimit);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakCurrentDuration"),
-    nlohmann_json_t.peakCurrentDuration);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCruiseVelocity),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCruiseVelocity"),
+                                       nlohmann_json_t.motionCruiseVelocity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionAcceleration),
+                      void>::from_json(nlohmann_json_j.at("motionAcceleration"),
+                                       nlohmann_json_t.motionAcceleration);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCurveStrength),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCurveStrength"),
+                                       nlohmann_json_t.motionCurveStrength);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.motionProfileTrajectoryPeriod),
+    void>::from_json(nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
+                     nlohmann_json_t.motionProfileTrajectoryPeriod);
+  wpi::adl_serializer<decltype(nlohmann_json_t.feedbackNotContinuous),
+                      void>::from_json(nlohmann_json_j
+                                         .at("feedbackNotContinuous"),
+                                       nlohmann_json_t.feedbackNotContinuous);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j
+                       .at("remoteSensorClosedLoopDisableNeutralOnLOS"),
+                     nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitF),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitF"),
+                                       nlohmann_json_t.clearPositionOnLimitF);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitR),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitR"),
+                                       nlohmann_json_t.clearPositionOnLimitR);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnQuadIdx),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnQuadIdx"),
+                                       nlohmann_json_t.clearPositionOnQuadIdx);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.limitSwitchDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
+                     nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.softLimitDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
+                     nlohmann_json_t.softLimitDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_EdgesPerRot),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
+                     nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_FilterWindowSz),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
+                     nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.trajectoryInterpolationEnable),
+    void>::from_json(nlohmann_json_j.at("trajectoryInterpolationEnable"),
+                     nlohmann_json_t.trajectoryInterpolationEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.primaryPID), void>::from_json(
+    nlohmann_json_j.at("primaryPID"), nlohmann_json_t.primaryPID);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxiliaryPID), void>::from_json(
+    nlohmann_json_j.at("auxiliaryPID"), nlohmann_json_t.auxiliaryPID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchSource),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchSource"),
+                     nlohmann_json_t.forwardLimitSwitchSource);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchSource),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchSource"),
+                     nlohmann_json_t.reverseLimitSwitchSource);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchDeviceID),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchDeviceID"),
+                     nlohmann_json_t.forwardLimitSwitchDeviceID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchDeviceID),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchDeviceID"),
+                     nlohmann_json_t.reverseLimitSwitchDeviceID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchNormal),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchNormal"),
+                     nlohmann_json_t.forwardLimitSwitchNormal);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchNormal),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchNormal"),
+                     nlohmann_json_t.reverseLimitSwitchNormal);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sum0Term), void>::from_json(
+    nlohmann_json_j.at("sum0Term"), nlohmann_json_t.sum0Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sum1Term), void>::from_json(
+    nlohmann_json_j.at("sum1Term"), nlohmann_json_t.sum1Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.diff0Term), void>::from_json(
+    nlohmann_json_j.at("diff0Term"), nlohmann_json_t.diff0Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.diff1Term), void>::from_json(
+    nlohmann_json_j.at("diff1Term"), nlohmann_json_t.diff1Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakCurrentLimit),
+                      void>::from_json(nlohmann_json_j.at("peakCurrentLimit"),
+                                       nlohmann_json_t.peakCurrentLimit);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakCurrentDuration),
+                      void>::from_json(nlohmann_json_j
+                                         .at("peakCurrentDuration"),
+                                       nlohmann_json_t.peakCurrentDuration);
 }
 
 inline void
@@ -3885,12 +4069,14 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           VictorSPXPIDSetConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackCoefficient"),
-    nlohmann_json_t.selectedFeedbackCoefficient);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("selectedFeedbackSensor"),
-    nlohmann_json_t.selectedFeedbackSensor);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.selectedFeedbackCoefficient),
+    void>::from_json(nlohmann_json_j.at("selectedFeedbackCoefficient"),
+                     nlohmann_json_t.selectedFeedbackCoefficient);
+  wpi::adl_serializer<decltype(nlohmann_json_t.selectedFeedbackSensor),
+                      void>::from_json(nlohmann_json_j
+                                         .at("selectedFeedbackSensor"),
+                                       nlohmann_json_t.selectedFeedbackSensor);
 }
 
 inline void
@@ -3981,139 +4167,175 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           VictorSPXConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("openloopRamp"),
-                                             nlohmann_json_t.openloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("closedloopRamp"), nlohmann_json_t.closedloopRamp);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputForward"), nlohmann_json_t.peakOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("peakOutputReverse"), nlohmann_json_t.peakOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputForward"),
-    nlohmann_json_t.nominalOutputForward);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("nominalOutputReverse"),
-    nlohmann_json_t.nominalOutputReverse);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("neutralDeadband"), nlohmann_json_t.neutralDeadband);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageCompSaturation"),
-    nlohmann_json_t.voltageCompSaturation);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("voltageMeasurementFilter"),
-    nlohmann_json_t.voltageMeasurementFilter);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementPeriod"),
-    nlohmann_json_t.velocityMeasurementPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementWindow"),
-    nlohmann_json_t.velocityMeasurementWindow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitThreshold"),
-    nlohmann_json_t.forwardSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitThreshold"),
-    nlohmann_json_t.reverseSoftLimitThreshold);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardSoftLimitEnable"),
-    nlohmann_json_t.forwardSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseSoftLimitEnable"),
-    nlohmann_json_t.reverseSoftLimitEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot0"),
-                                             nlohmann_json_t.slot0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot1"),
-                                             nlohmann_json_t.slot1);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot2"),
-                                             nlohmann_json_t.slot2);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("slot3"),
-                                             nlohmann_json_t.slot3);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("auxPIDPolarity"), nlohmann_json_t.auxPIDPolarity);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<decltype(nlohmann_json_t.openloopRamp), void>::from_json(
+    nlohmann_json_j.at("openloopRamp"), nlohmann_json_t.openloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.closedloopRamp),
+                      void>::from_json(nlohmann_json_j.at("closedloopRamp"),
+                                       nlohmann_json_t.closedloopRamp);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputForward),
+                      void>::from_json(nlohmann_json_j.at("peakOutputForward"),
+                                       nlohmann_json_t.peakOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.peakOutputReverse),
+                      void>::from_json(nlohmann_json_j.at("peakOutputReverse"),
+                                       nlohmann_json_t.peakOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputForward),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputForward"),
+                                       nlohmann_json_t.nominalOutputForward);
+  wpi::adl_serializer<decltype(nlohmann_json_t.nominalOutputReverse),
+                      void>::from_json(nlohmann_json_j
+                                         .at("nominalOutputReverse"),
+                                       nlohmann_json_t.nominalOutputReverse);
+  wpi::adl_serializer<decltype(nlohmann_json_t.neutralDeadband),
+                      void>::from_json(nlohmann_json_j.at("neutralDeadband"),
+                                       nlohmann_json_t.neutralDeadband);
+  wpi::adl_serializer<decltype(nlohmann_json_t.voltageCompSaturation),
+                      void>::from_json(nlohmann_json_j
+                                         .at("voltageCompSaturation"),
+                                       nlohmann_json_t.voltageCompSaturation);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.voltageMeasurementFilter),
+    void>::from_json(nlohmann_json_j.at("voltageMeasurementFilter"),
+                     nlohmann_json_t.voltageMeasurementFilter);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementPeriod),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementPeriod"),
+                     nlohmann_json_t.velocityMeasurementPeriod);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementWindow),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementWindow"),
+                     nlohmann_json_t.velocityMeasurementWindow);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("forwardSoftLimitThreshold"),
+                     nlohmann_json_t.forwardSoftLimitThreshold);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseSoftLimitThreshold),
+    void>::from_json(nlohmann_json_j.at("reverseSoftLimitThreshold"),
+                     nlohmann_json_t.reverseSoftLimitThreshold);
+  wpi::adl_serializer<decltype(nlohmann_json_t.forwardSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("forwardSoftLimitEnable"),
+                                       nlohmann_json_t.forwardSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.reverseSoftLimitEnable),
+                      void>::from_json(nlohmann_json_j
+                                         .at("reverseSoftLimitEnable"),
+                                       nlohmann_json_t.reverseSoftLimitEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot0), void>::from_json(
+    nlohmann_json_j.at("slot0"), nlohmann_json_t.slot0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot1), void>::from_json(
+    nlohmann_json_j.at("slot1"), nlohmann_json_t.slot1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot2), void>::from_json(
+    nlohmann_json_j.at("slot2"), nlohmann_json_t.slot2);
+  wpi::adl_serializer<decltype(nlohmann_json_t.slot3), void>::from_json(
+    nlohmann_json_j.at("slot3"), nlohmann_json_t.slot3);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxPIDPolarity),
+                      void>::from_json(nlohmann_json_j.at("auxPIDPolarity"),
+                                       nlohmann_json_t.auxPIDPolarity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter0), void>::from_json(
     nlohmann_json_j.at("remoteFilter0"), nlohmann_json_t.remoteFilter0);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.remoteFilter1), void>::from_json(
     nlohmann_json_j.at("remoteFilter1"), nlohmann_json_t.remoteFilter1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCruiseVelocity"),
-    nlohmann_json_t.motionCruiseVelocity);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionAcceleration"),
-    nlohmann_json_t.motionAcceleration);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionCurveStrength"),
-    nlohmann_json_t.motionCurveStrength);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
-    nlohmann_json_t.motionProfileTrajectoryPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("feedbackNotContinuous"),
-    nlohmann_json_t.feedbackNotContinuous);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("remoteSensorClosedLoopDisableNeutralOnLOS"),
-    nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitF"),
-    nlohmann_json_t.clearPositionOnLimitF);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnLimitR"),
-    nlohmann_json_t.clearPositionOnLimitR);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("clearPositionOnQuadIdx"),
-    nlohmann_json_t.clearPositionOnQuadIdx);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
-    nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
-    nlohmann_json_t.softLimitDisableNeutralOnLOS);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
-    nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
-    nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("trajectoryInterpolationEnable"),
-    nlohmann_json_t.trajectoryInterpolationEnable);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("primaryPID"),
-                                             nlohmann_json_t.primaryPID);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("auxiliaryPID"),
-                                             nlohmann_json_t.auxiliaryPID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchSource"),
-    nlohmann_json_t.forwardLimitSwitchSource);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchSource"),
-    nlohmann_json_t.reverseLimitSwitchSource);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchDeviceID"),
-    nlohmann_json_t.forwardLimitSwitchDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchDeviceID"),
-    nlohmann_json_t.reverseLimitSwitchDeviceID);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("forwardLimitSwitchNormal"),
-    nlohmann_json_t.forwardLimitSwitchNormal);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("reverseLimitSwitchNormal"),
-    nlohmann_json_t.reverseLimitSwitchNormal);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("sum0Term"),
-                                             nlohmann_json_t.sum0Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("sum1Term"),
-                                             nlohmann_json_t.sum1Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("diff0Term"),
-                                             nlohmann_json_t.diff0Term);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("diff1Term"),
-                                             nlohmann_json_t.diff1Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCruiseVelocity),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCruiseVelocity"),
+                                       nlohmann_json_t.motionCruiseVelocity);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionAcceleration),
+                      void>::from_json(nlohmann_json_j.at("motionAcceleration"),
+                                       nlohmann_json_t.motionAcceleration);
+  wpi::adl_serializer<decltype(nlohmann_json_t.motionCurveStrength),
+                      void>::from_json(nlohmann_json_j
+                                         .at("motionCurveStrength"),
+                                       nlohmann_json_t.motionCurveStrength);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.motionProfileTrajectoryPeriod),
+    void>::from_json(nlohmann_json_j.at("motionProfileTrajectoryPeriod"),
+                     nlohmann_json_t.motionProfileTrajectoryPeriod);
+  wpi::adl_serializer<decltype(nlohmann_json_t.feedbackNotContinuous),
+                      void>::from_json(nlohmann_json_j
+                                         .at("feedbackNotContinuous"),
+                                       nlohmann_json_t.feedbackNotContinuous);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j
+                       .at("remoteSensorClosedLoopDisableNeutralOnLOS"),
+                     nlohmann_json_t.remoteSensorClosedLoopDisableNeutralOnLOS);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitF),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitF"),
+                                       nlohmann_json_t.clearPositionOnLimitF);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnLimitR),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnLimitR"),
+                                       nlohmann_json_t.clearPositionOnLimitR);
+  wpi::adl_serializer<decltype(nlohmann_json_t.clearPositionOnQuadIdx),
+                      void>::from_json(nlohmann_json_j
+                                         .at("clearPositionOnQuadIdx"),
+                                       nlohmann_json_t.clearPositionOnQuadIdx);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.limitSwitchDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("limitSwitchDisableNeutralOnLOS"),
+                     nlohmann_json_t.limitSwitchDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.softLimitDisableNeutralOnLOS),
+    void>::from_json(nlohmann_json_j.at("softLimitDisableNeutralOnLOS"),
+                     nlohmann_json_t.softLimitDisableNeutralOnLOS);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_EdgesPerRot),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_EdgesPerRot"),
+                     nlohmann_json_t.pulseWidthPeriod_EdgesPerRot);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.pulseWidthPeriod_FilterWindowSz),
+    void>::from_json(nlohmann_json_j.at("pulseWidthPeriod_FilterWindowSz"),
+                     nlohmann_json_t.pulseWidthPeriod_FilterWindowSz);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.trajectoryInterpolationEnable),
+    void>::from_json(nlohmann_json_j.at("trajectoryInterpolationEnable"),
+                     nlohmann_json_t.trajectoryInterpolationEnable);
+  wpi::adl_serializer<decltype(nlohmann_json_t.primaryPID), void>::from_json(
+    nlohmann_json_j.at("primaryPID"), nlohmann_json_t.primaryPID);
+  wpi::adl_serializer<decltype(nlohmann_json_t.auxiliaryPID), void>::from_json(
+    nlohmann_json_j.at("auxiliaryPID"), nlohmann_json_t.auxiliaryPID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchSource),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchSource"),
+                     nlohmann_json_t.forwardLimitSwitchSource);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchSource),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchSource"),
+                     nlohmann_json_t.reverseLimitSwitchSource);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchDeviceID),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchDeviceID"),
+                     nlohmann_json_t.forwardLimitSwitchDeviceID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchDeviceID),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchDeviceID"),
+                     nlohmann_json_t.reverseLimitSwitchDeviceID);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.forwardLimitSwitchNormal),
+    void>::from_json(nlohmann_json_j.at("forwardLimitSwitchNormal"),
+                     nlohmann_json_t.forwardLimitSwitchNormal);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.reverseLimitSwitchNormal),
+    void>::from_json(nlohmann_json_j.at("reverseLimitSwitchNormal"),
+                     nlohmann_json_t.reverseLimitSwitchNormal);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sum0Term), void>::from_json(
+    nlohmann_json_j.at("sum0Term"), nlohmann_json_t.sum0Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sum1Term), void>::from_json(
+    nlohmann_json_j.at("sum1Term"), nlohmann_json_t.sum1Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.diff0Term), void>::from_json(
+    nlohmann_json_j.at("diff0Term"), nlohmann_json_t.diff0Term);
+  wpi::adl_serializer<decltype(nlohmann_json_t.diff1Term), void>::from_json(
+    nlohmann_json_j.at("diff1Term"), nlohmann_json_t.diff1Term);
 }
 
 }
@@ -4131,15 +4353,15 @@ to_json(wpi::json& nlohmann_json_j, const CANCoderFaults& nlohmann_json_t)
 inline void
 from_json(const wpi::json& nlohmann_json_j, CANCoderFaults& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.HardwareFault), void>::from_json(
     nlohmann_json_j.at("HardwareFault"), nlohmann_json_t.HardwareFault);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("APIError"),
-                                             nlohmann_json_t.APIError);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("UnderVoltage"),
-                                             nlohmann_json_t.UnderVoltage);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.APIError), void>::from_json(
+    nlohmann_json_j.at("APIError"), nlohmann_json_t.APIError);
+  wpi::adl_serializer<decltype(nlohmann_json_t.UnderVoltage), void>::from_json(
+    nlohmann_json_j.at("UnderVoltage"), nlohmann_json_t.UnderVoltage);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ResetDuringEn), void>::from_json(
     nlohmann_json_j.at("ResetDuringEn"), nlohmann_json_t.ResetDuringEn);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.MagnetTooWeak), void>::from_json(
     nlohmann_json_j.at("MagnetTooWeak"), nlohmann_json_t.MagnetTooWeak);
 }
 
@@ -4156,15 +4378,15 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           CANCoderStickyFaults& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.HardwareFault), void>::from_json(
     nlohmann_json_j.at("HardwareFault"), nlohmann_json_t.HardwareFault);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("APIError"),
-                                             nlohmann_json_t.APIError);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("UnderVoltage"),
-                                             nlohmann_json_t.UnderVoltage);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.APIError), void>::from_json(
+    nlohmann_json_j.at("APIError"), nlohmann_json_t.APIError);
+  wpi::adl_serializer<decltype(nlohmann_json_t.UnderVoltage), void>::from_json(
+    nlohmann_json_j.at("UnderVoltage"), nlohmann_json_t.UnderVoltage);
+  wpi::adl_serializer<decltype(nlohmann_json_t.ResetDuringEn), void>::from_json(
     nlohmann_json_j.at("ResetDuringEn"), nlohmann_json_t.ResetDuringEn);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.MagnetTooWeak), void>::from_json(
     nlohmann_json_j.at("MagnetTooWeak"), nlohmann_json_t.MagnetTooWeak);
 }
 
@@ -4180,13 +4402,14 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           PigeonIMUConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
 }
 
 inline void
@@ -4203,16 +4426,16 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           PigeonIMU::FusionStatus& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("heading"),
-                                             nlohmann_json_t.heading);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("bIsValid"),
-                                             nlohmann_json_t.bIsValid);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("bIsFusing"),
-                                             nlohmann_json_t.bIsFusing);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("description"),
-                                             nlohmann_json_t.description);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("lastError"),
-                                             nlohmann_json_t.lastError);
+  wpi::adl_serializer<decltype(nlohmann_json_t.heading), void>::from_json(
+    nlohmann_json_j.at("heading"), nlohmann_json_t.heading);
+  wpi::adl_serializer<decltype(nlohmann_json_t.bIsValid), void>::from_json(
+    nlohmann_json_j.at("bIsValid"), nlohmann_json_t.bIsValid);
+  wpi::adl_serializer<decltype(nlohmann_json_t.bIsFusing), void>::from_json(
+    nlohmann_json_j.at("bIsFusing"), nlohmann_json_t.bIsFusing);
+  wpi::adl_serializer<decltype(nlohmann_json_t.description), void>::from_json(
+    nlohmann_json_j.at("description"), nlohmann_json_t.description);
+  wpi::adl_serializer<decltype(nlohmann_json_t.lastError), void>::from_json(
+    nlohmann_json_j.at("lastError"), nlohmann_json_t.lastError);
 }
 
 inline void
@@ -4235,27 +4458,30 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           PigeonIMU::GeneralStatus& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("state"),
-                                             nlohmann_json_t.state);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("currentMode"),
-                                             nlohmann_json_t.currentMode);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("calibrationError"), nlohmann_json_t.calibrationError);
-  wpi::adl_serializer<void, void>::from_json(
+  wpi::adl_serializer<decltype(nlohmann_json_t.state), void>::from_json(
+    nlohmann_json_j.at("state"), nlohmann_json_t.state);
+  wpi::adl_serializer<decltype(nlohmann_json_t.currentMode), void>::from_json(
+    nlohmann_json_j.at("currentMode"), nlohmann_json_t.currentMode);
+  wpi::adl_serializer<decltype(nlohmann_json_t.calibrationError),
+                      void>::from_json(nlohmann_json_j.at("calibrationError"),
+                                       nlohmann_json_t.calibrationError);
+  wpi::adl_serializer<decltype(nlohmann_json_t.bCalIsBooting), void>::from_json(
     nlohmann_json_j.at("bCalIsBooting"), nlohmann_json_t.bCalIsBooting);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("description"),
-                                             nlohmann_json_t.description);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("tempC"),
-                                             nlohmann_json_t.tempC);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("upTimeSec"),
-                                             nlohmann_json_t.upTimeSec);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("noMotionBiasCount"), nlohmann_json_t.noMotionBiasCount);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("tempCompensationCount"),
-    nlohmann_json_t.tempCompensationCount);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("lastError"),
-                                             nlohmann_json_t.lastError);
+  wpi::adl_serializer<decltype(nlohmann_json_t.description), void>::from_json(
+    nlohmann_json_j.at("description"), nlohmann_json_t.description);
+  wpi::adl_serializer<decltype(nlohmann_json_t.tempC), void>::from_json(
+    nlohmann_json_j.at("tempC"), nlohmann_json_t.tempC);
+  wpi::adl_serializer<decltype(nlohmann_json_t.upTimeSec), void>::from_json(
+    nlohmann_json_j.at("upTimeSec"), nlohmann_json_t.upTimeSec);
+  wpi::adl_serializer<decltype(nlohmann_json_t.noMotionBiasCount),
+                      void>::from_json(nlohmann_json_j.at("noMotionBiasCount"),
+                                       nlohmann_json_t.noMotionBiasCount);
+  wpi::adl_serializer<decltype(nlohmann_json_t.tempCompensationCount),
+                      void>::from_json(nlohmann_json_j
+                                         .at("tempCompensationCount"),
+                                       nlohmann_json_t.tempCompensationCount);
+  wpi::adl_serializer<decltype(nlohmann_json_t.lastError), void>::from_json(
+    nlohmann_json_j.at("lastError"), nlohmann_json_t.lastError);
 }
 
 inline void
@@ -4282,36 +4508,45 @@ inline void
 from_json(const wpi::json& nlohmann_json_j,
           CANCoderConfiguration& nlohmann_json_t)
 {
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam0"),
-                                             nlohmann_json_t.customParam0);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("customParam1"),
-                                             nlohmann_json_t.customParam1);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("enableOptimizations"),
-    nlohmann_json_t.enableOptimizations);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementPeriod"),
-    nlohmann_json_t.velocityMeasurementPeriod);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("velocityMeasurementWindow"),
-    nlohmann_json_t.velocityMeasurementWindow);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("absoluteSensorRange"),
-    nlohmann_json_t.absoluteSensorRange);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("magnetOffsetDegrees"),
-    nlohmann_json_t.magnetOffsetDegrees);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("sensorDirection"), nlohmann_json_t.sensorDirection);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("initializationStrategy"),
-    nlohmann_json_t.initializationStrategy);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("sensorCoefficient"), nlohmann_json_t.sensorCoefficient);
-  wpi::adl_serializer<void, void>::from_json(nlohmann_json_j.at("unitString"),
-                                             nlohmann_json_t.unitString);
-  wpi::adl_serializer<void, void>::from_json(
-    nlohmann_json_j.at("sensorTimeBase"), nlohmann_json_t.sensorTimeBase);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam0), void>::from_json(
+    nlohmann_json_j.at("customParam0"), nlohmann_json_t.customParam0);
+  wpi::adl_serializer<decltype(nlohmann_json_t.customParam1), void>::from_json(
+    nlohmann_json_j.at("customParam1"), nlohmann_json_t.customParam1);
+  wpi::adl_serializer<decltype(nlohmann_json_t.enableOptimizations),
+                      void>::from_json(nlohmann_json_j
+                                         .at("enableOptimizations"),
+                                       nlohmann_json_t.enableOptimizations);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementPeriod),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementPeriod"),
+                     nlohmann_json_t.velocityMeasurementPeriod);
+  wpi::adl_serializer<
+    decltype(nlohmann_json_t.velocityMeasurementWindow),
+    void>::from_json(nlohmann_json_j.at("velocityMeasurementWindow"),
+                     nlohmann_json_t.velocityMeasurementWindow);
+  wpi::adl_serializer<decltype(nlohmann_json_t.absoluteSensorRange),
+                      void>::from_json(nlohmann_json_j
+                                         .at("absoluteSensorRange"),
+                                       nlohmann_json_t.absoluteSensorRange);
+  wpi::adl_serializer<decltype(nlohmann_json_t.magnetOffsetDegrees),
+                      void>::from_json(nlohmann_json_j
+                                         .at("magnetOffsetDegrees"),
+                                       nlohmann_json_t.magnetOffsetDegrees);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sensorDirection),
+                      void>::from_json(nlohmann_json_j.at("sensorDirection"),
+                                       nlohmann_json_t.sensorDirection);
+  wpi::adl_serializer<decltype(nlohmann_json_t.initializationStrategy),
+                      void>::from_json(nlohmann_json_j
+                                         .at("initializationStrategy"),
+                                       nlohmann_json_t.initializationStrategy);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sensorCoefficient),
+                      void>::from_json(nlohmann_json_j.at("sensorCoefficient"),
+                                       nlohmann_json_t.sensorCoefficient);
+  wpi::adl_serializer<decltype(nlohmann_json_t.unitString), void>::from_json(
+    nlohmann_json_j.at("unitString"), nlohmann_json_t.unitString);
+  wpi::adl_serializer<decltype(nlohmann_json_t.sensorTimeBase),
+                      void>::from_json(nlohmann_json_j.at("sensorTimeBase"),
+                                       nlohmann_json_t.sensorTimeBase);
 }
 
 }
