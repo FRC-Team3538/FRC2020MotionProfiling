@@ -1,6 +1,7 @@
 #pragma once
 
 #include "lib/Configuration.hpp"
+#include "lib/ctreJsonSerde.hpp"
 #include <ctre/Phoenix.h>
 
 using namespace std;

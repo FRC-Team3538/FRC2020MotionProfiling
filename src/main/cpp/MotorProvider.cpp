@@ -1,5 +1,4 @@
 #include "MotorProvider.hpp"
-//#include "lib/ctreJsonSerde.hpp"
 
 VictorSPXStatusFrame::VictorSPXStatusFrame(VictorSPX& motor)
 {
@@ -111,8 +110,8 @@ to_json(wpi::json& json, const VictorSPXStatusFrame& status)
     { "activeTrajectoryPosition", status.activeTrajectoryPosition },
     { "activeTrajectoryVelocity", status.activeTrajectoryVelocity },
     { "activeTrajectoryArbFeedFwd", status.activeTrajectoryArbFeedFwd },
-    //{ "faults", status.faults },
-    //{ "stickyFaults", status.stickyFaults },
+    { "faults", status.faults },
+    { "stickyFaults", status.stickyFaults },
     { "resetOccured", status.resetOccured },
     { "lastError", status.lastError },
     { "controlMode", status.controlMode },
@@ -140,8 +139,8 @@ to_json(wpi::json& json, const TalonSRXStatusFrame& status)
     { "activeTrajectoryPosition", status.activeTrajectoryPosition },
     { "activeTrajectoryVelocity", status.activeTrajectoryVelocity },
     { "activeTrajectoryArbFeedFwd", status.activeTrajectoryArbFeedFwd },
-    //{ "faults", status.faults },
-    //{ "stickyFaults", status.stickyFaults },
+    { "faults", status.faults },
+    { "stickyFaults", status.stickyFaults },
     { "resetOccured", status.resetOccured },
     { "lastError", status.lastError },
     { "controlMode", status.controlMode },

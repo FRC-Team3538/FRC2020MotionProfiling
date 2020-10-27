@@ -1,0 +1,45 @@
+You need to have downloaded all the following dependencies to expand the macros:
+    - ctre api-cpp-<version>-headers
+    - ctre core-<version>-headers
+    - ctre cci-<version>-headers
+    - ctre wpiapi-cpp-<version>-headers
+    - wpilib wpilibc-cpp-<version>-headers
+    - wpilib wpiutil-cpp-<version>-headers
+    - wpilib ntcore-cpp-<version>-headers
+    - wpilib hal-cpp-<version>-headers
+
+Steps to create a valid generated serializer file:
+1. gcc -E ctre_spec_gen/ctreJsonSerde.hpp -I/path/to/api-cpp-5.18.3-headers/ -I/path/to/core-5.18.3-headers/ -I/path/to/cci-5.18.3-headers/ -I/path/to/wpiapi-cpp-5.18.3-headers/ -I/path/to/wpilibc-cpp-2020.3.2-headers/ -I/path/to/wpiutil-cpp-2020.3.2-headers/ -I/path/to/ntcore-cpp-2020.3.2-headers/ -I/path/to/hal-cpp-2020.3.2-headers/
+    - Take only the last few thousand lines - this starts with:
+        #pragma GCC diagnostic pop
+        # 6 "src/main/include/lib/ctreJsonSerde.hpp" 2
+
+2. Replace first two lines with:
+    #pragma once
+    #include <ctre/Phoenix.h>
+
+
+3. Replace all instances of nlohmann::json with wpi::json
+    - Simple text find/replace
+
+
+3. Replace all get_to calls with something else
+    - TODO - when was this implemented in nlohmann/json and what did it replace?
+    - This is going to be a complicated regex to start but it'll probably be more work :(
+
+    void from_json(const json& j, person& p) {	            |   void from_json(const json& j, person& p) {
+        p.name = j.at("name").get<std::string>();	        |       j.at("name").get_to(p.name);
+        p.address = j.at("address").get<std::string>();	    |       j.at("address").get_to(p.address);
+        p.age = j.at("age").get<int>();	                    |       j.at("age").get_to(p.age);
+    }	                                                    |   }
+
+    NOTE:
+        The function is equivalent to executing
+        @code {.cpp}
+        ValueType v;
+        JSONSerializer<ValueType>::from_json(*this, v);
+        @endcode
+
+    - apparently this find/replace works and I am super not convinced I got it right.
+    - this is sus af
+        /(.*)(?:\s|\n)*.get_to\((.*)\)/wpi::adl_serializer<void, void>::from_json($1, $2)/
