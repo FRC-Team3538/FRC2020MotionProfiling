@@ -1,10 +1,12 @@
 #pragma once
 
+#include "flatbuffers/flatbuffers.h"
 #include "lib/Configuration.hpp"
 #include "lib/ctreJsonSerde.hpp"
 #include "proto/StatusFrame_generated.h"
-#include "flatbuffers/flatbuffers.h"
 #include <ctre/Phoenix.h>
+#include <frc/Compressor.h>
+#include <frc/PowerDistributionPanel.h>
 
 using namespace std;
 
@@ -24,86 +26,10 @@ private:
   VictorSPX driveLeft2{ kLeft2 };
   VictorSPX driveRight2{ kRight2 };
 
-  rj::CTREMotorStatusFrame GetMotorStatusFrame(TalonSRX& motor) {
-    Faults faults;
-    motor.GetFaults(faults);
-
-    return rj::CTREMotorStatusFrame{
-      motor.GetFirmwareVersion(),
-      motor.GetBaseID(),
-      motor.GetDeviceID(),
-      motor.GetOutputCurrent(),
-      motor.GetBusVoltage(),
-      motor.GetMotorOutputPercent(),
-      motor.GetMotorOutputVoltage(),
-      motor.GetTemperature(),
-      motor.GetSelectedSensorPosition(),
-      motor.GetSelectedSensorVelocity(),
-      motor.GetClosedLoopError(),
-      motor.GetIntegralAccumulator(),
-      motor.GetErrorDerivative(),
-      motor.GetClosedLoopTarget(),
-      motor.GetActiveTrajectoryPosition(),
-      motor.GetActiveTrajectoryVelocity(),
-      motor.GetActiveTrajectoryArbFeedFwd(),
-      faults.ToBitfield(),
-      motor.HasResetOccurred(),
-      motor.GetLastError(),
-      static_cast<int32_t>(motor.GetControlMode()),
-      motor.GetStatorCurrent(),
-      motor.GetSupplyCurrent(),
-      motor.IsFwdLimitSwitchClosed(),
-      motor.IsRevLimitSwitchClosed()
-    };
-  }
-
-  rj::CTREMotorStatusFrame GetMotorStatusFrame(VictorSPX& motor) {
-    Faults faults;
-    motor.GetFaults(faults);
-
-    return rj::CTREMotorStatusFrame{
-      motor.GetFirmwareVersion(),
-      motor.GetBaseID(),
-      motor.GetDeviceID(),
-      0.0,
-      motor.GetBusVoltage(),
-      motor.GetMotorOutputPercent(),
-      motor.GetMotorOutputVoltage(),
-      motor.GetTemperature(),
-      motor.GetSelectedSensorPosition(),
-      motor.GetSelectedSensorVelocity(),
-      motor.GetClosedLoopError(),
-      motor.GetIntegralAccumulator(),
-      motor.GetErrorDerivative(),
-      motor.GetClosedLoopTarget(),
-      motor.GetActiveTrajectoryPosition(),
-      motor.GetActiveTrajectoryVelocity(),
-      motor.GetActiveTrajectoryArbFeedFwd(),
-      faults.ToBitfield(),
-      motor.HasResetOccurred(),
-      motor.GetLastError(),
-      static_cast<int32_t>(motor.GetControlMode()),
-      0.0,
-      0.0,
-      0,
-      0
-    };
-  }
+  frc::PowerDistributionPanel pdp{};
+  frc::Compressor pcm{};
 
 public:
-  flatbuffers::Offset<rj::StatusFrameCollection> GetExternalStatusFrame(flatbuffers::FlatBufferBuilder &fbb)
-  {
-    auto driveLeft1StatusFrame = GetMotorStatusFrame(driveLeft1);
-    auto driveLeft2StatusFrame = GetMotorStatusFrame(driveLeft2);
-    auto driveRight1StatusFrame = GetMotorStatusFrame(driveRight1);
-    auto driveRight2StatusFrame = GetMotorStatusFrame(driveRight2);
-    
-    return rj::CreateStatusFrameCollection(
-      fbb,
-      &driveLeft1StatusFrame,
-      &driveLeft2StatusFrame,
-      &driveRight1StatusFrame,
-      &driveRight2StatusFrame
-    );
-  }
+  flatbuffers::Offset<rj::StatusFrameCollection> GetExternalStatusFrame(
+    flatbuffers::FlatBufferBuilder& fbb);
 };

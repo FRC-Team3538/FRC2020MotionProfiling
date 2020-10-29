@@ -30,10 +30,48 @@ struct CTREMotorStatusFrame {
   revLimitSwitchClosed:int;
 }
 
+struct PDPStatusFrame {
+  module:int;
+  voltage:double;
+  temperature:double;
+  channel0Current:double;
+  channel1Current:double;
+  channel2Current:double;
+  channel3Current:double;
+  channel4Current:double;
+  channel5Current:double;
+  channel6Current:double;
+  channel7Current:double;
+  channel8Current:double;
+  channel9Current:double;
+  channel10Current:double;
+  channel11Current:double;
+  channel12Current:double;
+  channel13Current:double;
+  channel14Current:double;
+  channel15Current:double;
+  totalCurrent:double;
+  totalPower:double;
+  totalEnergy:double;
+}
+
+struct PCMStatusFrame {
+  module:int;
+  enabled:bool;
+  pressureSwitchValve:bool;
+  compressorCurrent:double;
+  closedLoopControl:bool;
+  compressorCurrentTooHighFault:bool;
+  compressorShortedFault:bool;
+  compressorNotConnectedFault:bool;
+}
+
 table StatusFrameCollection {
   driveLeft1:rj.CTREMotorStatusFrame;
   driveLeft2:rj.CTREMotorStatusFrame;
   driveRight1:rj.CTREMotorStatusFrame;
   driveRight2:rj.CTREMotorStatusFrame;
+  powerDistributionPanel:rj.PDPStatusFrame;
+  pneumaticsControlModule:rj.PCMStatusFrame;
 }
 
