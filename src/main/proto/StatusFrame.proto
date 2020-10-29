@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package rj;
+
+message CTREMotorStatusFrame {
+  /*  identifying info */
+  int32 firmwareVersion = 1;
+  int32 baseID = 2;
+  int32 deviceID = 3;
+
+  /*  status frame */
+  double outputCurrent = 4;
+  double busVoltage = 5;
+  double outputPercent = 6;
+  double outputVoltage = 7;
+  double temperature = 8;
+
+  int32 selectedSensorPosition = 9;
+  int32 selectedSensorVelocity = 10;
+
+  int32 closedLoopError = 11;
+  double integralAccumulator = 12;
+  double errorDerivative = 13;
+
+  double closedLoopTarget = 14;
+  int32 activeTrajectoryPosition = 15;
+  int32 activeTrajectoryVelocity = 16;
+  double activeTrajectoryArbFeedFwd = 17;
+
+  int32 faults = 18;
+  bool resetOccured = 19;
+  int32 lastError = 20;
+  int32 controlMode = 21;
+
+  double statorCurrent = 22;
+  double supplyCurrent = 23;
+  int32 fwdLimitSwitchClosed = 24;
+  int32 revLimitSwitchClosed = 25;
+}
+
+message StatusFrameCollection {
+  CTREMotorStatusFrame driveLeft1 = 1;
+  CTREMotorStatusFrame driveLeft2 = 2;
+  CTREMotorStatusFrame driveRight1 = 3;
+  CTREMotorStatusFrame driveRight2 = 4;
+}

@@ -1,0 +1,39 @@
+// Generated from StatusFrame.proto
+
+namespace rj;
+
+struct CTREMotorStatusFrame {
+  firmwareVersion:int;
+  baseID:int;
+  deviceID:int;
+  outputCurrent:double;
+  busVoltage:double;
+  outputPercent:double;
+  outputVoltage:double;
+  temperature:double;
+  selectedSensorPosition:int;
+  selectedSensorVelocity:int;
+  closedLoopError:int;
+  integralAccumulator:double;
+  errorDerivative:double;
+  closedLoopTarget:double;
+  activeTrajectoryPosition:int;
+  activeTrajectoryVelocity:int;
+  activeTrajectoryArbFeedFwd:double;
+  faults:int;
+  resetOccured:bool;
+  lastError:int;
+  controlMode:int;
+  statorCurrent:double;
+  supplyCurrent:double;
+  fwdLimitSwitchClosed:int;
+  revLimitSwitchClosed:int;
+}
+
+table StatusFrameCollection {
+  driveLeft1:rj.CTREMotorStatusFrame;
+  driveLeft2:rj.CTREMotorStatusFrame;
+  driveRight1:rj.CTREMotorStatusFrame;
+  driveRight2:rj.CTREMotorStatusFrame;
+}
+

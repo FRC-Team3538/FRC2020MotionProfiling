@@ -40,6 +40,10 @@ Steps to create a valid generated serializer file:
         JSONSerializer<ValueType>::from_json(*this, v);
         @endcode
 
-    - apparently this find/replace works and I am super not convinced I got it right.
+    - Proper solution requires knowing the type information for all of the possible fields, which is difficult, to say the least. 
+    - BUT, it would give us the proper backport we need.
+    - That's probably a longer term project where we'll write a python script or something to generate valid c++.
+    - apparently this find/replace works and I am super not convinced it's correct.
+    - REGEX SHOULD NOT BE THIS POWERFUL, C++
     - this is sus af
-        /(.*)(?:\s|\n)*.get_to\((.*)\)/wpi::adl_serializer<void, void>::from_json($1, $2)/
+        /(.*)(?:\s|\n)*.get_to\((.*)\)/wpi::adl_serializer<decltype($2), void>::from_json($1, $2)/

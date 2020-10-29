@@ -3,12 +3,12 @@
 #include "subsystems/DS.hpp"
 #include "subsystems/Drivebase.hpp"
 
-#include "MotorProvider.hpp"
+#include "ExternalDeviceProvider.hpp"
 
 class Robotmap
 {
 public:
-  MotorProvider motors;
+  ExternalDeviceProvider motors;
 
   DS ds;
   Drivebase drivebase;

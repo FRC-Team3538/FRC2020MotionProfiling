@@ -6,11 +6,17 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Robot.hpp"
+#include "flatbuffers/flatbuffers.h"
+#include <iostream>
 
 void
 Robot::RobotInit()
 {
   IO.drivebase.ResetOdometry();
+  //wpi::outs() << sizeof(rj::StatusFrameCollection) << "\n";
+  flatbuffers::FlatBufferBuilder fbb{};
+  IO.motors.GetExternalStatusFrame(fbb);
+  std::cout << fbb.GetSize() << std::endl;
 }
 void
 Robot::RobotPeriodic()
@@ -18,6 +24,8 @@ Robot::RobotPeriodic()
 
   IO.drivebase.UpdateOdometry();
   // IO.drivebase.LogState();
+  //wpi::outs() << IO.motors.GetExternalStatusFrame() << "\n";
+
 }
 void
 Robot::DisabledInit()
