@@ -20,6 +20,7 @@ class ExternalDeviceProvider
 private:
   Configuration config;
 
+public:
   TalonSRX driveLeft1{ kLeft1 };
   TalonSRX driveRight1{ kRight1 };
 

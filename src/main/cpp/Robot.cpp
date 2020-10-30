@@ -7,22 +7,45 @@
 
 #include "Robot.hpp"
 #include "flatbuffers/flatbuffers.h"
-#include <iostream>
 
 void
 Robot::RobotInit()
 {
   IO.drivebase.ResetOdometry();
-  // wpi::outs() << sizeof(rj::StatusFrameCollection) << "\n";
-  flatbuffers::FlatBufferBuilder fbb{};
-  IO.motors.GetExternalStatusFrame(fbb);
-  std::cout << fbb.GetSize() << std::endl;
+  sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+  if (sockfd < 0) {
+    std::cout << "could not create socket! " << strerror(errno) << std::endl;
+    return;
+  }
+
+  address.sin_family = AF_INET;
+  address.sin_port = htons(5801);
+  if (inet_aton("10.83.32.62", &address.sin_addr) == 0) {
+    std::cout << "inet_aton failed! " << strerror(errno) << std::endl;
+    return;
+  }
 }
 void
 Robot::RobotPeriodic()
 {
-
   IO.drivebase.UpdateOdometry();
+
+  if (sockfd) {
+    fbb.Reset();
+    auto offset = IO.motors.GetExternalStatusFrame(fbb);
+    fbb.Finish(offset);
+    auto buffer = fbb.Release();
+
+    if (sendto(sockfd,
+               buffer.data(),
+               buffer.size(),
+               0,
+               (const struct sockaddr*)&address,
+               sizeof(address)) == -1) {
+      std::cout << "sendto failed! " << strerror(errno) << std::endl;
+    }
+  }
+
   // IO.drivebase.LogState();
   // wpi::outs() << IO.motors.GetExternalStatusFrame() << "\n";
 }

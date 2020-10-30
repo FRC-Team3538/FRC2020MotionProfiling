@@ -6,31 +6,36 @@ GetMotorStatusFrame(TalonSRX& motor)
   Faults faults;
   motor.GetFaults(faults);
 
-  return rj::CTREMotorStatusFrame{ motor.GetFirmwareVersion(),
-                                   motor.GetBaseID(),
-                                   motor.GetDeviceID(),
-                                   motor.GetOutputCurrent(),
-                                   motor.GetBusVoltage(),
-                                   motor.GetMotorOutputPercent(),
-                                   motor.GetMotorOutputVoltage(),
-                                   motor.GetTemperature(),
-                                   motor.GetSelectedSensorPosition(),
-                                   motor.GetSelectedSensorVelocity(),
-                                   motor.GetClosedLoopError(),
-                                   motor.GetIntegralAccumulator(),
-                                   motor.GetErrorDerivative(),
-                                   motor.GetClosedLoopTarget(),
-                                   motor.GetActiveTrajectoryPosition(),
-                                   motor.GetActiveTrajectoryVelocity(),
-                                   motor.GetActiveTrajectoryArbFeedFwd(),
-                                   faults.ToBitfield(),
-                                   motor.HasResetOccurred(),
-                                   motor.GetLastError(),
-                                   static_cast<int32_t>(motor.GetControlMode()),
-                                   motor.GetStatorCurrent(),
-                                   motor.GetSupplyCurrent(),
-                                   motor.IsFwdLimitSwitchClosed(),
-                                   motor.IsRevLimitSwitchClosed() };
+  return rj::CTREMotorStatusFrame{
+    motor.GetFirmwareVersion(),
+    motor.GetBaseID(),
+    motor.GetDeviceID(),
+    motor.GetOutputCurrent(),
+    motor.GetBusVoltage(),
+    motor.GetMotorOutputPercent(),
+    motor.GetMotorOutputVoltage(),
+    motor.GetTemperature(),
+    motor.GetSelectedSensorPosition(),
+    motor.GetSelectedSensorVelocity(),
+    motor.GetClosedLoopError(),
+    motor.GetIntegralAccumulator(),
+    motor.GetErrorDerivative(),
+    0, // TODO: only call this for valid modes. motor.GetClosedLoopTarget(),
+    0, // TODO: only call this for valid modes.
+       // motor.GetActiveTrajectoryPosition(),
+    0, // TODO: only call this for valid modes.
+       // motor.GetActiveTrajectoryVelocity(),
+    0, // TODO: only call this for valid modes.
+       // motor.GetActiveTrajectoryArbFeedFwd(),
+    faults.ToBitfield(),
+    motor.HasResetOccurred(),
+    motor.GetLastError(),
+    static_cast<int32_t>(motor.GetControlMode()),
+    motor.GetStatorCurrent(),
+    motor.GetSupplyCurrent(),
+    motor.IsFwdLimitSwitchClosed(),
+    motor.IsRevLimitSwitchClosed()
+  };
 }
 
 rj::CTREMotorStatusFrame
@@ -39,31 +44,36 @@ GetMotorStatusFrame(VictorSPX& motor)
   Faults faults;
   motor.GetFaults(faults);
 
-  return rj::CTREMotorStatusFrame{ motor.GetFirmwareVersion(),
-                                   motor.GetBaseID(),
-                                   motor.GetDeviceID(),
-                                   0.0,
-                                   motor.GetBusVoltage(),
-                                   motor.GetMotorOutputPercent(),
-                                   motor.GetMotorOutputVoltage(),
-                                   motor.GetTemperature(),
-                                   motor.GetSelectedSensorPosition(),
-                                   motor.GetSelectedSensorVelocity(),
-                                   motor.GetClosedLoopError(),
-                                   motor.GetIntegralAccumulator(),
-                                   motor.GetErrorDerivative(),
-                                   motor.GetClosedLoopTarget(),
-                                   motor.GetActiveTrajectoryPosition(),
-                                   motor.GetActiveTrajectoryVelocity(),
-                                   motor.GetActiveTrajectoryArbFeedFwd(),
-                                   faults.ToBitfield(),
-                                   motor.HasResetOccurred(),
-                                   motor.GetLastError(),
-                                   static_cast<int32_t>(motor.GetControlMode()),
-                                   0.0,
-                                   0.0,
-                                   0,
-                                   0 };
+  return rj::CTREMotorStatusFrame{
+    motor.GetFirmwareVersion(),
+    motor.GetBaseID(),
+    motor.GetDeviceID(),
+    0.0,
+    motor.GetBusVoltage(),
+    motor.GetMotorOutputPercent(),
+    motor.GetMotorOutputVoltage(),
+    motor.GetTemperature(),
+    motor.GetSelectedSensorPosition(),
+    motor.GetSelectedSensorVelocity(),
+    motor.GetClosedLoopError(),
+    motor.GetIntegralAccumulator(),
+    motor.GetErrorDerivative(),
+    0, // TODO: only call this for valid modes. motor.GetClosedLoopTarget(),
+    0, // TODO: only call this for valid modes.
+       // motor.GetActiveTrajectoryPosition(),
+    0, // TODO: only call this for valid modes.
+       // motor.GetActiveTrajectoryVelocity(),
+    0, // TODO: only call this for valid modes.
+       // motor.GetActiveTrajectoryArbFeedFwd(),
+    faults.ToBitfield(),
+    motor.HasResetOccurred(),
+    motor.GetLastError(),
+    static_cast<int32_t>(motor.GetControlMode()),
+    0.0,
+    0.0,
+    0,
+    0
+  };
 }
 
 rj::PDPStatusFrame
