@@ -13,540 +13,882 @@ struct PDPStatusFrame;
 
 struct PCMStatusFrame;
 
-struct StatusFrameCollection;
+struct StatusFrameHolder;
 
-FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8)
-CTREMotorStatusFrame FLATBUFFERS_FINAL_CLASS
+enum StatusFrame
 {
-private:
-  int32_t firmwareVersion_;
-  int32_t baseID_;
-  int32_t deviceID_;
-  int32_t padding0__;
-  double outputCurrent_;
-  double busVoltage_;
-  double outputPercent_;
-  double outputVoltage_;
-  double temperature_;
-  int32_t selectedSensorPosition_;
-  int32_t selectedSensorVelocity_;
-  int32_t closedLoopError_;
-  int32_t padding1__;
-  double integralAccumulator_;
-  double errorDerivative_;
-  double closedLoopTarget_;
-  int32_t activeTrajectoryPosition_;
-  int32_t activeTrajectoryVelocity_;
-  double activeTrajectoryArbFeedFwd_;
-  int32_t faults_;
-  uint8_t resetOccured_;
-  int8_t padding2__;
-  int16_t padding3__;
-  int32_t lastError_;
-  int32_t controlMode_;
-  double statorCurrent_;
-  double supplyCurrent_;
-  int32_t fwdLimitSwitchClosed_;
-  int32_t revLimitSwitchClosed_;
-
-public:
-  CTREMotorStatusFrame()
-  {
-    memset(static_cast<void*>(this), 0, sizeof(CTREMotorStatusFrame));
-  }
-  CTREMotorStatusFrame(int32_t _firmwareVersion,
-                       int32_t _baseID,
-                       int32_t _deviceID,
-                       double _outputCurrent,
-                       double _busVoltage,
-                       double _outputPercent,
-                       double _outputVoltage,
-                       double _temperature,
-                       int32_t _selectedSensorPosition,
-                       int32_t _selectedSensorVelocity,
-                       int32_t _closedLoopError,
-                       double _integralAccumulator,
-                       double _errorDerivative,
-                       double _closedLoopTarget,
-                       int32_t _activeTrajectoryPosition,
-                       int32_t _activeTrajectoryVelocity,
-                       double _activeTrajectoryArbFeedFwd,
-                       int32_t _faults,
-                       bool _resetOccured,
-                       int32_t _lastError,
-                       int32_t _controlMode,
-                       double _statorCurrent,
-                       double _supplyCurrent,
-                       int32_t _fwdLimitSwitchClosed,
-                       int32_t _revLimitSwitchClosed)
-    : firmwareVersion_(flatbuffers::EndianScalar(_firmwareVersion))
-    , baseID_(flatbuffers::EndianScalar(_baseID))
-    , deviceID_(flatbuffers::EndianScalar(_deviceID))
-    , padding0__(0)
-    , outputCurrent_(flatbuffers::EndianScalar(_outputCurrent))
-    , busVoltage_(flatbuffers::EndianScalar(_busVoltage))
-    , outputPercent_(flatbuffers::EndianScalar(_outputPercent))
-    , outputVoltage_(flatbuffers::EndianScalar(_outputVoltage))
-    , temperature_(flatbuffers::EndianScalar(_temperature))
-    , selectedSensorPosition_(
-        flatbuffers::EndianScalar(_selectedSensorPosition))
-    , selectedSensorVelocity_(
-        flatbuffers::EndianScalar(_selectedSensorVelocity))
-    , closedLoopError_(flatbuffers::EndianScalar(_closedLoopError))
-    , padding1__(0)
-    , integralAccumulator_(flatbuffers::EndianScalar(_integralAccumulator))
-    , errorDerivative_(flatbuffers::EndianScalar(_errorDerivative))
-    , closedLoopTarget_(flatbuffers::EndianScalar(_closedLoopTarget))
-    , activeTrajectoryPosition_(
-        flatbuffers::EndianScalar(_activeTrajectoryPosition))
-    , activeTrajectoryVelocity_(
-        flatbuffers::EndianScalar(_activeTrajectoryVelocity))
-    , activeTrajectoryArbFeedFwd_(
-        flatbuffers::EndianScalar(_activeTrajectoryArbFeedFwd))
-    , faults_(flatbuffers::EndianScalar(_faults))
-    , resetOccured_(
-        flatbuffers::EndianScalar(static_cast<uint8_t>(_resetOccured)))
-    , padding2__(0)
-    , padding3__(0)
-    , lastError_(flatbuffers::EndianScalar(_lastError))
-    , controlMode_(flatbuffers::EndianScalar(_controlMode))
-    , statorCurrent_(flatbuffers::EndianScalar(_statorCurrent))
-    , supplyCurrent_(flatbuffers::EndianScalar(_supplyCurrent))
-    , fwdLimitSwitchClosed_(flatbuffers::EndianScalar(_fwdLimitSwitchClosed))
-    , revLimitSwitchClosed_(flatbuffers::EndianScalar(_revLimitSwitchClosed))
-  {
-    (void)padding0__;
-    (void)padding1__;
-    (void)padding2__;
-    (void)padding3__;
-  }
-  int32_t firmwareVersion() const
-  {
-    return flatbuffers::EndianScalar(firmwareVersion_);
-  }
-  int32_t baseID() const { return flatbuffers::EndianScalar(baseID_); }
-  int32_t deviceID() const { return flatbuffers::EndianScalar(deviceID_); }
-  double outputCurrent() const
-  {
-    return flatbuffers::EndianScalar(outputCurrent_);
-  }
-  double busVoltage() const { return flatbuffers::EndianScalar(busVoltage_); }
-  double outputPercent() const
-  {
-    return flatbuffers::EndianScalar(outputPercent_);
-  }
-  double outputVoltage() const
-  {
-    return flatbuffers::EndianScalar(outputVoltage_);
-  }
-  double temperature() const { return flatbuffers::EndianScalar(temperature_); }
-  int32_t selectedSensorPosition() const
-  {
-    return flatbuffers::EndianScalar(selectedSensorPosition_);
-  }
-  int32_t selectedSensorVelocity() const
-  {
-    return flatbuffers::EndianScalar(selectedSensorVelocity_);
-  }
-  int32_t closedLoopError() const
-  {
-    return flatbuffers::EndianScalar(closedLoopError_);
-  }
-  double integralAccumulator() const
-  {
-    return flatbuffers::EndianScalar(integralAccumulator_);
-  }
-  double errorDerivative() const
-  {
-    return flatbuffers::EndianScalar(errorDerivative_);
-  }
-  double closedLoopTarget() const
-  {
-    return flatbuffers::EndianScalar(closedLoopTarget_);
-  }
-  int32_t activeTrajectoryPosition() const
-  {
-    return flatbuffers::EndianScalar(activeTrajectoryPosition_);
-  }
-  int32_t activeTrajectoryVelocity() const
-  {
-    return flatbuffers::EndianScalar(activeTrajectoryVelocity_);
-  }
-  double activeTrajectoryArbFeedFwd() const
-  {
-    return flatbuffers::EndianScalar(activeTrajectoryArbFeedFwd_);
-  }
-  int32_t faults() const { return flatbuffers::EndianScalar(faults_); }
-  bool resetOccured() const
-  {
-    return flatbuffers::EndianScalar(resetOccured_) != 0;
-  }
-  int32_t lastError() const { return flatbuffers::EndianScalar(lastError_); }
-  int32_t controlMode() const
-  {
-    return flatbuffers::EndianScalar(controlMode_);
-  }
-  double statorCurrent() const
-  {
-    return flatbuffers::EndianScalar(statorCurrent_);
-  }
-  double supplyCurrent() const
-  {
-    return flatbuffers::EndianScalar(supplyCurrent_);
-  }
-  int32_t fwdLimitSwitchClosed() const
-  {
-    return flatbuffers::EndianScalar(fwdLimitSwitchClosed_);
-  }
-  int32_t revLimitSwitchClosed() const
-  {
-    return flatbuffers::EndianScalar(revLimitSwitchClosed_);
-  }
+  StatusFrame_NONE = 0,
+  StatusFrame_CTREMotorStatusFrame = 1,
+  StatusFrame_PDPStatusFrame = 2,
+  StatusFrame_PCMStatusFrame = 3,
+  StatusFrame_MIN = StatusFrame_NONE,
+  StatusFrame_MAX = StatusFrame_PCMStatusFrame
 };
-FLATBUFFERS_STRUCT_END(CTREMotorStatusFrame, 152);
 
-FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8) PDPStatusFrame FLATBUFFERS_FINAL_CLASS
+inline const StatusFrame (&EnumValuesStatusFrame())[4]
 {
-private:
-  int32_t module__;
-  int32_t padding0__;
-  double voltage_;
-  double temperature_;
-  double channel0Current_;
-  double channel1Current_;
-  double channel2Current_;
-  double channel3Current_;
-  double channel4Current_;
-  double channel5Current_;
-  double channel6Current_;
-  double channel7Current_;
-  double channel8Current_;
-  double channel9Current_;
-  double channel10Current_;
-  double channel11Current_;
-  double channel12Current_;
-  double channel13Current_;
-  double channel14Current_;
-  double channel15Current_;
-  double totalCurrent_;
-  double totalPower_;
-  double totalEnergy_;
+  static const StatusFrame values[] = { StatusFrame_NONE,
+                                        StatusFrame_CTREMotorStatusFrame,
+                                        StatusFrame_PDPStatusFrame,
+                                        StatusFrame_PCMStatusFrame };
+  return values;
+}
 
-public:
-  PDPStatusFrame()
-  {
-    memset(static_cast<void*>(this), 0, sizeof(PDPStatusFrame));
-  }
-  PDPStatusFrame(int32_t _module_,
-                 double _voltage,
-                 double _temperature,
-                 double _channel0Current,
-                 double _channel1Current,
-                 double _channel2Current,
-                 double _channel3Current,
-                 double _channel4Current,
-                 double _channel5Current,
-                 double _channel6Current,
-                 double _channel7Current,
-                 double _channel8Current,
-                 double _channel9Current,
-                 double _channel10Current,
-                 double _channel11Current,
-                 double _channel12Current,
-                 double _channel13Current,
-                 double _channel14Current,
-                 double _channel15Current,
-                 double _totalCurrent,
-                 double _totalPower,
-                 double _totalEnergy)
-    : module__(flatbuffers::EndianScalar(_module_))
-    , padding0__(0)
-    , voltage_(flatbuffers::EndianScalar(_voltage))
-    , temperature_(flatbuffers::EndianScalar(_temperature))
-    , channel0Current_(flatbuffers::EndianScalar(_channel0Current))
-    , channel1Current_(flatbuffers::EndianScalar(_channel1Current))
-    , channel2Current_(flatbuffers::EndianScalar(_channel2Current))
-    , channel3Current_(flatbuffers::EndianScalar(_channel3Current))
-    , channel4Current_(flatbuffers::EndianScalar(_channel4Current))
-    , channel5Current_(flatbuffers::EndianScalar(_channel5Current))
-    , channel6Current_(flatbuffers::EndianScalar(_channel6Current))
-    , channel7Current_(flatbuffers::EndianScalar(_channel7Current))
-    , channel8Current_(flatbuffers::EndianScalar(_channel8Current))
-    , channel9Current_(flatbuffers::EndianScalar(_channel9Current))
-    , channel10Current_(flatbuffers::EndianScalar(_channel10Current))
-    , channel11Current_(flatbuffers::EndianScalar(_channel11Current))
-    , channel12Current_(flatbuffers::EndianScalar(_channel12Current))
-    , channel13Current_(flatbuffers::EndianScalar(_channel13Current))
-    , channel14Current_(flatbuffers::EndianScalar(_channel14Current))
-    , channel15Current_(flatbuffers::EndianScalar(_channel15Current))
-    , totalCurrent_(flatbuffers::EndianScalar(_totalCurrent))
-    , totalPower_(flatbuffers::EndianScalar(_totalPower))
-    , totalEnergy_(flatbuffers::EndianScalar(_totalEnergy))
-  {
-    (void)padding0__;
-  }
-  int32_t module_() const { return flatbuffers::EndianScalar(module__); }
-  double voltage() const { return flatbuffers::EndianScalar(voltage_); }
-  double temperature() const { return flatbuffers::EndianScalar(temperature_); }
-  double channel0Current() const
-  {
-    return flatbuffers::EndianScalar(channel0Current_);
-  }
-  double channel1Current() const
-  {
-    return flatbuffers::EndianScalar(channel1Current_);
-  }
-  double channel2Current() const
-  {
-    return flatbuffers::EndianScalar(channel2Current_);
-  }
-  double channel3Current() const
-  {
-    return flatbuffers::EndianScalar(channel3Current_);
-  }
-  double channel4Current() const
-  {
-    return flatbuffers::EndianScalar(channel4Current_);
-  }
-  double channel5Current() const
-  {
-    return flatbuffers::EndianScalar(channel5Current_);
-  }
-  double channel6Current() const
-  {
-    return flatbuffers::EndianScalar(channel6Current_);
-  }
-  double channel7Current() const
-  {
-    return flatbuffers::EndianScalar(channel7Current_);
-  }
-  double channel8Current() const
-  {
-    return flatbuffers::EndianScalar(channel8Current_);
-  }
-  double channel9Current() const
-  {
-    return flatbuffers::EndianScalar(channel9Current_);
-  }
-  double channel10Current() const
-  {
-    return flatbuffers::EndianScalar(channel10Current_);
-  }
-  double channel11Current() const
-  {
-    return flatbuffers::EndianScalar(channel11Current_);
-  }
-  double channel12Current() const
-  {
-    return flatbuffers::EndianScalar(channel12Current_);
-  }
-  double channel13Current() const
-  {
-    return flatbuffers::EndianScalar(channel13Current_);
-  }
-  double channel14Current() const
-  {
-    return flatbuffers::EndianScalar(channel14Current_);
-  }
-  double channel15Current() const
-  {
-    return flatbuffers::EndianScalar(channel15Current_);
-  }
-  double totalCurrent() const
-  {
-    return flatbuffers::EndianScalar(totalCurrent_);
-  }
-  double totalPower() const { return flatbuffers::EndianScalar(totalPower_); }
-  double totalEnergy() const { return flatbuffers::EndianScalar(totalEnergy_); }
-};
-FLATBUFFERS_STRUCT_END(PDPStatusFrame, 176);
-
-FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8) PCMStatusFrame FLATBUFFERS_FINAL_CLASS
+inline const char* const*
+EnumNamesStatusFrame()
 {
-private:
-  int32_t module__;
-  uint8_t enabled_;
-  uint8_t pressureSwitchValve_;
-  int16_t padding0__;
-  double compressorCurrent_;
-  uint8_t closedLoopControl_;
-  uint8_t compressorCurrentTooHighFault_;
-  uint8_t compressorShortedFault_;
-  uint8_t compressorNotConnectedFault_;
-  int32_t padding1__;
+  static const char* const names[] = {
+    "NONE", "CTREMotorStatusFrame", "PDPStatusFrame", "PCMStatusFrame", nullptr
+  };
+  return names;
+}
 
-public:
-  PCMStatusFrame()
-  {
-    memset(static_cast<void*>(this), 0, sizeof(PCMStatusFrame));
-  }
-  PCMStatusFrame(int32_t _module_,
-                 bool _enabled,
-                 bool _pressureSwitchValve,
-                 double _compressorCurrent,
-                 bool _closedLoopControl,
-                 bool _compressorCurrentTooHighFault,
-                 bool _compressorShortedFault,
-                 bool _compressorNotConnectedFault)
-    : module__(flatbuffers::EndianScalar(_module_))
-    , enabled_(flatbuffers::EndianScalar(static_cast<uint8_t>(_enabled)))
-    , pressureSwitchValve_(
-        flatbuffers::EndianScalar(static_cast<uint8_t>(_pressureSwitchValve)))
-    , padding0__(0)
-    , compressorCurrent_(flatbuffers::EndianScalar(_compressorCurrent))
-    , closedLoopControl_(
-        flatbuffers::EndianScalar(static_cast<uint8_t>(_closedLoopControl)))
-    , compressorCurrentTooHighFault_(flatbuffers::EndianScalar(
-        static_cast<uint8_t>(_compressorCurrentTooHighFault)))
-    , compressorShortedFault_(flatbuffers::EndianScalar(
-        static_cast<uint8_t>(_compressorShortedFault)))
-    , compressorNotConnectedFault_(flatbuffers::EndianScalar(
-        static_cast<uint8_t>(_compressorNotConnectedFault)))
-    , padding1__(0)
-  {
-    (void)padding0__;
-    (void)padding1__;
-  }
-  int32_t module_() const { return flatbuffers::EndianScalar(module__); }
-  bool enabled() const { return flatbuffers::EndianScalar(enabled_) != 0; }
-  bool pressureSwitchValve() const
-  {
-    return flatbuffers::EndianScalar(pressureSwitchValve_) != 0;
-  }
-  double compressorCurrent() const
-  {
-    return flatbuffers::EndianScalar(compressorCurrent_);
-  }
-  bool closedLoopControl() const
-  {
-    return flatbuffers::EndianScalar(closedLoopControl_) != 0;
-  }
-  bool compressorCurrentTooHighFault() const
-  {
-    return flatbuffers::EndianScalar(compressorCurrentTooHighFault_) != 0;
-  }
-  bool compressorShortedFault() const
-  {
-    return flatbuffers::EndianScalar(compressorShortedFault_) != 0;
-  }
-  bool compressorNotConnectedFault() const
-  {
-    return flatbuffers::EndianScalar(compressorNotConnectedFault_) != 0;
-  }
+inline const char*
+EnumNameStatusFrame(StatusFrame e)
+{
+  if (e < StatusFrame_NONE || e > StatusFrame_PCMStatusFrame)
+    return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesStatusFrame()[index];
+}
+
+template<typename T>
+struct StatusFrameTraits
+{
+  static const StatusFrame enum_value = StatusFrame_NONE;
 };
-FLATBUFFERS_STRUCT_END(PCMStatusFrame, 24);
 
-struct StatusFrameCollection FLATBUFFERS_FINAL_CLASS
-  : private flatbuffers::Table
+template<>
+struct StatusFrameTraits<CTREMotorStatusFrame>
+{
+  static const StatusFrame enum_value = StatusFrame_CTREMotorStatusFrame;
+};
+
+template<>
+struct StatusFrameTraits<PDPStatusFrame>
+{
+  static const StatusFrame enum_value = StatusFrame_PDPStatusFrame;
+};
+
+template<>
+struct StatusFrameTraits<PCMStatusFrame>
+{
+  static const StatusFrame enum_value = StatusFrame_PCMStatusFrame;
+};
+
+bool
+VerifyStatusFrame(flatbuffers::Verifier& verifier,
+                  const void* obj,
+                  StatusFrame type);
+bool
+VerifyStatusFrameVector(
+  flatbuffers::Verifier& verifier,
+  const flatbuffers::Vector<flatbuffers::Offset<void>>* values,
+  const flatbuffers::Vector<uint8_t>* types);
+
+struct CTREMotorStatusFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
 {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE
   {
-    VT_DRIVELEFT1 = 4,
-    VT_DRIVELEFT2 = 6,
-    VT_DRIVERIGHT1 = 8,
-    VT_DRIVERIGHT2 = 10,
-    VT_POWERDISTRIBUTIONPANEL = 12,
-    VT_PNEUMATICSCONTROLMODULE = 14
+    VT_FIRMWAREVERSION = 4,
+    VT_BASEID = 6,
+    VT_DEVICEID = 8,
+    VT_OUTPUTCURRENT = 10,
+    VT_BUSVOLTAGE = 12,
+    VT_OUTPUTPERCENT = 14,
+    VT_OUTPUTVOLTAGE = 16,
+    VT_TEMPERATURE = 18,
+    VT_SELECTEDSENSORPOSITION = 20,
+    VT_SELECTEDSENSORVELOCITY = 22,
+    VT_CLOSEDLOOPERROR = 24,
+    VT_INTEGRALACCUMULATOR = 26,
+    VT_ERRORDERIVATIVE = 28,
+    VT_CLOSEDLOOPTARGET = 30,
+    VT_ACTIVETRAJECTORYPOSITION = 32,
+    VT_ACTIVETRAJECTORYVELOCITY = 34,
+    VT_ACTIVETRAJECTORYARBFEEDFWD = 36,
+    VT_FAULTS = 38,
+    VT_RESETOCCURED = 40,
+    VT_LASTERROR = 42,
+    VT_CONTROLMODE = 44,
+    VT_STATORCURRENT = 46,
+    VT_SUPPLYCURRENT = 48,
+    VT_FWDLIMITSWITCHCLOSED = 50,
+    VT_REVLIMITSWITCHCLOSED = 52
   };
-  const CTREMotorStatusFrame* driveLeft1() const
+  int32_t firmwareVersion() const
   {
-    return GetStruct<const CTREMotorStatusFrame*>(VT_DRIVELEFT1);
+    return GetField<int32_t>(VT_FIRMWAREVERSION, 0);
   }
-  const CTREMotorStatusFrame* driveLeft2() const
+  int32_t baseID() const { return GetField<int32_t>(VT_BASEID, 0); }
+  int32_t deviceID() const { return GetField<int32_t>(VT_DEVICEID, 0); }
+  double outputCurrent() const
   {
-    return GetStruct<const CTREMotorStatusFrame*>(VT_DRIVELEFT2);
+    return GetField<double>(VT_OUTPUTCURRENT, 0.0);
   }
-  const CTREMotorStatusFrame* driveRight1() const
+  double busVoltage() const { return GetField<double>(VT_BUSVOLTAGE, 0.0); }
+  double outputPercent() const
   {
-    return GetStruct<const CTREMotorStatusFrame*>(VT_DRIVERIGHT1);
+    return GetField<double>(VT_OUTPUTPERCENT, 0.0);
   }
-  const CTREMotorStatusFrame* driveRight2() const
+  double outputVoltage() const
   {
-    return GetStruct<const CTREMotorStatusFrame*>(VT_DRIVERIGHT2);
+    return GetField<double>(VT_OUTPUTVOLTAGE, 0.0);
   }
-  const PDPStatusFrame* powerDistributionPanel() const
+  double temperature() const { return GetField<double>(VT_TEMPERATURE, 0.0); }
+  int32_t selectedSensorPosition() const
   {
-    return GetStruct<const PDPStatusFrame*>(VT_POWERDISTRIBUTIONPANEL);
+    return GetField<int32_t>(VT_SELECTEDSENSORPOSITION, 0);
   }
-  const PCMStatusFrame* pneumaticsControlModule() const
+  int32_t selectedSensorVelocity() const
   {
-    return GetStruct<const PCMStatusFrame*>(VT_PNEUMATICSCONTROLMODULE);
+    return GetField<int32_t>(VT_SELECTEDSENSORVELOCITY, 0);
+  }
+  int32_t closedLoopError() const
+  {
+    return GetField<int32_t>(VT_CLOSEDLOOPERROR, 0);
+  }
+  double integralAccumulator() const
+  {
+    return GetField<double>(VT_INTEGRALACCUMULATOR, 0.0);
+  }
+  double errorDerivative() const
+  {
+    return GetField<double>(VT_ERRORDERIVATIVE, 0.0);
+  }
+  double closedLoopTarget() const
+  {
+    return GetField<double>(VT_CLOSEDLOOPTARGET, 0.0);
+  }
+  int32_t activeTrajectoryPosition() const
+  {
+    return GetField<int32_t>(VT_ACTIVETRAJECTORYPOSITION, 0);
+  }
+  int32_t activeTrajectoryVelocity() const
+  {
+    return GetField<int32_t>(VT_ACTIVETRAJECTORYVELOCITY, 0);
+  }
+  double activeTrajectoryArbFeedFwd() const
+  {
+    return GetField<double>(VT_ACTIVETRAJECTORYARBFEEDFWD, 0.0);
+  }
+  int32_t faults() const { return GetField<int32_t>(VT_FAULTS, 0); }
+  bool resetOccured() const
+  {
+    return GetField<uint8_t>(VT_RESETOCCURED, 0) != 0;
+  }
+  int32_t lastError() const { return GetField<int32_t>(VT_LASTERROR, 0); }
+  int32_t controlMode() const { return GetField<int32_t>(VT_CONTROLMODE, 0); }
+  double statorCurrent() const
+  {
+    return GetField<double>(VT_STATORCURRENT, 0.0);
+  }
+  double supplyCurrent() const
+  {
+    return GetField<double>(VT_SUPPLYCURRENT, 0.0);
+  }
+  int32_t fwdLimitSwitchClosed() const
+  {
+    return GetField<int32_t>(VT_FWDLIMITSWITCHCLOSED, 0);
+  }
+  int32_t revLimitSwitchClosed() const
+  {
+    return GetField<int32_t>(VT_REVLIMITSWITCHCLOSED, 0);
   }
   bool Verify(flatbuffers::Verifier& verifier) const
   {
     return VerifyTableStart(verifier) &&
-           VerifyField<CTREMotorStatusFrame>(verifier, VT_DRIVELEFT1) &&
-           VerifyField<CTREMotorStatusFrame>(verifier, VT_DRIVELEFT2) &&
-           VerifyField<CTREMotorStatusFrame>(verifier, VT_DRIVERIGHT1) &&
-           VerifyField<CTREMotorStatusFrame>(verifier, VT_DRIVERIGHT2) &&
-           VerifyField<PDPStatusFrame>(verifier, VT_POWERDISTRIBUTIONPANEL) &&
-           VerifyField<PCMStatusFrame>(verifier, VT_PNEUMATICSCONTROLMODULE) &&
+           VerifyField<int32_t>(verifier, VT_FIRMWAREVERSION) &&
+           VerifyField<int32_t>(verifier, VT_BASEID) &&
+           VerifyField<int32_t>(verifier, VT_DEVICEID) &&
+           VerifyField<double>(verifier, VT_OUTPUTCURRENT) &&
+           VerifyField<double>(verifier, VT_BUSVOLTAGE) &&
+           VerifyField<double>(verifier, VT_OUTPUTPERCENT) &&
+           VerifyField<double>(verifier, VT_OUTPUTVOLTAGE) &&
+           VerifyField<double>(verifier, VT_TEMPERATURE) &&
+           VerifyField<int32_t>(verifier, VT_SELECTEDSENSORPOSITION) &&
+           VerifyField<int32_t>(verifier, VT_SELECTEDSENSORVELOCITY) &&
+           VerifyField<int32_t>(verifier, VT_CLOSEDLOOPERROR) &&
+           VerifyField<double>(verifier, VT_INTEGRALACCUMULATOR) &&
+           VerifyField<double>(verifier, VT_ERRORDERIVATIVE) &&
+           VerifyField<double>(verifier, VT_CLOSEDLOOPTARGET) &&
+           VerifyField<int32_t>(verifier, VT_ACTIVETRAJECTORYPOSITION) &&
+           VerifyField<int32_t>(verifier, VT_ACTIVETRAJECTORYVELOCITY) &&
+           VerifyField<double>(verifier, VT_ACTIVETRAJECTORYARBFEEDFWD) &&
+           VerifyField<int32_t>(verifier, VT_FAULTS) &&
+           VerifyField<uint8_t>(verifier, VT_RESETOCCURED) &&
+           VerifyField<int32_t>(verifier, VT_LASTERROR) &&
+           VerifyField<int32_t>(verifier, VT_CONTROLMODE) &&
+           VerifyField<double>(verifier, VT_STATORCURRENT) &&
+           VerifyField<double>(verifier, VT_SUPPLYCURRENT) &&
+           VerifyField<int32_t>(verifier, VT_FWDLIMITSWITCHCLOSED) &&
+           VerifyField<int32_t>(verifier, VT_REVLIMITSWITCHCLOSED) &&
            verifier.EndTable();
   }
 };
 
-struct StatusFrameCollectionBuilder
+struct CTREMotorStatusFrameBuilder
 {
   flatbuffers::FlatBufferBuilder& fbb_;
   flatbuffers::uoffset_t start_;
-  void add_driveLeft1(const CTREMotorStatusFrame* driveLeft1)
+  void add_firmwareVersion(int32_t firmwareVersion)
   {
-    fbb_.AddStruct(StatusFrameCollection::VT_DRIVELEFT1, driveLeft1);
+    fbb_.AddElement<int32_t>(
+      CTREMotorStatusFrame::VT_FIRMWAREVERSION, firmwareVersion, 0);
   }
-  void add_driveLeft2(const CTREMotorStatusFrame* driveLeft2)
+  void add_baseID(int32_t baseID)
   {
-    fbb_.AddStruct(StatusFrameCollection::VT_DRIVELEFT2, driveLeft2);
+    fbb_.AddElement<int32_t>(CTREMotorStatusFrame::VT_BASEID, baseID, 0);
   }
-  void add_driveRight1(const CTREMotorStatusFrame* driveRight1)
+  void add_deviceID(int32_t deviceID)
   {
-    fbb_.AddStruct(StatusFrameCollection::VT_DRIVERIGHT1, driveRight1);
+    fbb_.AddElement<int32_t>(CTREMotorStatusFrame::VT_DEVICEID, deviceID, 0);
   }
-  void add_driveRight2(const CTREMotorStatusFrame* driveRight2)
+  void add_outputCurrent(double outputCurrent)
   {
-    fbb_.AddStruct(StatusFrameCollection::VT_DRIVERIGHT2, driveRight2);
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_OUTPUTCURRENT, outputCurrent, 0.0);
   }
-  void add_powerDistributionPanel(const PDPStatusFrame* powerDistributionPanel)
+  void add_busVoltage(double busVoltage)
   {
-    fbb_.AddStruct(StatusFrameCollection::VT_POWERDISTRIBUTIONPANEL,
-                   powerDistributionPanel);
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_BUSVOLTAGE, busVoltage, 0.0);
   }
-  void add_pneumaticsControlModule(
-    const PCMStatusFrame* pneumaticsControlModule)
+  void add_outputPercent(double outputPercent)
   {
-    fbb_.AddStruct(StatusFrameCollection::VT_PNEUMATICSCONTROLMODULE,
-                   pneumaticsControlModule);
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_OUTPUTPERCENT, outputPercent, 0.0);
   }
-  explicit StatusFrameCollectionBuilder(flatbuffers::FlatBufferBuilder& _fbb)
+  void add_outputVoltage(double outputVoltage)
+  {
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_OUTPUTVOLTAGE, outputVoltage, 0.0);
+  }
+  void add_temperature(double temperature)
+  {
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_TEMPERATURE, temperature, 0.0);
+  }
+  void add_selectedSensorPosition(int32_t selectedSensorPosition)
+  {
+    fbb_.AddElement<int32_t>(CTREMotorStatusFrame::VT_SELECTEDSENSORPOSITION,
+                             selectedSensorPosition,
+                             0);
+  }
+  void add_selectedSensorVelocity(int32_t selectedSensorVelocity)
+  {
+    fbb_.AddElement<int32_t>(CTREMotorStatusFrame::VT_SELECTEDSENSORVELOCITY,
+                             selectedSensorVelocity,
+                             0);
+  }
+  void add_closedLoopError(int32_t closedLoopError)
+  {
+    fbb_.AddElement<int32_t>(
+      CTREMotorStatusFrame::VT_CLOSEDLOOPERROR, closedLoopError, 0);
+  }
+  void add_integralAccumulator(double integralAccumulator)
+  {
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_INTEGRALACCUMULATOR, integralAccumulator, 0.0);
+  }
+  void add_errorDerivative(double errorDerivative)
+  {
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_ERRORDERIVATIVE, errorDerivative, 0.0);
+  }
+  void add_closedLoopTarget(double closedLoopTarget)
+  {
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_CLOSEDLOOPTARGET, closedLoopTarget, 0.0);
+  }
+  void add_activeTrajectoryPosition(int32_t activeTrajectoryPosition)
+  {
+    fbb_.AddElement<int32_t>(CTREMotorStatusFrame::VT_ACTIVETRAJECTORYPOSITION,
+                             activeTrajectoryPosition,
+                             0);
+  }
+  void add_activeTrajectoryVelocity(int32_t activeTrajectoryVelocity)
+  {
+    fbb_.AddElement<int32_t>(CTREMotorStatusFrame::VT_ACTIVETRAJECTORYVELOCITY,
+                             activeTrajectoryVelocity,
+                             0);
+  }
+  void add_activeTrajectoryArbFeedFwd(double activeTrajectoryArbFeedFwd)
+  {
+    fbb_.AddElement<double>(CTREMotorStatusFrame::VT_ACTIVETRAJECTORYARBFEEDFWD,
+                            activeTrajectoryArbFeedFwd,
+                            0.0);
+  }
+  void add_faults(int32_t faults)
+  {
+    fbb_.AddElement<int32_t>(CTREMotorStatusFrame::VT_FAULTS, faults, 0);
+  }
+  void add_resetOccured(bool resetOccured)
+  {
+    fbb_.AddElement<uint8_t>(CTREMotorStatusFrame::VT_RESETOCCURED,
+                             static_cast<uint8_t>(resetOccured),
+                             0);
+  }
+  void add_lastError(int32_t lastError)
+  {
+    fbb_.AddElement<int32_t>(CTREMotorStatusFrame::VT_LASTERROR, lastError, 0);
+  }
+  void add_controlMode(int32_t controlMode)
+  {
+    fbb_.AddElement<int32_t>(
+      CTREMotorStatusFrame::VT_CONTROLMODE, controlMode, 0);
+  }
+  void add_statorCurrent(double statorCurrent)
+  {
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_STATORCURRENT, statorCurrent, 0.0);
+  }
+  void add_supplyCurrent(double supplyCurrent)
+  {
+    fbb_.AddElement<double>(
+      CTREMotorStatusFrame::VT_SUPPLYCURRENT, supplyCurrent, 0.0);
+  }
+  void add_fwdLimitSwitchClosed(int32_t fwdLimitSwitchClosed)
+  {
+    fbb_.AddElement<int32_t>(
+      CTREMotorStatusFrame::VT_FWDLIMITSWITCHCLOSED, fwdLimitSwitchClosed, 0);
+  }
+  void add_revLimitSwitchClosed(int32_t revLimitSwitchClosed)
+  {
+    fbb_.AddElement<int32_t>(
+      CTREMotorStatusFrame::VT_REVLIMITSWITCHCLOSED, revLimitSwitchClosed, 0);
+  }
+  explicit CTREMotorStatusFrameBuilder(flatbuffers::FlatBufferBuilder& _fbb)
     : fbb_(_fbb)
   {
     start_ = fbb_.StartTable();
   }
-  StatusFrameCollectionBuilder& operator=(const StatusFrameCollectionBuilder&);
-  flatbuffers::Offset<StatusFrameCollection> Finish()
+  CTREMotorStatusFrameBuilder& operator=(const CTREMotorStatusFrameBuilder&);
+  flatbuffers::Offset<CTREMotorStatusFrame> Finish()
   {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<StatusFrameCollection>(end);
+    auto o = flatbuffers::Offset<CTREMotorStatusFrame>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<StatusFrameCollection>
-CreateStatusFrameCollection(flatbuffers::FlatBufferBuilder& _fbb,
-                            const CTREMotorStatusFrame* driveLeft1 = 0,
-                            const CTREMotorStatusFrame* driveLeft2 = 0,
-                            const CTREMotorStatusFrame* driveRight1 = 0,
-                            const CTREMotorStatusFrame* driveRight2 = 0,
-                            const PDPStatusFrame* powerDistributionPanel = 0,
-                            const PCMStatusFrame* pneumaticsControlModule = 0)
+inline flatbuffers::Offset<CTREMotorStatusFrame>
+CreateCTREMotorStatusFrame(flatbuffers::FlatBufferBuilder& _fbb,
+                           int32_t firmwareVersion = 0,
+                           int32_t baseID = 0,
+                           int32_t deviceID = 0,
+                           double outputCurrent = 0.0,
+                           double busVoltage = 0.0,
+                           double outputPercent = 0.0,
+                           double outputVoltage = 0.0,
+                           double temperature = 0.0,
+                           int32_t selectedSensorPosition = 0,
+                           int32_t selectedSensorVelocity = 0,
+                           int32_t closedLoopError = 0,
+                           double integralAccumulator = 0.0,
+                           double errorDerivative = 0.0,
+                           double closedLoopTarget = 0.0,
+                           int32_t activeTrajectoryPosition = 0,
+                           int32_t activeTrajectoryVelocity = 0,
+                           double activeTrajectoryArbFeedFwd = 0.0,
+                           int32_t faults = 0,
+                           bool resetOccured = false,
+                           int32_t lastError = 0,
+                           int32_t controlMode = 0,
+                           double statorCurrent = 0.0,
+                           double supplyCurrent = 0.0,
+                           int32_t fwdLimitSwitchClosed = 0,
+                           int32_t revLimitSwitchClosed = 0)
 {
-  StatusFrameCollectionBuilder builder_(_fbb);
-  builder_.add_pneumaticsControlModule(pneumaticsControlModule);
-  builder_.add_powerDistributionPanel(powerDistributionPanel);
-  builder_.add_driveRight2(driveRight2);
-  builder_.add_driveRight1(driveRight1);
-  builder_.add_driveLeft2(driveLeft2);
-  builder_.add_driveLeft1(driveLeft1);
+  CTREMotorStatusFrameBuilder builder_(_fbb);
+  builder_.add_supplyCurrent(supplyCurrent);
+  builder_.add_statorCurrent(statorCurrent);
+  builder_.add_activeTrajectoryArbFeedFwd(activeTrajectoryArbFeedFwd);
+  builder_.add_closedLoopTarget(closedLoopTarget);
+  builder_.add_errorDerivative(errorDerivative);
+  builder_.add_integralAccumulator(integralAccumulator);
+  builder_.add_temperature(temperature);
+  builder_.add_outputVoltage(outputVoltage);
+  builder_.add_outputPercent(outputPercent);
+  builder_.add_busVoltage(busVoltage);
+  builder_.add_outputCurrent(outputCurrent);
+  builder_.add_revLimitSwitchClosed(revLimitSwitchClosed);
+  builder_.add_fwdLimitSwitchClosed(fwdLimitSwitchClosed);
+  builder_.add_controlMode(controlMode);
+  builder_.add_lastError(lastError);
+  builder_.add_faults(faults);
+  builder_.add_activeTrajectoryVelocity(activeTrajectoryVelocity);
+  builder_.add_activeTrajectoryPosition(activeTrajectoryPosition);
+  builder_.add_closedLoopError(closedLoopError);
+  builder_.add_selectedSensorVelocity(selectedSensorVelocity);
+  builder_.add_selectedSensorPosition(selectedSensorPosition);
+  builder_.add_deviceID(deviceID);
+  builder_.add_baseID(baseID);
+  builder_.add_firmwareVersion(firmwareVersion);
+  builder_.add_resetOccured(resetOccured);
   return builder_.Finish();
+}
+
+struct PDPStatusFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
+{
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE
+  {
+    VT_MODULE_ = 4,
+    VT_VOLTAGE = 6,
+    VT_TEMPERATURE = 8,
+    VT_CHANNELCURRENT = 10,
+    VT_TOTALCURRENT = 12,
+    VT_TOTALPOWER = 14,
+    VT_TOTALENERGY = 16
+  };
+  int32_t module_() const { return GetField<int32_t>(VT_MODULE_, 0); }
+  double voltage() const { return GetField<double>(VT_VOLTAGE, 0.0); }
+  double temperature() const { return GetField<double>(VT_TEMPERATURE, 0.0); }
+  const flatbuffers::Vector<double>* channelCurrent() const
+  {
+    return GetPointer<const flatbuffers::Vector<double>*>(VT_CHANNELCURRENT);
+  }
+  double totalCurrent() const { return GetField<double>(VT_TOTALCURRENT, 0.0); }
+  double totalPower() const { return GetField<double>(VT_TOTALPOWER, 0.0); }
+  double totalEnergy() const { return GetField<double>(VT_TOTALENERGY, 0.0); }
+  bool Verify(flatbuffers::Verifier& verifier) const
+  {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int32_t>(verifier, VT_MODULE_) &&
+           VerifyField<double>(verifier, VT_VOLTAGE) &&
+           VerifyField<double>(verifier, VT_TEMPERATURE) &&
+           VerifyOffset(verifier, VT_CHANNELCURRENT) &&
+           verifier.VerifyVector(channelCurrent()) &&
+           VerifyField<double>(verifier, VT_TOTALCURRENT) &&
+           VerifyField<double>(verifier, VT_TOTALPOWER) &&
+           VerifyField<double>(verifier, VT_TOTALENERGY) && verifier.EndTable();
+  }
+};
+
+struct PDPStatusFrameBuilder
+{
+  flatbuffers::FlatBufferBuilder& fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_module_(int32_t module_)
+  {
+    fbb_.AddElement<int32_t>(PDPStatusFrame::VT_MODULE_, module_, 0);
+  }
+  void add_voltage(double voltage)
+  {
+    fbb_.AddElement<double>(PDPStatusFrame::VT_VOLTAGE, voltage, 0.0);
+  }
+  void add_temperature(double temperature)
+  {
+    fbb_.AddElement<double>(PDPStatusFrame::VT_TEMPERATURE, temperature, 0.0);
+  }
+  void add_channelCurrent(
+    flatbuffers::Offset<flatbuffers::Vector<double>> channelCurrent)
+  {
+    fbb_.AddOffset(PDPStatusFrame::VT_CHANNELCURRENT, channelCurrent);
+  }
+  void add_totalCurrent(double totalCurrent)
+  {
+    fbb_.AddElement<double>(PDPStatusFrame::VT_TOTALCURRENT, totalCurrent, 0.0);
+  }
+  void add_totalPower(double totalPower)
+  {
+    fbb_.AddElement<double>(PDPStatusFrame::VT_TOTALPOWER, totalPower, 0.0);
+  }
+  void add_totalEnergy(double totalEnergy)
+  {
+    fbb_.AddElement<double>(PDPStatusFrame::VT_TOTALENERGY, totalEnergy, 0.0);
+  }
+  explicit PDPStatusFrameBuilder(flatbuffers::FlatBufferBuilder& _fbb)
+    : fbb_(_fbb)
+  {
+    start_ = fbb_.StartTable();
+  }
+  PDPStatusFrameBuilder& operator=(const PDPStatusFrameBuilder&);
+  flatbuffers::Offset<PDPStatusFrame> Finish()
+  {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<PDPStatusFrame>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<PDPStatusFrame>
+CreatePDPStatusFrame(
+  flatbuffers::FlatBufferBuilder& _fbb,
+  int32_t module_ = 0,
+  double voltage = 0.0,
+  double temperature = 0.0,
+  flatbuffers::Offset<flatbuffers::Vector<double>> channelCurrent = 0,
+  double totalCurrent = 0.0,
+  double totalPower = 0.0,
+  double totalEnergy = 0.0)
+{
+  PDPStatusFrameBuilder builder_(_fbb);
+  builder_.add_totalEnergy(totalEnergy);
+  builder_.add_totalPower(totalPower);
+  builder_.add_totalCurrent(totalCurrent);
+  builder_.add_temperature(temperature);
+  builder_.add_voltage(voltage);
+  builder_.add_channelCurrent(channelCurrent);
+  builder_.add_module_(module_);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<PDPStatusFrame>
+CreatePDPStatusFrameDirect(flatbuffers::FlatBufferBuilder& _fbb,
+                           int32_t module_ = 0,
+                           double voltage = 0.0,
+                           double temperature = 0.0,
+                           const std::vector<double>* channelCurrent = nullptr,
+                           double totalCurrent = 0.0,
+                           double totalPower = 0.0,
+                           double totalEnergy = 0.0)
+{
+  auto channelCurrent__ =
+    channelCurrent ? _fbb.CreateVector<double>(*channelCurrent) : 0;
+  return rj::CreatePDPStatusFrame(_fbb,
+                                  module_,
+                                  voltage,
+                                  temperature,
+                                  channelCurrent__,
+                                  totalCurrent,
+                                  totalPower,
+                                  totalEnergy);
+}
+
+struct PCMStatusFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
+{
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE
+  {
+    VT_MODULE_ = 4,
+    VT_ENABLED = 6,
+    VT_PRESSURESWITCHVALVE = 8,
+    VT_COMPRESSORCURRENT = 10,
+    VT_CLOSEDLOOPCONTROL = 12,
+    VT_COMPRESSORCURRENTTOOHIGHFAULT = 14,
+    VT_COMPRESSORSHORTEDFAULT = 16,
+    VT_COMPRESSORNOTCONNECTEDFAULT = 18
+  };
+  int32_t module_() const { return GetField<int32_t>(VT_MODULE_, 0); }
+  bool enabled() const { return GetField<uint8_t>(VT_ENABLED, 0) != 0; }
+  bool pressureSwitchValve() const
+  {
+    return GetField<uint8_t>(VT_PRESSURESWITCHVALVE, 0) != 0;
+  }
+  double compressorCurrent() const
+  {
+    return GetField<double>(VT_COMPRESSORCURRENT, 0.0);
+  }
+  bool closedLoopControl() const
+  {
+    return GetField<uint8_t>(VT_CLOSEDLOOPCONTROL, 0) != 0;
+  }
+  bool compressorCurrentTooHighFault() const
+  {
+    return GetField<uint8_t>(VT_COMPRESSORCURRENTTOOHIGHFAULT, 0) != 0;
+  }
+  bool compressorShortedFault() const
+  {
+    return GetField<uint8_t>(VT_COMPRESSORSHORTEDFAULT, 0) != 0;
+  }
+  bool compressorNotConnectedFault() const
+  {
+    return GetField<uint8_t>(VT_COMPRESSORNOTCONNECTEDFAULT, 0) != 0;
+  }
+  bool Verify(flatbuffers::Verifier& verifier) const
+  {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int32_t>(verifier, VT_MODULE_) &&
+           VerifyField<uint8_t>(verifier, VT_ENABLED) &&
+           VerifyField<uint8_t>(verifier, VT_PRESSURESWITCHVALVE) &&
+           VerifyField<double>(verifier, VT_COMPRESSORCURRENT) &&
+           VerifyField<uint8_t>(verifier, VT_CLOSEDLOOPCONTROL) &&
+           VerifyField<uint8_t>(verifier, VT_COMPRESSORCURRENTTOOHIGHFAULT) &&
+           VerifyField<uint8_t>(verifier, VT_COMPRESSORSHORTEDFAULT) &&
+           VerifyField<uint8_t>(verifier, VT_COMPRESSORNOTCONNECTEDFAULT) &&
+           verifier.EndTable();
+  }
+};
+
+struct PCMStatusFrameBuilder
+{
+  flatbuffers::FlatBufferBuilder& fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_module_(int32_t module_)
+  {
+    fbb_.AddElement<int32_t>(PCMStatusFrame::VT_MODULE_, module_, 0);
+  }
+  void add_enabled(bool enabled)
+  {
+    fbb_.AddElement<uint8_t>(
+      PCMStatusFrame::VT_ENABLED, static_cast<uint8_t>(enabled), 0);
+  }
+  void add_pressureSwitchValve(bool pressureSwitchValve)
+  {
+    fbb_.AddElement<uint8_t>(PCMStatusFrame::VT_PRESSURESWITCHVALVE,
+                             static_cast<uint8_t>(pressureSwitchValve),
+                             0);
+  }
+  void add_compressorCurrent(double compressorCurrent)
+  {
+    fbb_.AddElement<double>(
+      PCMStatusFrame::VT_COMPRESSORCURRENT, compressorCurrent, 0.0);
+  }
+  void add_closedLoopControl(bool closedLoopControl)
+  {
+    fbb_.AddElement<uint8_t>(PCMStatusFrame::VT_CLOSEDLOOPCONTROL,
+                             static_cast<uint8_t>(closedLoopControl),
+                             0);
+  }
+  void add_compressorCurrentTooHighFault(bool compressorCurrentTooHighFault)
+  {
+    fbb_.AddElement<uint8_t>(
+      PCMStatusFrame::VT_COMPRESSORCURRENTTOOHIGHFAULT,
+      static_cast<uint8_t>(compressorCurrentTooHighFault),
+      0);
+  }
+  void add_compressorShortedFault(bool compressorShortedFault)
+  {
+    fbb_.AddElement<uint8_t>(PCMStatusFrame::VT_COMPRESSORSHORTEDFAULT,
+                             static_cast<uint8_t>(compressorShortedFault),
+                             0);
+  }
+  void add_compressorNotConnectedFault(bool compressorNotConnectedFault)
+  {
+    fbb_.AddElement<uint8_t>(PCMStatusFrame::VT_COMPRESSORNOTCONNECTEDFAULT,
+                             static_cast<uint8_t>(compressorNotConnectedFault),
+                             0);
+  }
+  explicit PCMStatusFrameBuilder(flatbuffers::FlatBufferBuilder& _fbb)
+    : fbb_(_fbb)
+  {
+    start_ = fbb_.StartTable();
+  }
+  PCMStatusFrameBuilder& operator=(const PCMStatusFrameBuilder&);
+  flatbuffers::Offset<PCMStatusFrame> Finish()
+  {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<PCMStatusFrame>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<PCMStatusFrame>
+CreatePCMStatusFrame(flatbuffers::FlatBufferBuilder& _fbb,
+                     int32_t module_ = 0,
+                     bool enabled = false,
+                     bool pressureSwitchValve = false,
+                     double compressorCurrent = 0.0,
+                     bool closedLoopControl = false,
+                     bool compressorCurrentTooHighFault = false,
+                     bool compressorShortedFault = false,
+                     bool compressorNotConnectedFault = false)
+{
+  PCMStatusFrameBuilder builder_(_fbb);
+  builder_.add_compressorCurrent(compressorCurrent);
+  builder_.add_module_(module_);
+  builder_.add_compressorNotConnectedFault(compressorNotConnectedFault);
+  builder_.add_compressorShortedFault(compressorShortedFault);
+  builder_.add_compressorCurrentTooHighFault(compressorCurrentTooHighFault);
+  builder_.add_closedLoopControl(closedLoopControl);
+  builder_.add_pressureSwitchValve(pressureSwitchValve);
+  builder_.add_enabled(enabled);
+  return builder_.Finish();
+}
+
+struct StatusFrameHolder FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
+{
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE
+  {
+    VT_UNIXTIME = 4,
+    VT_MONOTONICTIME = 6,
+    VT_STATUSFRAMES_TYPE = 8,
+    VT_STATUSFRAMES = 10
+  };
+  double unixTime() const { return GetField<double>(VT_UNIXTIME, 0.0); }
+  double monotonicTime() const
+  {
+    return GetField<double>(VT_MONOTONICTIME, 0.0);
+  }
+  const flatbuffers::Vector<uint8_t>* statusFrames_type() const
+  {
+    return GetPointer<const flatbuffers::Vector<uint8_t>*>(
+      VT_STATUSFRAMES_TYPE);
+  }
+  const flatbuffers::Vector<flatbuffers::Offset<void>>* statusFrames() const
+  {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<void>>*>(
+      VT_STATUSFRAMES);
+  }
+  bool Verify(flatbuffers::Verifier& verifier) const
+  {
+    return VerifyTableStart(verifier) &&
+           VerifyField<double>(verifier, VT_UNIXTIME) &&
+           VerifyField<double>(verifier, VT_MONOTONICTIME) &&
+           VerifyOffset(verifier, VT_STATUSFRAMES_TYPE) &&
+           verifier.VerifyVector(statusFrames_type()) &&
+           VerifyOffset(verifier, VT_STATUSFRAMES) &&
+           verifier.VerifyVector(statusFrames()) &&
+           VerifyStatusFrameVector(
+             verifier, statusFrames(), statusFrames_type()) &&
+           verifier.EndTable();
+  }
+};
+
+struct StatusFrameHolderBuilder
+{
+  flatbuffers::FlatBufferBuilder& fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_unixTime(double unixTime)
+  {
+    fbb_.AddElement<double>(StatusFrameHolder::VT_UNIXTIME, unixTime, 0.0);
+  }
+  void add_monotonicTime(double monotonicTime)
+  {
+    fbb_.AddElement<double>(
+      StatusFrameHolder::VT_MONOTONICTIME, monotonicTime, 0.0);
+  }
+  void add_statusFrames_type(
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> statusFrames_type)
+  {
+    fbb_.AddOffset(StatusFrameHolder::VT_STATUSFRAMES_TYPE, statusFrames_type);
+  }
+  void add_statusFrames(
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<void>>>
+      statusFrames)
+  {
+    fbb_.AddOffset(StatusFrameHolder::VT_STATUSFRAMES, statusFrames);
+  }
+  explicit StatusFrameHolderBuilder(flatbuffers::FlatBufferBuilder& _fbb)
+    : fbb_(_fbb)
+  {
+    start_ = fbb_.StartTable();
+  }
+  StatusFrameHolderBuilder& operator=(const StatusFrameHolderBuilder&);
+  flatbuffers::Offset<StatusFrameHolder> Finish()
+  {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<StatusFrameHolder>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<StatusFrameHolder>
+CreateStatusFrameHolder(
+  flatbuffers::FlatBufferBuilder& _fbb,
+  double unixTime = 0.0,
+  double monotonicTime = 0.0,
+  flatbuffers::Offset<flatbuffers::Vector<uint8_t>> statusFrames_type = 0,
+  flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<void>>>
+    statusFrames = 0)
+{
+  StatusFrameHolderBuilder builder_(_fbb);
+  builder_.add_monotonicTime(monotonicTime);
+  builder_.add_unixTime(unixTime);
+  builder_.add_statusFrames(statusFrames);
+  builder_.add_statusFrames_type(statusFrames_type);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<StatusFrameHolder>
+CreateStatusFrameHolderDirect(
+  flatbuffers::FlatBufferBuilder& _fbb,
+  double unixTime = 0.0,
+  double monotonicTime = 0.0,
+  const std::vector<uint8_t>* statusFrames_type = nullptr,
+  const std::vector<flatbuffers::Offset<void>>* statusFrames = nullptr)
+{
+  auto statusFrames_type__ =
+    statusFrames_type ? _fbb.CreateVector<uint8_t>(*statusFrames_type) : 0;
+  auto statusFrames__ =
+    statusFrames ? _fbb.CreateVector<flatbuffers::Offset<void>>(*statusFrames)
+                 : 0;
+  return rj::CreateStatusFrameHolder(
+    _fbb, unixTime, monotonicTime, statusFrames_type__, statusFrames__);
+}
+
+inline bool
+VerifyStatusFrame(flatbuffers::Verifier& verifier,
+                  const void* obj,
+                  StatusFrame type)
+{
+  switch (type) {
+    case StatusFrame_NONE: {
+      return true;
+    }
+    case StatusFrame_CTREMotorStatusFrame: {
+      auto ptr = reinterpret_cast<const CTREMotorStatusFrame*>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case StatusFrame_PDPStatusFrame: {
+      auto ptr = reinterpret_cast<const PDPStatusFrame*>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case StatusFrame_PCMStatusFrame: {
+      auto ptr = reinterpret_cast<const PCMStatusFrame*>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    default:
+      return false;
+  }
+}
+
+inline bool
+VerifyStatusFrameVector(
+  flatbuffers::Verifier& verifier,
+  const flatbuffers::Vector<flatbuffers::Offset<void>>* values,
+  const flatbuffers::Vector<uint8_t>* types)
+{
+  if (!values || !types)
+    return !values && !types;
+  if (values->size() != types->size())
+    return false;
+  for (flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
+    if (!VerifyStatusFrame(
+          verifier, values->Get(i), types->GetEnum<StatusFrame>(i))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+inline const rj::StatusFrameHolder*
+GetStatusFrameHolder(const void* buf)
+{
+  return flatbuffers::GetRoot<rj::StatusFrameHolder>(buf);
+}
+
+inline const rj::StatusFrameHolder*
+GetSizePrefixedStatusFrameHolder(const void* buf)
+{
+  return flatbuffers::GetSizePrefixedRoot<rj::StatusFrameHolder>(buf);
+}
+
+inline bool
+VerifyStatusFrameHolderBuffer(flatbuffers::Verifier& verifier)
+{
+  return verifier.VerifyBuffer<rj::StatusFrameHolder>(nullptr);
+}
+
+inline bool
+VerifySizePrefixedStatusFrameHolderBuffer(flatbuffers::Verifier& verifier)
+{
+  return verifier.VerifySizePrefixedBuffer<rj::StatusFrameHolder>(nullptr);
+}
+
+inline void
+FinishStatusFrameHolderBuffer(flatbuffers::FlatBufferBuilder& fbb,
+                              flatbuffers::Offset<rj::StatusFrameHolder> root)
+{
+  fbb.Finish(root);
+}
+
+inline void
+FinishSizePrefixedStatusFrameHolderBuffer(
+  flatbuffers::FlatBufferBuilder& fbb,
+  flatbuffers::Offset<rj::StatusFrameHolder> root)
+{
+  fbb.FinishSizePrefixed(root);
 }
 
 } // namespace rj

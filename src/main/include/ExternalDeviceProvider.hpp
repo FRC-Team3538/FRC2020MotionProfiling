@@ -4,9 +4,14 @@
 #include "lib/Configuration.hpp"
 #include "lib/ctreJsonSerde.hpp"
 #include "proto/StatusFrame_generated.h"
+#include <arpa/inet.h>
 #include <ctre/Phoenix.h>
 #include <frc/Compressor.h>
 #include <frc/PowerDistributionPanel.h>
+#include <iostream>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <sys/socket.h>
 
 using namespace std;
 
@@ -20,6 +25,13 @@ class ExternalDeviceProvider
 private:
   Configuration config;
 
+  flatbuffers::FlatBufferBuilder fbb{};
+  int sockfd;
+  struct sockaddr_in address;
+
+  flatbuffers::Offset<rj::StatusFrameHolder> GetExternalStatusFrame(
+    flatbuffers::FlatBufferBuilder& fbb);
+
 public:
   TalonSRX driveLeft1{ kLeft1 };
   TalonSRX driveRight1{ kRight1 };
@@ -30,7 +42,6 @@ public:
   frc::PowerDistributionPanel pdp{};
   frc::Compressor pcm{};
 
-public:
-  flatbuffers::Offset<rj::StatusFrameCollection> GetExternalStatusFrame(
-    flatbuffers::FlatBufferBuilder& fbb);
+  void InitLogger();
+  void LogExternalDeviceStatus();
 };

@@ -1,12 +1,13 @@
 #include "ExternalDeviceProvider.hpp"
 
-rj::CTREMotorStatusFrame
-GetMotorStatusFrame(TalonSRX& motor)
+flatbuffers::Offset<rj::CTREMotorStatusFrame>
+GetMotorStatusFrame(flatbuffers::FlatBufferBuilder& fbb, TalonSRX& motor)
 {
   Faults faults;
   motor.GetFaults(faults);
 
-  return rj::CTREMotorStatusFrame{
+  return rj::CreateCTREMotorStatusFrame(
+    fbb,
     motor.GetFirmwareVersion(),
     motor.GetBaseID(),
     motor.GetDeviceID(),
@@ -34,17 +35,17 @@ GetMotorStatusFrame(TalonSRX& motor)
     motor.GetStatorCurrent(),
     motor.GetSupplyCurrent(),
     motor.IsFwdLimitSwitchClosed(),
-    motor.IsRevLimitSwitchClosed()
-  };
+    motor.IsRevLimitSwitchClosed());
 }
 
-rj::CTREMotorStatusFrame
-GetMotorStatusFrame(VictorSPX& motor)
+flatbuffers::Offset<rj::CTREMotorStatusFrame>
+GetMotorStatusFrame(flatbuffers::FlatBufferBuilder& fbb, VictorSPX& motor)
 {
   Faults faults;
   motor.GetFaults(faults);
 
-  return rj::CTREMotorStatusFrame{
+  return rj::CreateCTREMotorStatusFrame(
+    fbb,
     motor.GetFirmwareVersion(),
     motor.GetBaseID(),
     motor.GetDeviceID(),
@@ -72,66 +73,111 @@ GetMotorStatusFrame(VictorSPX& motor)
     0.0,
     0.0,
     0,
-    0
+    0);
+}
+
+flatbuffers::Offset<rj::PDPStatusFrame>
+GetPDPStatusFrame(flatbuffers::FlatBufferBuilder& fbb,
+                  frc::PowerDistributionPanel& pdp)
+{
+  std::vector<double> currentMeasurements{
+    pdp.GetCurrent(0),  pdp.GetCurrent(1),  pdp.GetCurrent(2),
+    pdp.GetCurrent(3),  pdp.GetCurrent(4),  pdp.GetCurrent(5),
+    pdp.GetCurrent(6),  pdp.GetCurrent(7),  pdp.GetCurrent(8),
+    pdp.GetCurrent(9),  pdp.GetCurrent(10), pdp.GetCurrent(11),
+    pdp.GetCurrent(12), pdp.GetCurrent(13), pdp.GetCurrent(14),
+    pdp.GetCurrent(15)
   };
+
+  return rj::CreatePDPStatusFrameDirect(
+    fbb,
+    0, // TODO: this is available in the beta
+    pdp.GetVoltage(),
+    pdp.GetTemperature(),
+    &currentMeasurements,
+    pdp.GetTotalCurrent(),
+    pdp.GetTotalPower(),
+    pdp.GetTotalEnergy());
 }
 
-rj::PDPStatusFrame
-GetPDPStatusFrame(frc::PowerDistributionPanel& pdp)
+flatbuffers::Offset<rj::PCMStatusFrame>
+GetPCMStatusFrame(flatbuffers::FlatBufferBuilder& fbb, frc::Compressor& pcm)
 {
-  return rj::PDPStatusFrame{ 0, // TODO: this is available in the beta
-                             pdp.GetVoltage(),
-                             pdp.GetTemperature(),
-                             pdp.GetCurrent(0),
-                             pdp.GetCurrent(1),
-                             pdp.GetCurrent(2),
-                             pdp.GetCurrent(3),
-                             pdp.GetCurrent(4),
-                             pdp.GetCurrent(5),
-                             pdp.GetCurrent(6),
-                             pdp.GetCurrent(7),
-                             pdp.GetCurrent(8),
-                             pdp.GetCurrent(9),
-                             pdp.GetCurrent(10),
-                             pdp.GetCurrent(11),
-                             pdp.GetCurrent(12),
-                             pdp.GetCurrent(13),
-                             pdp.GetCurrent(14),
-                             pdp.GetCurrent(15),
-                             pdp.GetTotalCurrent(),
-                             pdp.GetTotalPower(),
-                             pdp.GetTotalEnergy() };
+  return rj::CreatePCMStatusFrame(fbb,
+                                  0, // TODO: this is available in the beta
+                                  pcm.Enabled(),
+                                  pcm.GetPressureSwitchValue(),
+                                  pcm.GetCompressorCurrent(),
+                                  pcm.GetClosedLoopControl(),
+                                  pcm.GetCompressorCurrentTooHighFault(),
+                                  pcm.GetCompressorShortedFault(),
+                                  pcm.GetCompressorNotConnectedFault());
 }
 
-rj::PCMStatusFrame
-GetPCMStatusFrame(frc::Compressor& pcm)
-{
-  return rj::PCMStatusFrame{ 0, // TODO: this is available in the beta
-                             pcm.Enabled(),
-                             pcm.GetPressureSwitchValue(),
-                             pcm.GetCompressorCurrent(),
-                             pcm.GetClosedLoopControl(),
-                             pcm.GetCompressorCurrentTooHighFault(),
-                             pcm.GetCompressorShortedFault(),
-                             pcm.GetCompressorNotConnectedFault() };
-}
-
-flatbuffers::Offset<rj::StatusFrameCollection>
+flatbuffers::Offset<rj::StatusFrameHolder>
 ExternalDeviceProvider::GetExternalStatusFrame(
   flatbuffers::FlatBufferBuilder& fbb)
 {
-  auto driveLeft1StatusFrame = GetMotorStatusFrame(driveLeft1);
-  auto driveLeft2StatusFrame = GetMotorStatusFrame(driveLeft2);
-  auto driveRight1StatusFrame = GetMotorStatusFrame(driveRight1);
-  auto driveRight2StatusFrame = GetMotorStatusFrame(driveRight2);
-  auto pdpStatusFrame = GetPDPStatusFrame(pdp);
-  auto pcmStatusFrame = GetPCMStatusFrame(pcm);
+  auto unixTime = frc::GetTime();
+  auto monotonicTime = frc::Timer::GetFPGATimestamp();
 
-  return rj::CreateStatusFrameCollection(fbb,
-                                         &driveLeft1StatusFrame,
-                                         &driveLeft2StatusFrame,
-                                         &driveRight1StatusFrame,
-                                         &driveRight2StatusFrame,
-                                         &pdpStatusFrame,
-                                         &pcmStatusFrame);
+  std::vector<uint8_t> statusFrameTypes{
+    rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+    rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+    rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+    rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+    rj::StatusFrame::StatusFrame_PDPStatusFrame,
+    rj::StatusFrame::StatusFrame_PCMStatusFrame,
+  };
+
+  std::vector<flatbuffers::Offset<void>> statusFrames{
+    GetMotorStatusFrame(fbb, driveLeft1).Union(),
+    GetMotorStatusFrame(fbb, driveLeft2).Union(),
+    GetMotorStatusFrame(fbb, driveRight1).Union(),
+    GetMotorStatusFrame(fbb, driveRight2).Union(),
+    GetPDPStatusFrame(fbb, pdp).Union(),
+    GetPCMStatusFrame(fbb, pcm).Union(),
+  };
+
+  return rj::CreateStatusFrameHolderDirect(
+    fbb, unixTime, monotonicTime, &statusFrameTypes, &statusFrames);
+}
+
+void
+ExternalDeviceProvider::InitLogger()
+{
+  sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+  if (sockfd < 0) {
+    std::cout << "could not create socket! " << strerror(errno) << std::endl;
+    return;
+  }
+
+  address.sin_family = AF_INET;
+  address.sin_port = htons(5801);
+  if (inet_aton("10.83.32.62", &address.sin_addr) == 0) {
+    std::cout << "inet_aton failed! " << strerror(errno) << std::endl;
+    return;
+  }
+}
+
+void
+ExternalDeviceProvider::LogExternalDeviceStatus()
+{
+  if (sockfd < 0) {
+    return;
+  }
+
+  fbb.Reset();
+  auto offset = GetExternalStatusFrame(fbb);
+  fbb.Finish(offset);
+  auto buffer = fbb.Release();
+
+  if (sendto(sockfd,
+             buffer.data(),
+             buffer.size(),
+             0,
+             (const struct sockaddr*)&address,
+             sizeof(address)) == -1) {
+    std::cout << "sendto failed! " << strerror(errno) << std::endl;
+  }
 }

@@ -9,7 +9,6 @@
 
 #include "Robotmap.hpp"
 //#include "config/Trajectory.hpp"
-#include <arpa/inet.h>
 #include <frc/TimedRobot.h>
 #include <frc/Timer.h>
 #include <frc/geometry/Pose2d.h>
@@ -17,9 +16,6 @@
 #include <frc/trajectory/TrajectoryConfig.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <iostream>
-#include <netinet/in.h>
-#include <netinet/ip.h>
-#include <sys/socket.h>
 #include <units/units.h>
 #include <wpi/raw_ostream.h>
 
@@ -31,9 +27,6 @@ private:
   Robotmap IO;
   double autoStartTime;
   frc::Trajectory currentTrajectory;
-  flatbuffers::FlatBufferBuilder fbb{};
-  int sockfd;
-  struct sockaddr_in address;
 
 public:
   void RobotInit() override;

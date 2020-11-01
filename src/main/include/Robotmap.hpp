@@ -8,7 +8,7 @@
 class Robotmap
 {
 public:
-  ExternalDeviceProvider motors;
+  ExternalDeviceProvider externalDeviceProvider;
 
   DS ds;
   Drivebase drivebase;
