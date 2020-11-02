@@ -56,7 +56,7 @@ union StatusFrame { CTREMotorStatusFrame, PDPStatusFrame, PCMStatusFrame }
 table StatusFrameHolder {
   unixTime:double;
   monotonicTime:double;
-  statusFrames:[StatusFrame];
+  statusFrame:StatusFrame;
 }
 
 root_type StatusFrameHolder;

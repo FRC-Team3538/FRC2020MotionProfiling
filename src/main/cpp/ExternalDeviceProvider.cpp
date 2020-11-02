@@ -120,27 +120,34 @@ ExternalDeviceProvider::GetExternalStatusFrame(
 {
   auto unixTime = frc::GetTime();
   auto monotonicTime = frc::Timer::GetFPGATimestamp();
+  auto statusFrame = GetPDPStatusFrame(fbb, pdp);
 
-  std::vector<uint8_t> statusFrameTypes{
-    rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
-    rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
-    rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
-    rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+  // std::vector<uint8_t> statusFrameTypes{
+  //   rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+  //   rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+  //   rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+  //   rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
+  //   rj::StatusFrame::StatusFrame_PDPStatusFrame,
+  //   rj::StatusFrame::StatusFrame_PCMStatusFrame,
+  // };
+
+  // std::vector<flatbuffers::Offset<void>> statusFrames{
+  //   GetMotorStatusFrame(fbb, driveLeft1).Union(),
+  //   GetMotorStatusFrame(fbb, driveLeft2).Union(),
+  //   GetMotorStatusFrame(fbb, driveRight1).Union(),
+  //   GetMotorStatusFrame(fbb, driveRight2).Union(),
+  //   GetPDPStatusFrame(fbb, pdp).Union(),
+  //   GetPCMStatusFrame(fbb, pcm).Union(),
+  // };
+
+  auto statusFrameHolder = rj::CreateStatusFrameHolder(
+    fbb,
+    unixTime,
+    monotonicTime,
     rj::StatusFrame::StatusFrame_PDPStatusFrame,
-    rj::StatusFrame::StatusFrame_PCMStatusFrame,
-  };
+    statusFrame.Union());
 
-  std::vector<flatbuffers::Offset<void>> statusFrames{
-    GetMotorStatusFrame(fbb, driveLeft1).Union(),
-    GetMotorStatusFrame(fbb, driveLeft2).Union(),
-    GetMotorStatusFrame(fbb, driveRight1).Union(),
-    GetMotorStatusFrame(fbb, driveRight2).Union(),
-    GetPDPStatusFrame(fbb, pdp).Union(),
-    GetPCMStatusFrame(fbb, pcm).Union(),
-  };
-
-  return rj::CreateStatusFrameHolderDirect(
-    fbb, unixTime, monotonicTime, &statusFrameTypes, &statusFrames);
+  return rj::FinishSizePrefixedStatusFrameHolderBuffer(fbb, statusFrameHolder);
 }
 
 void
@@ -169,7 +176,6 @@ ExternalDeviceProvider::LogExternalDeviceStatus()
 
   fbb.Reset();
   auto offset = GetExternalStatusFrame(fbb);
-  fbb.Finish(offset);
   auto buffer = fbb.Release();
 
   if (sendto(sockfd,

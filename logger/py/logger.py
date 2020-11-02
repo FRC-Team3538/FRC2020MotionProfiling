@@ -1,4 +1,4 @@
-from rj.StatusFrameCollection import *
+from rj.StatusFrameHolder import *
 import socket
 import json
 import time
@@ -90,6 +90,6 @@ def deserializeStatusFrameCollection(sfc):
 while True:
     data, addr = sock.recvfrom(1024, socket.MSG_DONTWAIT)
     buf = bytearray(data)
-    sfc = StatusFrameCollection.GetRootAsStatusFrameCollection(buf, 0)
+    sfc = StatusFrameHolder.GetRootAsStatusFrameCollection(buf, 0)
     print(f"Received {len(buf)} bytes from {addr} at {time.time()}")
 
