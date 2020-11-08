@@ -116,36 +116,17 @@ GetPCMStatusFrame(flatbuffers::FlatBufferBuilder& fbb, frc::Compressor& pcm)
 
 void
 ExternalDeviceProvider::BuildExternalStatusFrame(
-  flatbuffers::FlatBufferBuilder& fbb)
+  flatbuffers::FlatBufferBuilder& fbb, rj::StatusFrame statusFrameType, flatbuffers::Offset<void> statusFrameOffset)
 {
   auto unixTime = frc::GetTime();
   auto monotonicTime = frc::Timer::GetFPGATimestamp();
-  auto statusFrame = GetPDPStatusFrame(fbb, pdp);
-
-  // std::vector<uint8_t> statusFrameTypes{
-  //   rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
-  //   rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
-  //   rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
-  //   rj::StatusFrame::StatusFrame_CTREMotorStatusFrame,
-  //   rj::StatusFrame::StatusFrame_PDPStatusFrame,
-  //   rj::StatusFrame::StatusFrame_PCMStatusFrame,
-  // };
-
-  // std::vector<flatbuffers::Offset<void>> statusFrames{
-  //   GetMotorStatusFrame(fbb, driveLeft1).Union(),
-  //   GetMotorStatusFrame(fbb, driveLeft2).Union(),
-  //   GetMotorStatusFrame(fbb, driveRight1).Union(),
-  //   GetMotorStatusFrame(fbb, driveRight2).Union(),
-  //   GetPDPStatusFrame(fbb, pdp).Union(),
-  //   GetPCMStatusFrame(fbb, pcm).Union(),
-  // };
 
   auto statusFrameHolder =
     rj::CreateStatusFrameHolder(fbb,
                                 unixTime,
                                 monotonicTime,
-                                rj::StatusFrame::StatusFrame_PDPStatusFrame,
-                                statusFrame.Union());
+                                statusFrameType,
+                                statusFrameOffset);
 
   rj::FinishSizePrefixedStatusFrameHolderBuffer(fbb, statusFrameHolder);
 }
@@ -167,6 +148,14 @@ ExternalDeviceProvider::InitLogger()
   }
 }
 
+int sendLog(int sockfd, const flatbuffers::DetachedBuffer& buffer, const struct sockaddr_in& address) {
+  if (sockfd < 0) {
+    return 0;
+  }
+
+  return sendto(sockfd, buffer.data(), buffer.size(), 0, (const struct sockaddr *)&address, sizeof(address));
+}
+
 void
 ExternalDeviceProvider::LogExternalDeviceStatus()
 {
@@ -175,15 +164,68 @@ ExternalDeviceProvider::LogExternalDeviceStatus()
   }
 
   fbb.Reset();
-  BuildExternalStatusFrame(fbb);
+  auto pdpStatusFrameOffset = GetPDPStatusFrame(fbb, pdp);
+  BuildExternalStatusFrame(fbb, rj::StatusFrame::StatusFrame_PDPStatusFrame, pdpStatusFrameOffset.Union());
   auto buffer = fbb.Release();
 
-  if (sendto(sockfd,
-             buffer.data(),
-             buffer.size(),
-             0,
-             (const struct sockaddr*)&address,
-             sizeof(address)) == -1) {
-    std::cout << "sendto failed! " << strerror(errno) << std::endl;
+  if (sendLog(sockfd,
+             buffer,
+             address) == -1) {
+    std::cout << "sendLog failed! " << strerror(errno) << std::endl;
+  }
+
+  fbb.Reset();
+  auto pcmStatusFrameOffset = GetPCMStatusFrame(fbb, pcm);
+  BuildExternalStatusFrame(fbb, rj::StatusFrame::StatusFrame_PCMStatusFrame, pcmStatusFrameOffset.Union());
+  buffer = fbb.Release();
+
+  if (sendLog(sockfd,
+             buffer,
+             address) == -1) {
+    std::cout << "sendLog failed! " << strerror(errno) << std::endl;
+  }
+
+  fbb.Reset();
+  auto driveLeft1StatusFrameOffset = GetMotorStatusFrame(fbb, driveLeft1);
+  BuildExternalStatusFrame(fbb, rj::StatusFrame::StatusFrame_CTREMotorStatusFrame, driveLeft1StatusFrameOffset.Union());
+  buffer = fbb.Release();
+
+  if (sendLog(sockfd,
+             buffer,
+             address) == -1) {
+    std::cout << "sendLog failed! " << strerror(errno) << std::endl;
+  }
+
+  fbb.Reset();
+  auto driveLeft2StatusFrameOffset = GetMotorStatusFrame(fbb, driveLeft2);
+  BuildExternalStatusFrame(fbb, rj::StatusFrame::StatusFrame_CTREMotorStatusFrame, driveLeft2StatusFrameOffset.Union());
+  buffer = fbb.Release();
+
+  if (sendLog(sockfd,
+             buffer,
+             address) == -1) {
+    std::cout << "sendLog failed! " << strerror(errno) << std::endl;
+  }
+
+  fbb.Reset();
+  auto driveRight1StatusFrameOffset = GetMotorStatusFrame(fbb, driveRight1);
+  BuildExternalStatusFrame(fbb, rj::StatusFrame::StatusFrame_CTREMotorStatusFrame, driveRight1StatusFrameOffset.Union());
+  buffer = fbb.Release();
+
+  if (sendLog(sockfd,
+             buffer,
+             address) == -1) {
+    std::cout << "sendLog failed! " << strerror(errno) << std::endl;
+  }
+
+  fbb.Reset();
+  auto driveRight2StatusFrameOffset = GetMotorStatusFrame(fbb, driveRight2);
+  BuildExternalStatusFrame(fbb, rj::StatusFrame::StatusFrame_CTREMotorStatusFrame, driveRight2StatusFrameOffset.Union());
+  buffer = fbb.Release();
+
+  if (sendLog(sockfd,
+             buffer,
+             address) == -1) {
+    std::cout << "sendLog failed! " << strerror(errno) << std::endl;
   }
 }

@@ -29,7 +29,8 @@ private:
   int sockfd;
   struct sockaddr_in address;
 
-  void BuildExternalStatusFrame(flatbuffers::FlatBufferBuilder& fbb);
+  void BuildExternalStatusFrame(
+  flatbuffers::FlatBufferBuilder& fbb, rj::StatusFrame statusFrameType, flatbuffers::Offset<void> statusFrameOffset);
 
 public:
   TalonSRX driveLeft1{ kLeft1 };
