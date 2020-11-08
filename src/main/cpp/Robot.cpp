@@ -20,7 +20,6 @@ Robot::RobotPeriodic()
   IO.drivebase.UpdateOdometry();
   IO.externalDeviceProvider.LogExternalDeviceStatus();
 
-  // IO.drivebase.LogState();
   // wpi::outs() << IO.motors.GetExternalStatusFrame() << "\n";
 }
 void
@@ -33,11 +32,13 @@ void
 Robot::AutonomousInit()
 {
   const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(0_deg));
-  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(0_deg));
+  const frc::Pose2d forward_5(15_ft, 0_ft, frc::Rotation2d(0_deg));
 
-  std::vector<frc::Translation2d> interiorWaypoints{};
+  std::vector<frc::Translation2d> interiorWaypoints{
+    // frc::Translation2d(10_ft, 5_ft)
+  };
 
-  frc::TrajectoryConfig config(5_fps, 5_fps_sq);
+  frc::TrajectoryConfig config(3_fps, 4_fps_sq);
 
   currentTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
     zero, interiorWaypoints, forward_5, config);
@@ -60,14 +61,15 @@ Robot::AutonomousPeriodic()
   if (units::second_t(currentTime - autoStartTime) <=
       currentTrajectory.TotalTime()) {
     // wpi::outs() << "t: " << currentTime - autoStartTime
-    //            << ", state: " << jsonState.dump() << "\n";
+    //             << ", state: " << jsonState.dump() << "\n";
 
     IO.drivebase.SetRamseteTarget(state);
+    IO.drivebase.LogState();
   } else {
     IO.drivebase.StopFollowing();
   }
 
-  IO.drivebase.LogState();
+  // IO.drivebase.LogState();
 
   IO.drivebase.StepRamsete();
 }

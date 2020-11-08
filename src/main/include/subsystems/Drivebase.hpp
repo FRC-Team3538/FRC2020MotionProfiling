@@ -41,6 +41,8 @@ public:
   void ResetOdometry()
   {
     auto heading = GetGyroHeading();
+    motorLeft1.SetSelectedSensorPosition(0);
+    motorRight1.SetSelectedSensorPosition(0);
     odometry.ResetPosition(frc::Pose2d(0_m, 0_m, heading), heading);
   }
 

@@ -114,8 +114,8 @@ GetPCMStatusFrame(flatbuffers::FlatBufferBuilder& fbb, frc::Compressor& pcm)
                                   pcm.GetCompressorNotConnectedFault());
 }
 
-flatbuffers::Offset<rj::StatusFrameHolder>
-ExternalDeviceProvider::GetExternalStatusFrame(
+void
+ExternalDeviceProvider::BuildExternalStatusFrame(
   flatbuffers::FlatBufferBuilder& fbb)
 {
   auto unixTime = frc::GetTime();
@@ -140,14 +140,14 @@ ExternalDeviceProvider::GetExternalStatusFrame(
   //   GetPCMStatusFrame(fbb, pcm).Union(),
   // };
 
-  auto statusFrameHolder = rj::CreateStatusFrameHolder(
-    fbb,
-    unixTime,
-    monotonicTime,
-    rj::StatusFrame::StatusFrame_PDPStatusFrame,
-    statusFrame.Union());
+  auto statusFrameHolder =
+    rj::CreateStatusFrameHolder(fbb,
+                                unixTime,
+                                monotonicTime,
+                                rj::StatusFrame::StatusFrame_PDPStatusFrame,
+                                statusFrame.Union());
 
-  return rj::FinishSizePrefixedStatusFrameHolderBuffer(fbb, statusFrameHolder);
+  rj::FinishSizePrefixedStatusFrameHolderBuffer(fbb, statusFrameHolder);
 }
 
 void
@@ -175,7 +175,7 @@ ExternalDeviceProvider::LogExternalDeviceStatus()
   }
 
   fbb.Reset();
-  auto offset = GetExternalStatusFrame(fbb);
+  BuildExternalStatusFrame(fbb);
   auto buffer = fbb.Release();
 
   if (sendto(sockfd,

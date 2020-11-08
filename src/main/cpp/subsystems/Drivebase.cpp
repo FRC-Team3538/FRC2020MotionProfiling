@@ -27,8 +27,8 @@ Drivebase::Drivebase()
 
   // do the thing
   config.primaryPID.selectedFeedbackSensor = FeedbackDevice::QuadEncoder;
-  config.slot0.kF = 0.468 / 12.0;
-  config.slot0.kP = 0.833 / 1023.0;
+  config.slot0.kF = 0.964 / 12.0;
+  config.slot0.kP = 3.02 / 12.0 / 1023.0;
 
   motorLeft1.ConfigAllSettings(config);
 
@@ -38,11 +38,11 @@ Drivebase::Drivebase()
   config.primaryPID.selectedFeedbackSensor = FeedbackDevice::QuadEncoder;
   // based on observations kF is on a scale from 0 to 1, it may be from 0 to
   // 1023.
-  config.slot0.kF = 0.853 / 12.0;
+  config.slot0.kF = 0.964 / 12.0;
   // PID controller output is for sure on a scale from 0 to 1023,
   // so the kP that FRC-characterization gives us needs to be scaled
   // appropriately
-  config.slot0.kP = 0.983 / 1023.0;
+  config.slot0.kP = 3.02 / 12.0 / 1023.0;
 
   motorRight1.ConfigAllSettings(config);
 
@@ -97,10 +97,13 @@ Drivebase::SetRamseteTarget(frc::Trajectory::State state)
 void
 Drivebase::StepRamsete()
 {
-  double left = wheelSpeeds.left.to<double>() * Constants::ticks_per_meter;
-  double right = wheelSpeeds.right.to<double>() * Constants::ticks_per_meter;
+  double left =
+    wheelSpeeds.left.to<double>() * Constants::ticks_per_meter / 10.0;
+  double right =
+    wheelSpeeds.right.to<double>() * Constants::ticks_per_meter / 10.0;
 
-  wpi::outs() << "\tleft: " << left << " right: " << right << "\n";
+  wpi::outs() << "\tleft: " << wheelSpeeds.left.to<double>()
+              << " right: " << wheelSpeeds.right.to<double>() << "\n";
 
   motorLeft1.Set(motorcontrol::ControlMode::Velocity, left);
   motorRight1.Set(motorcontrol::ControlMode::Velocity, right);
