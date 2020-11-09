@@ -3,4 +3,4 @@
 	url = https://github.com/protocolbuffers/protobuf
 [submodule "third_party/flatbuffers"]
 	path = third_party/flatbuffers
-	url = git@github.com:google/flatbuffers.git
+	url = https://github.com/google/flatbuffers.git
