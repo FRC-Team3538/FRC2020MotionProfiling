@@ -4,14 +4,24 @@
 #include "lib/Configuration.hpp"
 #include "lib/ctreJsonSerde.hpp"
 #include "proto/StatusFrame_generated.h"
-#include <arpa/inet.h>
 #include <ctre/Phoenix.h>
 #include <frc/Compressor.h>
 #include <frc/PowerDistributionPanel.h>
 #include <iostream>
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+
+//#include <winsock2.h>
+
+#else
+
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <sys/socket.h>
+
+#endif // defined(WIN32) || defined(_WIN32) || defined(__WIN32__) ||
+       // defined(__NT__)
 
 using namespace std;
 
@@ -26,11 +36,18 @@ private:
   Configuration config;
 
   flatbuffers::FlatBufferBuilder fbb{};
-  int sockfd;
-  struct sockaddr_in address;
 
-  void BuildExternalStatusFrame(
-  flatbuffers::FlatBufferBuilder& fbb, rj::StatusFrame statusFrameType, flatbuffers::Offset<void> statusFrameOffset);
+  int sockfd;
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+//  struct sockaddr_in address;
+#else
+  struct sockaddr_in address;
+#endif
+
+  void BuildExternalStatusFrame(flatbuffers::FlatBufferBuilder& fbb,
+                                rj::StatusFrame statusFrameType,
+                                flatbuffers::Offset<void> statusFrameOffset);
 
 public:
   TalonSRX driveLeft1{ kLeft1 };

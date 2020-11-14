@@ -56,6 +56,12 @@ dependencies {
 }
 
 model {
+    //toolChains {
+    //    vc(VisualCpp) {
+    //        installDir "C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools"
+    //    }
+    //}
+
     components {
         frcUserProgram(NativeExecutableSpec) {
             targetPlatform wpi.platforms.roborio
@@ -108,7 +114,7 @@ spotless {
     cpp {
         target 'src/main/cpp/**', 'src/main/include/**'
 
-        clangFormat('10.0.0-4ubuntu1').style('Mozilla')
+        clangFormat('12.0.0').pathToExe('C:\\Program Files\\LLVM\\bin\\clang-format.exe').style('Mozilla')
     }
 }
 */
