@@ -7,4 +7,5 @@ class StatusFrame(object):
     CTREMotorStatusFrame = 1
     PDPStatusFrame = 2
     PCMStatusFrame = 3
+    InitializeStatusFrame = 4
 

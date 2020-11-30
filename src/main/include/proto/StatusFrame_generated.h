@@ -7,6 +7,9 @@
 
 namespace rj {
 
+struct InitializeStatusFrame;
+struct InitializeStatusFrameBuilder;
+
 struct CTREMotorStatusFrame;
 struct CTREMotorStatusFrameBuilder;
 
@@ -25,24 +28,27 @@ enum StatusFrame
   StatusFrame_CTREMotorStatusFrame = 1,
   StatusFrame_PDPStatusFrame = 2,
   StatusFrame_PCMStatusFrame = 3,
+  StatusFrame_InitializeStatusFrame = 4,
   StatusFrame_MIN = StatusFrame_NONE,
-  StatusFrame_MAX = StatusFrame_PCMStatusFrame
+  StatusFrame_MAX = StatusFrame_InitializeStatusFrame
 };
 
-inline const StatusFrame (&EnumValuesStatusFrame())[4]
+inline const StatusFrame (&EnumValuesStatusFrame())[5]
 {
   static const StatusFrame values[] = { StatusFrame_NONE,
                                         StatusFrame_CTREMotorStatusFrame,
                                         StatusFrame_PDPStatusFrame,
-                                        StatusFrame_PCMStatusFrame };
+                                        StatusFrame_PCMStatusFrame,
+                                        StatusFrame_InitializeStatusFrame };
   return values;
 }
 
 inline const char* const*
 EnumNamesStatusFrame()
 {
-  static const char* const names[5] = {
-    "NONE", "CTREMotorStatusFrame", "PDPStatusFrame", "PCMStatusFrame", nullptr
+  static const char* const names[6] = {
+    "NONE",           "CTREMotorStatusFrame",  "PDPStatusFrame",
+    "PCMStatusFrame", "InitializeStatusFrame", nullptr
   };
   return names;
 }
@@ -50,7 +56,8 @@ EnumNamesStatusFrame()
 inline const char*
 EnumNameStatusFrame(StatusFrame e)
 {
-  if (flatbuffers::IsOutRange(e, StatusFrame_NONE, StatusFrame_PCMStatusFrame))
+  if (flatbuffers::IsOutRange(
+        e, StatusFrame_NONE, StatusFrame_InitializeStatusFrame))
     return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesStatusFrame()[index];
@@ -80,6 +87,12 @@ struct StatusFrameTraits<rj::PCMStatusFrame>
   static const StatusFrame enum_value = StatusFrame_PCMStatusFrame;
 };
 
+template<>
+struct StatusFrameTraits<rj::InitializeStatusFrame>
+{
+  static const StatusFrame enum_value = StatusFrame_InitializeStatusFrame;
+};
+
 bool
 VerifyStatusFrame(flatbuffers::Verifier& verifier,
                   const void* obj,
@@ -89,6 +102,65 @@ VerifyStatusFrameVector(
   flatbuffers::Verifier& verifier,
   const flatbuffers::Vector<flatbuffers::Offset<void>>* values,
   const flatbuffers::Vector<uint8_t>* types);
+
+struct InitializeStatusFrame FLATBUFFERS_FINAL_CLASS
+  : private flatbuffers::Table
+{
+  typedef InitializeStatusFrameBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE
+  {
+    VT_TITLE = 4
+  };
+  const flatbuffers::String* title() const
+  {
+    return GetPointer<const flatbuffers::String*>(VT_TITLE);
+  }
+  bool Verify(flatbuffers::Verifier& verifier) const
+  {
+    return VerifyTableStart(verifier) && VerifyOffset(verifier, VT_TITLE) &&
+           verifier.VerifyString(title()) && verifier.EndTable();
+  }
+};
+
+struct InitializeStatusFrameBuilder
+{
+  typedef InitializeStatusFrame Table;
+  flatbuffers::FlatBufferBuilder& fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_title(flatbuffers::Offset<flatbuffers::String> title)
+  {
+    fbb_.AddOffset(InitializeStatusFrame::VT_TITLE, title);
+  }
+  explicit InitializeStatusFrameBuilder(flatbuffers::FlatBufferBuilder& _fbb)
+    : fbb_(_fbb)
+  {
+    start_ = fbb_.StartTable();
+  }
+  InitializeStatusFrameBuilder& operator=(const InitializeStatusFrameBuilder&);
+  flatbuffers::Offset<InitializeStatusFrame> Finish()
+  {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<InitializeStatusFrame>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<InitializeStatusFrame>
+CreateInitializeStatusFrame(flatbuffers::FlatBufferBuilder& _fbb,
+                            flatbuffers::Offset<flatbuffers::String> title = 0)
+{
+  InitializeStatusFrameBuilder builder_(_fbb);
+  builder_.add_title(title);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<InitializeStatusFrame>
+CreateInitializeStatusFrameDirect(flatbuffers::FlatBufferBuilder& _fbb,
+                                  const char* title = nullptr)
+{
+  auto title__ = title ? _fbb.CreateString(title) : 0;
+  return rj::CreateInitializeStatusFrame(_fbb, title__);
+}
 
 struct CTREMotorStatusFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
 {
@@ -750,6 +822,12 @@ struct StatusFrameHolder FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
              ? static_cast<const rj::PCMStatusFrame*>(statusFrame())
              : nullptr;
   }
+  const rj::InitializeStatusFrame* statusFrame_as_InitializeStatusFrame() const
+  {
+    return statusFrame_type() == rj::StatusFrame_InitializeStatusFrame
+             ? static_cast<const rj::InitializeStatusFrame*>(statusFrame())
+             : nullptr;
+  }
   bool Verify(flatbuffers::Verifier& verifier) const
   {
     return VerifyTableStart(verifier) &&
@@ -781,6 +859,13 @@ inline const rj::PCMStatusFrame*
 StatusFrameHolder::statusFrame_as<rj::PCMStatusFrame>() const
 {
   return statusFrame_as_PCMStatusFrame();
+}
+
+template<>
+inline const rj::InitializeStatusFrame*
+StatusFrameHolder::statusFrame_as<rj::InitializeStatusFrame>() const
+{
+  return statusFrame_as_InitializeStatusFrame();
 }
 
 struct StatusFrameHolderBuilder
@@ -855,6 +940,10 @@ VerifyStatusFrame(flatbuffers::Verifier& verifier,
     }
     case StatusFrame_PCMStatusFrame: {
       auto ptr = reinterpret_cast<const rj::PCMStatusFrame*>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case StatusFrame_InitializeStatusFrame: {
+      auto ptr = reinterpret_cast<const rj::InitializeStatusFrame*>(obj);
       return verifier.VerifyTable(ptr);
     }
     default:

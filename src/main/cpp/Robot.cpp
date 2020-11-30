@@ -6,21 +6,46 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Robot.hpp"
-#include "flatbuffers/flatbuffers.h"
+
+#include <chrono>
+#include <ctime>
+#include <functional>
+
+void
+logToUDPLogger(UDPLogger& logger, ExternalDeviceProvider& provider)
+{
+  std::function<void(flatbuffers::FlatBufferBuilder&)> func =
+    [&](flatbuffers::FlatBufferBuilder& fbb) {
+      provider.PopulateLogBuffer(fbb);
+    };
+
+  auto target =
+    std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
+
+  logger.InitLogger();
+  while (true) {
+    logger.LogWithFlatBuffer(func);
+    std::this_thread::sleep_until(target);
+    target = std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
+  }
+}
 
 void
 Robot::RobotInit()
 {
+  auto time_point = std::chrono::system_clock::now();
+  auto time = std::chrono::system_clock::to_time_t(time_point);
+  IO.logger.SetTitle(std::ctime(&time));
+
+  logger = std::thread(
+    logToUDPLogger, std::ref(IO.logger), std::ref(IO.externalDeviceProvider));
+  logger.detach();
   IO.drivebase.ResetOdometry();
-  IO.externalDeviceProvider.InitLogger();
 }
 void
 Robot::RobotPeriodic()
 {
   IO.drivebase.UpdateOdometry();
-  IO.externalDeviceProvider.LogExternalDeviceStatus();
-
-  // wpi::outs() << IO.motors.GetExternalStatusFrame() << "\n";
 }
 void
 Robot::DisabledInit()
@@ -32,13 +57,16 @@ void
 Robot::AutonomousInit()
 {
   const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(0_deg));
-  const frc::Pose2d forward_5(10_ft, 0_ft, frc::Rotation2d(0_deg));
+  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(180_deg));
 
   std::vector<frc::Translation2d> interiorWaypoints{
-    // frc::Translation2d(10_ft, 5_ft)
+    frc::Translation2d(8_ft, -5_ft),
+    frc::Translation2d(10_ft, -5_ft),
+    frc::Translation2d(13_ft, -3_ft),
+    frc::Translation2d(10_ft, 0_ft)
   };
 
-  frc::TrajectoryConfig config(10_fps, 6_fps_sq);
+  frc::TrajectoryConfig config(5_fps, 6_fps_sq);
 
   currentTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
     zero, interiorWaypoints, forward_5, config);
@@ -68,8 +96,6 @@ Robot::AutonomousPeriodic()
   } else {
     IO.drivebase.StopFollowing();
   }
-
-  // IO.drivebase.LogState();
 
   IO.drivebase.StepRamsete();
 }

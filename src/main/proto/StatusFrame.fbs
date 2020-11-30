@@ -2,6 +2,10 @@
 
 namespace rj;
 
+table InitializeStatusFrame {
+  title:string;
+}
+
 table CTREMotorStatusFrame {
   firmwareVersion:int;
   baseID:int;
@@ -51,7 +55,7 @@ table PCMStatusFrame {
   compressorNotConnectedFault:bool;
 }
 
-union StatusFrame { CTREMotorStatusFrame, PDPStatusFrame, PCMStatusFrame }
+union StatusFrame { CTREMotorStatusFrame, PDPStatusFrame, PCMStatusFrame, InitializeStatusFrame }
 
 table StatusFrameHolder {
   unixTime:double;

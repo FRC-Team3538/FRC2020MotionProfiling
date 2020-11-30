@@ -17,6 +17,7 @@
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <iostream>
 // #include <units/units.h>
+#include <thread>
 #include <wpi/raw_ostream.h>
 
 #include "lib/Configuration.hpp"
@@ -27,6 +28,7 @@ private:
   Robotmap IO;
   double autoStartTime;
   frc::Trajectory currentTrajectory;
+  std::thread logger;
 
 public:
   void RobotInit() override;

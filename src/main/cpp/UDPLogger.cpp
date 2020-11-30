@@ -1,0 +1,110 @@
+#include <iostream>
+
+#include <arpa/inet.h>
+#include <netinet/ip.h>
+#include <sys/socket.h>
+
+#include "UDPLogger.hpp"
+#include "proto/StatusFrame_generated.h"
+
+void
+UDPLogger::InitLogger()
+{
+
+  sockfd = socket(AF_INET, SOCK_DGRAM | SOCK_NONBLOCK, IPPROTO_UDP);
+  if (sockfd < 0) {
+    std::cout << "socket() failed! " << strerror(errno) << std::endl;
+    return;
+  }
+
+  address.sin_family = AF_INET;
+  address.sin_port = htons(3538);
+
+  if (inet_aton("0.0.0.0", &address.sin_addr) == 0) {
+    std::cout << "inet_aton() failed! " << strerror(errno) << std::endl;
+    return;
+  }
+
+  if (bind(sockfd, (const struct sockaddr*)&address, sizeof(address)) != 0) {
+    std::cout << "bind() failed! " << strerror(errno) << std::endl;
+    return;
+  }
+}
+
+int
+sendLog(int sockfd,
+        const uint8_t* data,
+        size_t size,
+        const struct sockaddr_in& address)
+{
+  if (sockfd < 0) {
+    return 0;
+  }
+
+  return sendto(
+    sockfd, data, size, 0, (const struct sockaddr*)&address, sizeof(address));
+}
+
+void
+UDPLogger::LogWithFlatBuffer(
+  std::function<void(flatbuffers::FlatBufferBuilder&)> func)
+{
+  mut.lock();
+  fbb.Reset();
+  func(fbb);
+  auto buffer = fbb.Release();
+
+  Log(buffer.data(), buffer.size());
+  mut.unlock();
+}
+
+// Need to lock at this level so we don't cause iterator invalidation on
+// `clients`
+void
+UDPLogger::Log(uint8_t* data, size_t size)
+{
+  mut.lock();
+  for (struct sockaddr_in addr : clients) {
+    if (sendLog(sockfd, data, size, addr) == -1) {
+      std::cout << "sendLog failed! " << strerror(errno) << std::endl;
+    }
+  }
+  mut.unlock();
+}
+
+#define RECV_BUF_SIZE 3
+
+void
+UDPLogger::CheckForNewClient()
+{
+  struct sockaddr_in client;
+  socklen_t client_len = sizeof(struct sockaddr_in);
+  char buf[RECV_BUF_SIZE];
+  buf[2] = 0x00;
+  ssize_t res_len = recvfrom(sockfd,
+                             (void*)buf,
+                             RECV_BUF_SIZE,
+                             0,
+                             (struct sockaddr*)&client,
+                             &client_len);
+
+  if (res_len == 2 && strcmp(buf, "Hi") == 0) {
+    mut.lock();
+    clients.push_back(client);
+
+    fbb.Reset();
+    auto greeting = rj::CreateInitializeStatusFrameDirect(fbb, title.c_str());
+    fbb.FinishSizePrefixed(greeting);
+    auto buffer = fbb.Release();
+
+    sendLog(sockfd, buffer.data(), buffer.size(), client);
+
+    mut.unlock();
+  }
+}
+
+void
+UDPLogger::SetTitle(std::string str)
+{
+  title = str;
+}
