@@ -4,6 +4,8 @@
 #include <netinet/ip.h>
 #include <sys/socket.h>
 
+#include "frc/Timer.h"
+
 #include "UDPLogger.hpp"
 #include "proto/StatusFrame_generated.h"
 
@@ -94,7 +96,8 @@ UDPLogger::CheckForNewClient()
 
     fbb.Reset();
     auto greeting = rj::CreateInitializeStatusFrameDirect(fbb, title.c_str());
-    fbb.FinishSizePrefixed(greeting);
+    auto wrapper = rj::CreateStatusFrameHolder(fbb, frc::GetTime(), frc::Timer::GetFPGATimestamp(), rj::StatusFrame_InitializeStatusFrame, greeting.Union());
+    fbb.FinishSizePrefixed(wrapper);
     auto buffer = fbb.Release();
 
     sendLog(sockfd, buffer.data(), buffer.size(), client);
