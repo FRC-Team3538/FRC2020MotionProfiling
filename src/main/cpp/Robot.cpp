@@ -24,6 +24,7 @@ logToUDPLogger(UDPLogger& logger, ExternalDeviceProvider& provider)
 
   logger.InitLogger();
   while (true) {
+    logger.CheckForNewClient();
     logger.LogWithFlatBuffer(func);
     std::this_thread::sleep_until(target);
     target = std::chrono::steady_clock::now() + std::chrono::milliseconds(20);

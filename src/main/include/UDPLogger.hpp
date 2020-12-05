@@ -4,7 +4,11 @@
 #include <mutex>
 #include <vector>
 
+#if defined(_WIN32)
+
+#else
 #include <netinet/in.h>
+#endif // defined(_WIN32)
 
 #include "flatbuffers/flatbuffers.h"
 
@@ -18,9 +22,11 @@ private:
   flatbuffers::FlatBufferBuilder fbb{ FLATBUFFER_SIZE }; // 4KB
 
   int sockfd;
-
+#if defined(_WIN32)
+#else
   struct sockaddr_in address;
   std::vector<struct sockaddr_in> clients;
+#endif // defined(_WIN32)
   std::recursive_mutex mut;
   std::string title;
 

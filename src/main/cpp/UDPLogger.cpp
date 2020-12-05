@@ -1,13 +1,38 @@
 #include <iostream>
 
+#if defined(_WIN32)
+
+#else
 #include <arpa/inet.h>
 #include <netinet/ip.h>
 #include <sys/socket.h>
+#endif // defined(_WIN32)
 
 #include "frc/Timer.h"
 
 #include "UDPLogger.hpp"
 #include "proto/StatusFrame_generated.h"
+
+#if defined(_WIN32)
+
+void
+UDPLogger::InitLogger()
+{}
+
+void
+UDPLogger::LogWithFlatBuffer(
+  std::function<void(flatbuffers::FlatBufferBuilder&)> func)
+{}
+
+void
+UDPLogger::Log(uint8_t* data, size_t size)
+{}
+
+void
+UDPLogger::CheckForNewClient()
+{}
+
+#else
 
 void
 UDPLogger::InitLogger()
@@ -96,7 +121,12 @@ UDPLogger::CheckForNewClient()
 
     fbb.Reset();
     auto greeting = rj::CreateInitializeStatusFrameDirect(fbb, title.c_str());
-    auto wrapper = rj::CreateStatusFrameHolder(fbb, frc::GetTime(), frc::Timer::GetFPGATimestamp(), rj::StatusFrame_InitializeStatusFrame, greeting.Union());
+    auto wrapper =
+      rj::CreateStatusFrameHolder(fbb,
+                                  frc::GetTime(),
+                                  frc::Timer::GetFPGATimestamp(),
+                                  rj::StatusFrame_InitializeStatusFrame,
+                                  greeting.Union());
     fbb.FinishSizePrefixed(wrapper);
     auto buffer = fbb.Release();
 
@@ -105,6 +135,8 @@ UDPLogger::CheckForNewClient()
     mut.unlock();
   }
 }
+
+#endif // defined(_WIN32)
 
 void
 UDPLogger::SetTitle(std::string str)
