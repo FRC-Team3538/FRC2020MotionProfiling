@@ -12,6 +12,9 @@
 
 #include "UDPLogger.hpp"
 #include "proto/StatusFrame_generated.h"
+#include <assert.h>
+
+#include <iostream>
 
 #if defined(_WIN32)
 
@@ -20,16 +23,11 @@ UDPLogger::InitLogger()
 {}
 
 void
-UDPLogger::LogWithFlatBuffer(
-  std::function<void(flatbuffers::FlatBufferBuilder&)> func)
-{}
-
-void
-UDPLogger::Log(uint8_t* data, size_t size)
-{}
-
-void
 UDPLogger::CheckForNewClient()
+{}
+
+void
+UDPLogger::FlushLogBuffer()
 {}
 
 #else
@@ -72,30 +70,18 @@ sendLog(int sockfd,
     sockfd, data, size, 0, (const struct sockaddr*)&address, sizeof(address));
 }
 
-void
-UDPLogger::LogWithFlatBuffer(
-  std::function<void(flatbuffers::FlatBufferBuilder&)> func)
-{
-  mut.lock();
-  fbb.Reset();
-  func(fbb);
-  auto buffer = fbb.Release();
-
-  Log(buffer.data(), buffer.size());
-  mut.unlock();
-}
-
 // Need to lock at this level so we don't cause iterator invalidation on
 // `clients`
 void
-UDPLogger::Log(uint8_t* data, size_t size)
+UDPLogger::FlushLogBuffer()
 {
   mut.lock();
   for (struct sockaddr_in addr : clients) {
-    if (sendLog(sockfd, data, size, addr) == -1) {
+    if (sendLog(sockfd, buf, bufsize, addr) == -1) {
       std::cout << "sendLog failed! " << strerror(errno) << std::endl;
     }
   }
+  bufsize = 0;
   mut.unlock();
 }
 
@@ -137,6 +123,15 @@ UDPLogger::CheckForNewClient()
 }
 
 #endif // defined(_WIN32)
+
+void
+UDPLogger::Log(uint8_t* data, size_t size)
+{
+  // shoutouts to memory safety
+  assert(bufsize + size < FLATBUFFER_SIZE);
+  memcpy(buf + bufsize, data, size);
+  bufsize += size;
+}
 
 void
 UDPLogger::SetTitle(std::string str)

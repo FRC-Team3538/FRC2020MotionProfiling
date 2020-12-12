@@ -1,5 +1,6 @@
 #pragma once
 
+#include "UDPLogger.hpp"
 #include "flatbuffers/flatbuffers.h"
 #include "lib/Configuration.hpp"
 #include "lib/ctreJsonSerde.hpp"
@@ -21,6 +22,8 @@ class ExternalDeviceProvider
 private:
   Configuration config;
 
+  flatbuffers::FlatBufferBuilder fbb;
+
 public:
   TalonSRX driveLeft1{ kLeft1 };
   TalonSRX driveRight1{ kRight1 };
@@ -31,5 +34,5 @@ public:
   frc::PowerDistributionPanel pdp{};
   frc::Compressor pcm{};
 
-  void PopulateLogBuffer(flatbuffers::FlatBufferBuilder& fbb);
+  void PopulateLogBuffer(UDPLogger& fbb);
 };

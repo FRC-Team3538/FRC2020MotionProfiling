@@ -19,7 +19,9 @@ using namespace std;
 class UDPLogger
 {
 private:
-  flatbuffers::FlatBufferBuilder fbb{ FLATBUFFER_SIZE }; // 4KB
+  flatbuffers::FlatBufferBuilder fbb{ FLATBUFFER_SIZE };
+  uint8_t buf[FLATBUFFER_SIZE]; // 4KB
+  size_t bufsize;
 
   int sockfd;
 #if defined(_WIN32)
@@ -33,8 +35,7 @@ private:
 public:
   void InitLogger();
   void CheckForNewClient();
-  void LogWithFlatBuffer(
-    std::function<void(flatbuffers::FlatBufferBuilder&)> func);
+  void FlushLogBuffer();
   void Log(uint8_t* data, size_t size);
   void SetTitle(std::string str);
 };

@@ -76,6 +76,13 @@
     "streambuf": "cpp",
     "thread": "cpp",
     "cinttypes": "cpp",
-    "typeinfo": "cpp"
-  }
+    "typeinfo": "cpp",
+    "forward_list": "cpp",
+    "valarray": "cpp"
+  },
+  "python.pythonPath": "C:\\Users\\Jordan McMichael\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "python.formatting.provider": "black"
 }

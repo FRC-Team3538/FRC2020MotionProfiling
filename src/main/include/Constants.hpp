@@ -1,14 +1,13 @@
 #pragma once
 
-#define _USE_MATH_DEFINES // for C++
-#include <math.h>
+#include <cmath>
 
 using namespace std;
 
 namespace Constants {
 
 // Global Constants
-const double pi = M_PI;
+const double pi = 3.14159265358979323846;
 
 // Drivetrain Constants (Assuming Rectangular)
 const double trackWidth = 22.25;                                      // Inches

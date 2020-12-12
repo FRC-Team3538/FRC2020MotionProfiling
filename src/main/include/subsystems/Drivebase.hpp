@@ -1,30 +1,20 @@
 #pragma once
 
 #include <AHRS.h>
+
 #include <ctre/Phoenix.h>
+
 #include <frc/SPI.h>
-#include <frc/Timer.h>
 #include <frc/controller/RamseteController.h>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Rotation2d.h>
-#include <frc/kinematics/ChassisSpeeds.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
-#include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
-// #include <units/units.h>
-#include <wpi/json.h>
-#include <wpi/raw_ostream.h>
+#include <frc/trajectory/Trajectory.h>
 
-#include <iostream>
-#include <string>
+// #include <units/units.h>
 
 #include "Constants.hpp"
-
-using namespace ctre::phoenix::motorcontrol::can;
-using namespace ctre::phoenix::motorcontrol;
-using namespace frc;
-using namespace units;
-using namespace units::angle;
 
 class Drivebase
 {
@@ -35,7 +25,7 @@ public:
 
   frc::Rotation2d GetGyroHeading()
   {
-    return frc::Rotation2d(angle::degree_t(-navx.GetAngle()));
+    return frc::Rotation2d(units::angle::degree_t(-navx.GetAngle()));
   }
 
   void ResetOdometry()
@@ -64,27 +54,15 @@ public:
   void SetOpenLoop(double left, double right);
 
 private:
-  // Hardware setup
-  enum motors
-  {
-    L1 = 0,
-    L2,
-    L3,
-    R1,
-    R2,
-    R3
-  };
-
-  WPI_TalonSRX motorLeft1{ 11 };
-  WPI_VictorSPX motorLeft2{ 13 };
-
-  WPI_TalonSRX motorRight1{ 12 };
-  WPI_VictorSPX motorRight2{ 14 };
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorLeft1{ 11 };
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorLeft2{ 13 };
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorRight1{ 12 };
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorRight2{ 14 };
 
   AHRS navx{ frc::SPI::Port::kMXP };
 
-  DifferentialDriveKinematics kinematics{ 25_in };
-  DifferentialDriveOdometry odometry{ GetGyroHeading() };
+  frc::DifferentialDriveKinematics kinematics{ 25_in };
+  frc::DifferentialDriveOdometry odometry{ GetGyroHeading() };
 
   frc::Trajectory currentTrajectory;
   double trajectoryStartTime;

@@ -4,35 +4,37 @@ import socket
 import json
 import time
 import struct
+import sys
 
-UDP_IP_ADDRESS = '0.0.0.0'
-UDP_PORT_NO = 5801
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-sock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
-sock.setblocking(0)
-sock.settimeout(0.1)
+ROBOT_LOGGER_ADDRESS = (sys.argv[1], int(sys.argv[2])) if len(sys.argv) == 3 else ("10.83.32.2", 3538)
 
 f = None
+init = None
 
-try:
-    while True:
-        data, addr = sock.recvfrom(255)
-        buf = bytearray(data)
-        sfc = StatusFrameHolder.GetRootAsStatusFrameHolder(data, 4)
-        if sfc.StatusFrameType() == 4:
-            tab = sfc.StatusFrame()
-            init = InitializeStatusFrame.GetRootAsInitializeStatusFrame(tab.Bytes, tab.Pos)
-            f = open(f"runtime.{init.Title()}.dat")
-            del tab
-            del init
+with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+    sock.settimeout(0.1)
 
-        print(struct.unpack("<I", data[:4])[0] == len(data)-4, sfc.StatusFrameType(), sfc.MonotonicTime())
-        if f is not None:
-            f.write(data)
-finally:
-    if f is not None:
-        f.close()
+    try:
+        sock.sendto(b"Hi", ROBOT_LOGGER_ADDRESS)
+        while True:
+            data = sock.recv(4096)
+            sfc = StatusFrameHolder.GetRootAsStatusFrameHolder(data, 4)
+            if sfc.StatusFrameType() == 4:
+                tab = sfc.StatusFrame()
+                init = InitializeStatusFrame()
+                init.Init(
+                    tab.Bytes, tab.Pos
+                )
+                break
+        title = init.Title().decode('utf-8')[:-1].replace(' ', '.').replace(':', '')
+        with open(f"logs/runtime.{title}.dat", "wb") as f:
+            print(f"Starting log: runtime.{title}.dat")
+            while True:
+                data, addr = sock.recvfrom(4096)
+                buf = bytearray(data)
+                f.write(data)
+    except Exception as e:
+        print(f"Received an Exception: {e}")
+        raise e
 
-
+print("Exiting...")

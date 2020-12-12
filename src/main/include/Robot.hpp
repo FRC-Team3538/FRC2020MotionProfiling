@@ -20,7 +20,7 @@
 #include <thread>
 #include <wpi/raw_ostream.h>
 
-#include "lib/Configuration.hpp"
+// #include "lib/Configuration.hpp"
 
 class Robot : public frc::TimedRobot
 {

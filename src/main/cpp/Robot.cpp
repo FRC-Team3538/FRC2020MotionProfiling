@@ -14,18 +14,13 @@
 void
 logToUDPLogger(UDPLogger& logger, ExternalDeviceProvider& provider)
 {
-  std::function<void(flatbuffers::FlatBufferBuilder&)> func =
-    [&](flatbuffers::FlatBufferBuilder& fbb) {
-      provider.PopulateLogBuffer(fbb);
-    };
-
   auto target =
     std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
-
   logger.InitLogger();
   while (true) {
     logger.CheckForNewClient();
-    logger.LogWithFlatBuffer(func);
+    provider.PopulateLogBuffer(logger);
+    logger.FlushLogBuffer();
     std::this_thread::sleep_until(target);
     target = std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
   }
@@ -51,9 +46,11 @@ Robot::RobotPeriodic()
 void
 Robot::DisabledInit()
 {}
+
 void
 Robot::DisabledPeriodic()
 {}
+
 void
 Robot::AutonomousInit()
 {
@@ -85,24 +82,24 @@ Robot::AutonomousPeriodic()
   auto state =
     currentTrajectory.Sample(units::second_t(currentTime - autoStartTime));
 
-  wpi::json jsonState = state;
+  //  wpi::json jsonState = state;
 
   if (units::second_t(currentTime - autoStartTime) <=
       currentTrajectory.TotalTime()) {
     // wpi::outs() << "t: " << currentTime - autoStartTime
     //             << ", state: " << jsonState.dump() << "\n";
-
     IO.drivebase.SetRamseteTarget(state);
     IO.drivebase.LogState();
   } else {
     IO.drivebase.StopFollowing();
   }
-
   IO.drivebase.StepRamsete();
 }
+
 void
 Robot::TeleopInit()
 {}
+
 void
 Robot::TeleopPeriodic()
 {
@@ -111,9 +108,11 @@ Robot::TeleopPeriodic()
 
   IO.drivebase.Arcade(left, right);
 }
+
 void
 Robot::TestInit()
 {}
+
 void
 Robot::TestPeriodic()
 {}

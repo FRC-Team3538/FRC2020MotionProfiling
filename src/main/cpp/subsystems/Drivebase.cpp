@@ -7,7 +7,20 @@
 
 #include "subsystems/Drivebase.hpp"
 
-using namespace frc;
+// #include <frc/Timer.h>
+// #include <frc/geometry/Pose2d.h>
+// #include <frc/geometry/Rotation2d.h>
+#include <frc/kinematics/ChassisSpeeds.h>
+#include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
+// #include <units/units.h>
+#include <wpi/json.h>
+#include <wpi/raw_ostream.h>
+//
+// #include <iostream>
+// #include <string>
+//
+
+// using namespace frc;
 
 Drivebase::Drivebase()
 {
@@ -89,8 +102,8 @@ Drivebase::LogState()
 void
 Drivebase::SetRamseteTarget(frc::Trajectory::State state)
 {
-  frc::Pose2d currentPose = odometry.GetPose();
-  frc::ChassisSpeeds output = ramsete.Calculate(currentPose, state);
+  auto currentPose = odometry.GetPose();
+  auto output = ramsete.Calculate(currentPose, state);
   wheelSpeeds = kinematics.ToWheelSpeeds(output);
 }
 
@@ -112,7 +125,7 @@ Drivebase::StepRamsete()
 void
 Drivebase::StopFollowing()
 {
-  wheelSpeeds = DifferentialDriveWheelSpeeds{ 0_mps, 0_mps };
+  wheelSpeeds = frc::DifferentialDriveWheelSpeeds{ 0_mps, 0_mps };
 }
 
 void
