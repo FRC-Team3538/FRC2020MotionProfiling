@@ -55,13 +55,13 @@ void
 Robot::AutonomousInit()
 {
   const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(0_deg));
-  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(180_deg));
+  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(0_deg));
 
   std::vector<frc::Translation2d> interiorWaypoints{
-    frc::Translation2d(8_ft, -5_ft),
-    frc::Translation2d(10_ft, -5_ft),
-    frc::Translation2d(13_ft, -3_ft),
-    frc::Translation2d(10_ft, 0_ft)
+    // frc::Translation2d(8_ft, -5_ft),
+    // frc::Translation2d(10_ft, -5_ft),
+    // frc::Translation2d(13_ft, -3_ft),
+    // frc::Translation2d(10_ft, 0_ft)
   };
 
   frc::TrajectoryConfig config(5_fps, 6_fps_sq);

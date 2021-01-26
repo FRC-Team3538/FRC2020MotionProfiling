@@ -22,7 +22,8 @@
 
 // using namespace frc;
 
-Drivebase::Drivebase()
+void
+Drivebase::Configure()
 {
   motorLeft1.ConfigFactoryDefault();
   motorLeft2.ConfigFactoryDefault();
@@ -35,7 +36,7 @@ Drivebase::Drivebase()
   motorLeft2.Follow(motorLeft1);
   motorRight2.Follow(motorRight1);
 
-  can::TalonSRXConfiguration config;
+  ctre::phoenix::motorcontrol::can::TalonSRXConfiguration config;
   motorLeft1.GetAllConfigs(config);
 
   // do the thing
@@ -59,7 +60,8 @@ Drivebase::Drivebase()
 
   motorRight1.ConfigAllSettings(config);
 
-  navx.Reset();
+  imu.Reset();
+  imu.Calibrate();
 
   motorLeft1.SetSelectedSensorPosition(0);
   motorRight1.SetSelectedSensorPosition(0);
@@ -78,8 +80,8 @@ Drivebase::Arcade(double forward, double turn)
     turn /= std::abs(turn);
   }
 
-  motorLeft1.Set(forward - turn);
-  motorRight1.Set(forward + turn);
+  motorLeft1.Set(ControlMode::PercentOutput, forward - turn);
+  motorRight1.Set(ControlMode::PercentOutput, forward + turn);
 }
 
 void

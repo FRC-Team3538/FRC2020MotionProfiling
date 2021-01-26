@@ -3,6 +3,9 @@
 #include <AHRS.h>
 
 #include <ctre/Phoenix.h>
+#include <adi/ADIS16470_IMU.h>
+
+#include "ExternalDeviceProvider.hpp"
 
 #include <frc/SPI.h>
 #include <frc/controller/RamseteController.h>
@@ -11,6 +14,7 @@
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/trajectory/Trajectory.h>
+#include <memory>
 
 // #include <units/units.h>
 
@@ -19,13 +23,21 @@
 class Drivebase
 {
 public:
-  Drivebase();
+  Drivebase(ExternalDeviceProvider &xdp): 
+    imu(xdp.imu),
+    motorLeft1(xdp.driveLeft1),
+    motorLeft2(xdp.driveLeft2),
+    motorRight1(xdp.driveRight1),
+    motorRight2(xdp.driveRight2)
+   {
+     Configure();
+   }
 
   void Arcade(double forward, double rotate);
 
   frc::Rotation2d GetGyroHeading()
   {
-    return frc::Rotation2d(units::angle::degree_t(-navx.GetAngle()));
+    return frc::Rotation2d(units::angle::degree_t(imu.GetAngle()));
   }
 
   void ResetOdometry()
@@ -54,12 +66,15 @@ public:
   void SetOpenLoop(double left, double right);
 
 private:
-  ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorLeft1{ 11 };
-  ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorLeft2{ 13 };
-  ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorRight1{ 12 };
-  ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorRight2{ 14 };
+  void Configure();
 
-  AHRS navx{ frc::SPI::Port::kMXP };
+  ctre::phoenix::motorcontrol::can::TalonSRX  &motorLeft1;
+  ctre::phoenix::motorcontrol::can::VictorSPX &motorLeft2;
+  ctre::phoenix::motorcontrol::can::TalonSRX  &motorRight1;
+  ctre::phoenix::motorcontrol::can::VictorSPX &motorRight2;
+
+  // AHRS navx{ frc::SPI::Port::kMXP };
+  frc::ADIS16470_IMU &imu;
 
   frc::DifferentialDriveKinematics kinematics{ 25_in };
   frc::DifferentialDriveOdometry odometry{ GetGyroHeading() };

@@ -9,7 +9,7 @@ You need to have downloaded all the following dependencies to expand the macros:
     - wpilib hal-cpp-<version>-headers
 
 Steps to create a valid generated serializer file:
-1. gcc -E ctre_spec_gen/ctreJsonSerde.hpp -I/path/to/api-cpp-5.18.3-headers/ -I/path/to/core-5.18.3-headers/ -I/path/to/cci-5.18.3-headers/ -I/path/to/wpiapi-cpp-5.18.3-headers/ -I/path/to/wpilibc-cpp-2020.3.2-headers/ -I/path/to/wpiutil-cpp-2020.3.2-headers/ -I/path/to/ntcore-cpp-2020.3.2-headers/ -I/path/to/hal-cpp-2020.3.2-headers/
+1. gcc -E ctre_spec_gen/ctreJsonSerde.hpp -I/path/to/api-cpp-5.19.4-headers/ -I/path/to/core-5.19.4-headers/ -I/path/to/cci-5.19.4-headers/ -I/path/to/wpiapi-cpp-5.19.4-headers/ -I/path/to/wpilibc-cpp-2021.1.2-headers/ -I/path/to/wpiutil-cpp-2021.1.2-headers/ -I/path/to/ntcore-cpp-2021.1.2-headers/ -I/path/to/hal-cpp-2021.1.2-headers/ -I/path/to/wpimath-cpp-2021.1.2-headers/
     - Take only the last few thousand lines - this starts with:
         #pragma GCC diagnostic pop
         # 6 "src/main/include/lib/ctreJsonSerde.hpp" 2
