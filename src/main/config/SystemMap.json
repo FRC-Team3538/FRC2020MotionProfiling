@@ -1,0 +1,22 @@
+{
+    "driveLeft1": {
+        "id": 11,
+        "invertType": "None",
+        "neutralMode": "Brake"
+    },
+    "driveLeft2": {
+        "id": 13,
+        "invertType": "None",
+        "neutralMode": "Brake"
+    },
+    "driveRight1": {
+        "id": 12,
+        "invertType": "None",
+        "neutralMode": "Brake"
+    },
+    "driveRight2": {
+        "id": 14,
+        "invertType": "None",
+        "neutralMode": "Brake"
+    }
+}

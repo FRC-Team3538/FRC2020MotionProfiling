@@ -55,7 +55,7 @@ void
 Robot::AutonomousInit()
 {
   const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(0_deg));
-  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(180_deg));
+  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(0_deg));
 
   std::vector<frc::Translation2d> interiorWaypoints{
     frc::Translation2d(8_ft, -5_ft),
@@ -67,7 +67,7 @@ Robot::AutonomousInit()
   frc::TrajectoryConfig config(5_fps, 6_fps_sq);
 
   currentTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-    zero, interiorWaypoints, forward_5, config);
+    zero, {}, forward_5, config);
 
   auto states = currentTrajectory.States();
 
@@ -103,10 +103,10 @@ Robot::TeleopInit()
 void
 Robot::TeleopPeriodic()
 {
-  double left = -IO.ds.Driver.GetY(frc::GenericHID::JoystickHand::kLeftHand);
-  double right = -IO.ds.Driver.GetX(frc::GenericHID::JoystickHand::kRightHand);
+  double left = IO.ds.Driver.GetY(frc::GenericHID::JoystickHand::kLeftHand);
+  double right = IO.ds.Driver.GetX(frc::GenericHID::JoystickHand::kRightHand);
 
-  IO.drivebase.Arcade(left, right);
+  IO.drivebase.Arcade(right, left);
 }
 
 void

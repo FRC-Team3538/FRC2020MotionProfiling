@@ -13,5 +13,5 @@ public:
   ExternalDeviceProvider externalDeviceProvider;
 
   DS ds;
-  Drivebase drivebase;
+  Drivebase drivebase{externalDeviceProvider};
 };

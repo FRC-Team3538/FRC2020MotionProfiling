@@ -22,7 +22,8 @@
 
 // using namespace frc;
 
-Drivebase::Drivebase()
+void
+Drivebase::Configure()
 {
   motorLeft1.ConfigFactoryDefault();
   motorLeft2.ConfigFactoryDefault();
@@ -59,7 +60,8 @@ Drivebase::Drivebase()
 
   motorRight1.ConfigAllSettings(config);
 
-  navx.Reset();
+  imu.Reset();
+  imu.Calibrate();
 
   motorLeft1.SetSelectedSensorPosition(0);
   motorRight1.SetSelectedSensorPosition(0);
