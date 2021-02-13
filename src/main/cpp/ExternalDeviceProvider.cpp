@@ -190,35 +190,35 @@ BuildExternalDeviceFrame(flatbuffers::FlatBufferBuilder& fbb,
 void
 ExternalDeviceProvider::PopulateLogBuffer(UDPLogger& logger)
 {
-  flatbuffers::DetachedBuffer buffer;
-
-  fbb.Reset();
-  BuildExternalDeviceFrame(fbb, driveLeft1);
-  buffer = fbb.Release();
-  logger.Log(buffer.data(), buffer.size());
-
-  fbb.Reset();
-  BuildExternalDeviceFrame(fbb, driveLeft2);
-  buffer = fbb.Release();
-  logger.Log(buffer.data(), buffer.size());
-
-  fbb.Reset();
-  BuildExternalDeviceFrame(fbb, driveRight1);
-  buffer = fbb.Release();
-  logger.Log(buffer.data(), buffer.size());
-
-  fbb.Reset();
-  BuildExternalDeviceFrame(fbb, driveRight2);
-  buffer = fbb.Release();
-  logger.Log(buffer.data(), buffer.size());
-
-  fbb.Reset();
-  BuildExternalDeviceFrame(fbb, pcm);
-  buffer = fbb.Release();
-  logger.Log(buffer.data(), buffer.size());
-
-  fbb.Reset();
-  BuildExternalDeviceFrame(fbb, pdp);
-  buffer = fbb.Release();
-  logger.Log(buffer.data(), buffer.size());
+  //  flatbuffers::DetachedBuffer buffer;
+  //
+  //  fbb.Reset();
+  //  BuildExternalDeviceFrame(fbb, driveLeft1);
+  //  buffer = fbb.Release();
+  //  logger.Log(buffer.data(), buffer.size());
+  //
+  //  fbb.Reset();
+  //  BuildExternalDeviceFrame(fbb, driveLeft2);
+  //  buffer = fbb.Release();
+  //  logger.Log(buffer.data(), buffer.size());
+  //
+  //  fbb.Reset();
+  //  BuildExternalDeviceFrame(fbb, driveRight1);
+  //  buffer = fbb.Release();
+  //  logger.Log(buffer.data(), buffer.size());
+  //
+  //  fbb.Reset();
+  //  BuildExternalDeviceFrame(fbb, driveRight2);
+  //  buffer = fbb.Release();
+  //  logger.Log(buffer.data(), buffer.size());
+  //
+  //  fbb.Reset();
+  //  BuildExternalDeviceFrame(fbb, pcm);
+  //  buffer = fbb.Release();
+  //  logger.Log(buffer.data(), buffer.size());
+  //
+  //  fbb.Reset();
+  //  BuildExternalDeviceFrame(fbb, pdp);
+  //  buffer = fbb.Release();
+  //  logger.Log(buffer.data(), buffer.size());
 }

@@ -25,14 +25,6 @@
 void
 Drivebase::Configure()
 {
-  motorLeft1.ConfigFactoryDefault();
-  motorLeft2.ConfigFactoryDefault();
-  motorRight1.ConfigFactoryDefault();
-  motorRight2.ConfigFactoryDefault();
-
-  motorRight1.SetInverted(true);
-  motorRight2.SetInverted(true);
-
   motorLeft2.Follow(motorLeft1);
   motorRight2.Follow(motorRight1);
 

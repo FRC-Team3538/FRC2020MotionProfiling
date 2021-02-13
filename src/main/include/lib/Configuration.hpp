@@ -1,5 +1,6 @@
 #pragma once
 
+#include <lib/ConfigParsers.hpp>
 #include <wpi/json.h>
 #include <wpi/raw_ostream.h>
 

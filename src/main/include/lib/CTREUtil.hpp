@@ -1,26 +1,30 @@
-
+#pragma once
 #include "lib/TalonSRXMap.hpp"
 #include "lib/VictorSPXMap.hpp"
+#include <ctre/Phoenix.h>
 
-class CTREUtil {
-public:
-    WPI_TalonSRX & CreateTalonSRX(rj::TalonSRXMap &map, ctre::phoenix::motorcontrol::can::TalonSRXConfiguration &config) {
-        WPI_TalonSRX srx(map.id);
-        srx.ConfigAllSettings(config);
+namespace rj {
+inline void
+ConfigureWPI_TalonSRX(
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX& controller,
+  rj::TalonSRXMap& map,
+  ctre::phoenix::motorcontrol::can::TalonSRXConfiguration& config)
+{
+  controller.ConfigFactoryDefault();
+  controller.ConfigAllSettings(config);
+  controller.SetInverted(map.invertType);
+  controller.SetNeutralMode(map.neutralMode);
+}
 
-        srx.SetInverted(map.invertType);
-        srx.SetNeutralMode(map.neutralMode);
-
-        return srx;
-    }
-
-    WPI_VictorSPX & CreateVictorSPX(rj::TalonSRXMap &map, ctre::phoenix::motorcontrol::can::VictorSPXConfiguration &config) {
-        WPI_VictorSPX spx(map.id);
-        spx.ConfigAllSettings(config);
-
-        spx.SetInverted(map.invertType);
-        spx.SetNeutralMode(map.neutralMode);
-
-        return spx;
-    }
-};
+inline void
+ConfigureWPI_VictorSPX(
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX& controller,
+  rj::VictorSPXMap& map,
+  ctre::phoenix::motorcontrol::can::VictorSPXConfiguration& config)
+{
+  controller.ConfigFactoryDefault();
+  controller.ConfigAllSettings(config);
+  controller.SetInverted(map.invertType);
+  controller.SetNeutralMode(map.neutralMode);
+}
+} // namespace rj

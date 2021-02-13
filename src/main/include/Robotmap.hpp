@@ -3,15 +3,19 @@
 #include "subsystems/DS.hpp"
 #include "subsystems/Drivebase.hpp"
 
-#include "ExternalDeviceProvider.hpp"
 #include "UDPLogger.hpp"
+#include "lib/Configuration.hpp"
 
 class Robotmap
 {
+private:
+  Configuration config;
+  std::string systemMapFile{ "DrivebaseConfig.json" };
+  rj::DrivebaseConfig map{ config.Get<rj::DrivebaseConfig>(systemMapFile) };
+
 public:
   UDPLogger logger;
-  ExternalDeviceProvider externalDeviceProvider;
 
   DS ds;
-  Drivebase drivebase{externalDeviceProvider};
+  Drivebase drivebase{ map };
 };

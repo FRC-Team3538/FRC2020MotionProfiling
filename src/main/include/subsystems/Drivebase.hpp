@@ -4,6 +4,7 @@
 
 #include <ctre/Phoenix.h>
 
+#include <adi/ADIS16470_IMU.h>
 #include <frc/SPI.h>
 #include <frc/controller/RamseteController.h>
 #include <frc/geometry/Pose2d.h>
@@ -11,8 +12,8 @@
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/trajectory/Trajectory.h>
-#include <adi/ADIS16470_IMU.h>
-#include <ExternalDeviceProvider.hpp>
+#include <lib/CTREUtil.hpp>
+#include <lib/DrivebaseConfig.hpp>
 
 // #include <units/units.h>
 
@@ -21,14 +22,27 @@
 class Drivebase
 {
 public:
-  Drivebase(ExternalDeviceProvider &xdp):
-    motorLeft1(xdp.driveLeft1),
-    motorLeft2(xdp.driveLeft2),
-    motorRight1(xdp.driveRight1),
-    motorRight2(xdp.driveRight2),
-    imu(xdp.imu) {
-      Configure();
-    };
+  Drivebase(rj::DrivebaseConfig& config)
+    : motorLeft1(
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX{ config.driveLeft1.id })
+    , motorLeft2(
+        ctre::phoenix::motorcontrol::can::WPI_VictorSPX{ config.driveLeft2.id })
+    , motorRight1(
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX{ config.driveRight1.id })
+    , motorRight2(ctre::phoenix::motorcontrol::can::WPI_VictorSPX{
+        config.driveRight2.id })
+    , imu{ config.imu.yaw_axis, config.imu.port, config.imu.cal_time }
+  {
+    rj::ConfigureWPI_TalonSRX(
+      motorLeft1, config.driveLeft1, config.talonConfig);
+    rj::ConfigureWPI_VictorSPX(
+      motorLeft2, config.driveLeft2, config.victorConfig);
+    rj::ConfigureWPI_TalonSRX(
+      motorRight1, config.driveRight1, config.talonConfig);
+    rj::ConfigureWPI_VictorSPX(
+      motorRight2, config.driveRight2, config.victorConfig);
+    Configure();
+  };
 
   void Configure();
 
@@ -65,14 +79,13 @@ public:
   void SetOpenLoop(double left, double right);
 
 private:
-  ctre::phoenix::motorcontrol::can::WPI_TalonSRX  &motorLeft1;
-  ctre::phoenix::motorcontrol::can::WPI_VictorSPX &motorLeft2;
-  ctre::phoenix::motorcontrol::can::WPI_TalonSRX  &motorRight1;
-  ctre::phoenix::motorcontrol::can::WPI_VictorSPX &motorRight2;
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorLeft1;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorLeft2;
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorRight1;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorRight2;
 
   // AHRS &navx;
-  frc::ADIS16470_IMU &imu;
-
+  frc::ADIS16470_IMU imu;
 
   frc::DifferentialDriveKinematics kinematics{ 25_in };
   frc::DifferentialDriveOdometry odometry{ GetGyroHeading() };

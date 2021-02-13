@@ -11,20 +11,21 @@
 #include <ctime>
 #include <functional>
 
-void
-logToUDPLogger(UDPLogger& logger, ExternalDeviceProvider& provider)
-{
-  auto target =
-    std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
-  logger.InitLogger();
-  while (true) {
-    logger.CheckForNewClient();
-    provider.PopulateLogBuffer(logger);
-    logger.FlushLogBuffer();
-    std::this_thread::sleep_until(target);
-    target = std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
-  }
-}
+// void
+// logToUDPLogger(UDPLogger& logger, ExternalDeviceProvider& provider)
+// {
+//   auto target =
+//     std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
+//   logger.InitLogger();
+//   while (true) {
+//     logger.CheckForNewClient();
+//     provider.PopulateLogBuffer(logger);
+//     logger.FlushLogBuffer();
+//     std::this_thread::sleep_until(target);
+//     target = std::chrono::steady_clock::now() +
+//     std::chrono::milliseconds(20);
+//   }
+// }
 
 void
 Robot::RobotInit()
@@ -33,9 +34,10 @@ Robot::RobotInit()
   auto time = std::chrono::system_clock::to_time_t(time_point);
   IO.logger.SetTitle(std::ctime(&time));
 
-  logger = std::thread(
-    logToUDPLogger, std::ref(IO.logger), std::ref(IO.externalDeviceProvider));
-  logger.detach();
+  // logger = std::thread(
+  //   logToUDPLogger, std::ref(IO.logger),
+  //   std::ref(IO.externalDeviceProvider));
+  // logger.detach();
   IO.drivebase.ResetOdometry();
 }
 void
@@ -64,10 +66,10 @@ Robot::AutonomousInit()
     frc::Translation2d(10_ft, 0_ft)
   };
 
-  frc::TrajectoryConfig config(5_fps, 6_fps_sq);
+  frc::TrajectoryConfig config(5_fps, 1_fps_sq);
 
-  currentTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-    zero, {}, forward_5, config);
+  currentTrajectory =
+    frc::TrajectoryGenerator::GenerateTrajectory(zero, {}, forward_5, config);
 
   auto states = currentTrajectory.States();
 
@@ -103,10 +105,10 @@ Robot::TeleopInit()
 void
 Robot::TeleopPeriodic()
 {
-  double left = IO.ds.Driver.GetY(frc::GenericHID::JoystickHand::kLeftHand);
-  double right = IO.ds.Driver.GetX(frc::GenericHID::JoystickHand::kRightHand);
+  double left = -IO.ds.Driver.GetY(frc::GenericHID::JoystickHand::kLeftHand);
+  double right = -IO.ds.Driver.GetX(frc::GenericHID::JoystickHand::kRightHand);
 
-  IO.drivebase.Arcade(right, left);
+  IO.drivebase.Arcade(left, right);
 }
 
 void
