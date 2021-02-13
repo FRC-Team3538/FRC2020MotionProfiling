@@ -5,6 +5,7 @@
 
 #include "UDPLogger.hpp"
 #include "lib/Configuration.hpp"
+#include <vector>
 
 class Robotmap
 {
@@ -18,4 +19,6 @@ public:
 
   DS ds;
   Drivebase drivebase{ map };
+
+  std::vector<rj::Loggable> loggables{ drivebase };
 };

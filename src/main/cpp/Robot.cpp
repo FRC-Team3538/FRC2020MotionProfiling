@@ -11,21 +11,24 @@
 #include <ctime>
 #include <functional>
 
-// void
-// logToUDPLogger(UDPLogger& logger, ExternalDeviceProvider& provider)
-// {
-//   auto target =
-//     std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
-//   logger.InitLogger();
-//   while (true) {
-//     logger.CheckForNewClient();
-//     provider.PopulateLogBuffer(logger);
-//     logger.FlushLogBuffer();
-//     std::this_thread::sleep_until(target);
-//     target = std::chrono::steady_clock::now() +
-//     std::chrono::milliseconds(20);
-//   }
-// }
+void
+logToUDPLogger(UDPLogger& logger, std::vector<rj::Loggable>& loggables)
+{
+  auto target =
+    std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
+  logger.InitLogger();
+  while (true) {
+    logger.CheckForNewClient();
+
+    for (auto& loggable : loggables) {
+      loggable.Log(logger);
+    }
+
+    logger.FlushLogBuffer();
+    std::this_thread::sleep_until(target);
+    target = std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
+  }
+}
 
 void
 Robot::RobotInit()
@@ -34,10 +37,9 @@ Robot::RobotInit()
   auto time = std::chrono::system_clock::to_time_t(time_point);
   IO.logger.SetTitle(std::ctime(&time));
 
-  // logger = std::thread(
-  //   logToUDPLogger, std::ref(IO.logger),
-  //   std::ref(IO.externalDeviceProvider));
-  // logger.detach();
+  logger =
+    std::thread(logToUDPLogger, std::ref(IO.logger), std::ref(IO.loggables));
+  logger.detach();
   IO.drivebase.ResetOdometry();
 }
 void
@@ -57,7 +59,7 @@ void
 Robot::AutonomousInit()
 {
   const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(0_deg));
-  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(0_deg));
+  const frc::Pose2d forward_5(10_ft, 0_ft, frc::Rotation2d(0_deg));
 
   std::vector<frc::Translation2d> interiorWaypoints{
     frc::Translation2d(8_ft, -5_ft),
@@ -68,8 +70,8 @@ Robot::AutonomousInit()
 
   frc::TrajectoryConfig config(5_fps, 1_fps_sq);
 
-  currentTrajectory =
-    frc::TrajectoryGenerator::GenerateTrajectory(zero, {}, forward_5, config);
+  currentTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
+    zero, { frc::Translation2d(5_ft, -5_ft) }, forward_5, config);
 
   auto states = currentTrajectory.States();
 

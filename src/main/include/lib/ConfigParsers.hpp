@@ -13,6 +13,12 @@ to_json(wpi::json& nlohmann_json_j, const DrivebaseConfig& nlohmann_json_t)
   nlohmann_json_j["imu"] = nlohmann_json_t.imu;
   nlohmann_json_j["talonConfig"] = nlohmann_json_t.talonConfig;
   nlohmann_json_j["victorConfig"] = nlohmann_json_t.victorConfig;
+  nlohmann_json_j["kSLinear"] = nlohmann_json_t.kSLinear;
+  nlohmann_json_j["kVLinear"] = nlohmann_json_t.kVLinear;
+  nlohmann_json_j["kALinear"] = nlohmann_json_t.kALinear;
+  nlohmann_json_j["kSAngular"] = nlohmann_json_t.kSAngular;
+  nlohmann_json_j["kVAngular"] = nlohmann_json_t.kVAngular;
+  nlohmann_json_j["kAAngular"] = nlohmann_json_t.kAAngular;
 }
 inline void
 from_json(const wpi::json& nlohmann_json_j, DrivebaseConfig& nlohmann_json_t)
@@ -31,6 +37,18 @@ from_json(const wpi::json& nlohmann_json_j, DrivebaseConfig& nlohmann_json_t)
     nlohmann_json_j.at("talonConfig"), nlohmann_json_t.talonConfig);
   wpi::adl_serializer<decltype(nlohmann_json_t.victorConfig), void>::from_json(
     nlohmann_json_j.at("victorConfig"), nlohmann_json_t.victorConfig);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kSLinear), void>::from_json(
+    nlohmann_json_j.at("kSLinear"), nlohmann_json_t.kSLinear);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kVLinear), void>::from_json(
+    nlohmann_json_j.at("kVLinear"), nlohmann_json_t.kVLinear);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kALinear), void>::from_json(
+    nlohmann_json_j.at("kALinear"), nlohmann_json_t.kALinear);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kSAngular), void>::from_json(
+    nlohmann_json_j.at("kSAngular"), nlohmann_json_t.kSAngular);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kVAngular), void>::from_json(
+    nlohmann_json_j.at("kVAngular"), nlohmann_json_t.kVAngular);
+  wpi::adl_serializer<decltype(nlohmann_json_t.kAAngular), void>::from_json(
+    nlohmann_json_j.at("kAAngular"), nlohmann_json_t.kAAngular);
 }
 
 inline void

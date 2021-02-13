@@ -15,6 +15,12 @@ public:
   ADIS16470Map imu;
   ctre::phoenix::motorcontrol::can::TalonSRXConfiguration talonConfig;
   ctre::phoenix::motorcontrol::can::VictorSPXConfiguration victorConfig;
+  float kSLinear;
+  float kVLinear;
+  float kALinear;
+  float kSAngular;
+  float kVAngular;
+  float kAAngular;
 };
 
 } // namespace rj

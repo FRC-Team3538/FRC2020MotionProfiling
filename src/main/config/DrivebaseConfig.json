@@ -61,7 +61,7 @@
         "forwardSoftLimitEnable": false,
         "reverseSoftLimitEnable": false,
         "slot0": {
-            "kP": 0.0,
+            "kP": 8.04e-5,
             "kI": 0.0,
             "kD": 0.0,
             "kF": 0.0,
@@ -72,7 +72,7 @@
             "closedLoopPeriod": 1
         },
         "slot1": {
-            "kP": 5.0,
+            "kP": 0.0,
             "kI": 0.0,
             "kD": 0.0,
             "kF": 0.0,
@@ -83,7 +83,7 @@
             "closedLoopPeriod": 1
         },
         "slot2": {
-            "kP": 0.3,
+            "kP": 0.0,
             "kI": 0.0,
             "kD": 0.0,
             "kF": 0.0,
@@ -166,7 +166,7 @@
         "forwardSoftLimitEnable": false,
         "reverseSoftLimitEnable": false,
         "slot0": {
-            "kP": 0.0,
+            "kP": 8.04e-5,
             "kI": 0.0,
             "kD": 0.0,
             "kF": 0.0,
@@ -177,7 +177,7 @@
             "closedLoopPeriod": 1
         },
         "slot1": {
-            "kP": 5.0,
+            "kP": 0.0,
             "kI": 0.0,
             "kD": 0.0,
             "kF": 0.0,
@@ -188,7 +188,7 @@
             "closedLoopPeriod": 1
         },
         "slot2": {
-            "kP": 0.3,
+            "kP": 0.0,
             "kI": 0.0,
             "kD": 0.0,
             "kF": 0.0,
@@ -235,5 +235,11 @@
         "customParam0": 0,
         "customParam1": 0,
         "enableOptimizations": true
-    }
+    },
+    "kSLinear": 0.802,
+    "kVLinear": 3.1,
+    "kALinear": 0.385,
+    "kSAngular": 1.39,
+    "kVAngular": 3.2,
+    "kAAngular": 0.254
 }

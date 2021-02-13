@@ -18,12 +18,15 @@
 // #include <units/units.h>
 
 #include "Constants.hpp"
+#include "lib/Loggable.hpp"
+#include <UDPLogger.hpp>
 
-class Drivebase
+class Drivebase : public rj::Loggable
 {
 public:
   Drivebase(rj::DrivebaseConfig& config)
-    : motorLeft1(
+    : config(config)
+    , motorLeft1(
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX{ config.driveLeft1.id })
     , motorLeft2(
         ctre::phoenix::motorcontrol::can::WPI_VictorSPX{ config.driveLeft2.id })
@@ -46,15 +49,18 @@ public:
 
   void Configure();
 
+  void Log(UDPLogger& logger) {}
+
   void Arcade(double forward, double rotate);
 
   frc::Rotation2d GetGyroHeading()
   {
-    return frc::Rotation2d(units::angle::degree_t(-imu.GetAngle()));
+    return frc::Rotation2d(units::angle::degree_t(imu.GetAngle()));
   }
 
   void ResetOdometry()
   {
+    imu.Reset();
     auto heading = GetGyroHeading();
     motorLeft1.SetSelectedSensorPosition(0);
     motorRight1.SetSelectedSensorPosition(0);
@@ -79,6 +85,8 @@ public:
   void SetOpenLoop(double left, double right);
 
 private:
+  rj::DrivebaseConfig& config;
+
   ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorLeft1;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorLeft2;
   ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorRight1;

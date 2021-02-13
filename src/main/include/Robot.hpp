@@ -28,7 +28,7 @@ private:
   Robotmap IO;
   double autoStartTime;
   frc::Trajectory currentTrajectory;
-  // std::thread logger;
+  std::thread logger;
 
 public:
   void RobotInit() override;
