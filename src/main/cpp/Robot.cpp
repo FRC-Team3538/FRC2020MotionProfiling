@@ -12,7 +12,7 @@
 #include <functional>
 
 void
-logToUDPLogger(UDPLogger& logger, std::vector<rj::Loggable>& loggables)
+logToUDPLogger(UDPLogger& logger, std::vector<std::shared_ptr<rj::Loggable>>& loggables)
 {
   auto target =
     std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
@@ -21,7 +21,7 @@ logToUDPLogger(UDPLogger& logger, std::vector<rj::Loggable>& loggables)
     logger.CheckForNewClient();
 
     for (auto& loggable : loggables) {
-      loggable.Log(logger);
+      loggable->Log(logger);
     }
 
     logger.FlushLogBuffer();
@@ -37,9 +37,9 @@ Robot::RobotInit()
   auto time = std::chrono::system_clock::to_time_t(time_point);
   IO.logger.SetTitle(std::ctime(&time));
 
-  // logger =
-  //   std::thread(logToUDPLogger, std::ref(IO.logger), std::ref(IO.loggables));
-  // logger.detach();
+  logger =
+    std::thread(logToUDPLogger, std::ref(IO.logger), std::ref(IO.loggables));
+  logger.detach();
   IO.drivebase.ResetOdometry();
 }
 void

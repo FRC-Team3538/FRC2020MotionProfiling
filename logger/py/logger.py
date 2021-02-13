@@ -12,7 +12,7 @@ f = None
 init = None
 
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-    sock.settimeout(0.1)
+    sock.settimeout(1.0)
 
     try:
         sock.sendto(b"Hi", ROBOT_LOGGER_ADDRESS)

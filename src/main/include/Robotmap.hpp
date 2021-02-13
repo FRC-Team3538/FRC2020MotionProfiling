@@ -20,7 +20,7 @@ public:
   DS ds;
   Drivebase drivebase{ driveConfig };
 
-  std::vector<std::shared_ptr<const rj::Loggable>> loggables{
-    std::shared_ptr<const rj::Loggable>(&drivebase)
+  std::vector<std::shared_ptr<rj::Loggable>> loggables{
+    std::shared_ptr<rj::Loggable>(&drivebase)
   };
 };
