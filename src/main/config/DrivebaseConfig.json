@@ -1,0 +1,245 @@
+{
+    "driveLeft1": {
+        "id": 11,
+        "invertType": "None",
+        "neutralMode": "Brake"
+    },
+    "driveLeft2": {
+        "id": 13,
+        "invertType": "FollowMaster",
+        "neutralMode": "Brake"
+    },
+    "driveRight1": {
+        "id": 12,
+        "invertType": "InvertMotorOutput",
+        "neutralMode": "Brake"
+    },
+    "driveRight2": {
+        "id": 14,
+        "invertType": "FollowMaster",
+        "neutralMode": "Brake"
+    },
+    "imu": {
+        "yaw_axis": "kZ",
+        "port": "kOnboardCS0",
+        "cal_time": "_4s"
+    },
+    "talonConfig": {
+        "peakCurrentLimit": 55,
+        "peakCurrentDuration": 0.2,
+        "primaryPID": {
+            "selectedFeedbackSensor": "QuadEncoder",
+            "selectedFeedbackCoefficient": 1.0
+        },
+        "auxiliaryPID": {
+            "selectedFeedbackSensor": "IntegratedSensor",
+            "selectedFeedbackCoefficient": 1.0
+        },
+        "forwardLimitSwitchSource": "FeedbackConnector",
+        "reverseLimitSwitchSource": "FeedbackConnector",
+        "forwardLimitSwitchDeviceID": 0,
+        "reverseLimitSwitchDeviceID": 0,
+        "forwardLimitSwitchNormal": "NormallyOpen",
+        "reverseLimitSwitchNormal": "NormallyOpen",
+        "sum0Term": "IntegratedSensor",
+        "sum1Term": "IntegratedSensor",
+        "diff0Term": "IntegratedSensor",
+        "diff1Term": "IntegratedSensor",
+        "openloopRamp": 0.0,
+        "closedloopRamp": 0.0,
+        "peakOutputForward": 1.0,
+        "peakOutputReverse": -1.0,
+        "nominalOutputForward": 0.0,
+        "nominalOutputReverse": 0.0,
+        "neutralDeadband": 0.04,
+        "voltageCompSaturation": 0.0,
+        "voltageMeasurementFilter": 32,
+        "velocityMeasurementPeriod": "Period_100Ms",
+        "velocityMeasurementWindow": 64,
+        "forwardSoftLimitThreshold": 0,
+        "reverseSoftLimitThreshold": 0,
+        "forwardSoftLimitEnable": false,
+        "reverseSoftLimitEnable": false,
+        "slot0": {
+            "kP": 8.04e-5,
+            "kI": 0.0,
+            "kD": 0.0,
+            "kF": 0.0,
+            "integralZone": 0,
+            "allowableClosedloopError": 0,
+            "maxIntegralAccumulator": 0.0,
+            "closedLoopPeakOutput": 1.0,
+            "closedLoopPeriod": 1
+        },
+        "slot1": {
+            "kP": 0.0,
+            "kI": 0.0,
+            "kD": 0.0,
+            "kF": 0.0,
+            "integralZone": 0,
+            "allowableClosedloopError": 0,
+            "maxIntegralAccumulator": 0.0,
+            "closedLoopPeakOutput": 1.0,
+            "closedLoopPeriod": 1
+        },
+        "slot2": {
+            "kP": 0.0,
+            "kI": 0.0,
+            "kD": 0.0,
+            "kF": 0.0,
+            "integralZone": 0,
+            "allowableClosedloopError": 0,
+            "maxIntegralAccumulator": 0.0,
+            "closedLoopPeakOutput": 1.0,
+            "closedLoopPeriod": 1
+        },
+        "slot3": {
+            "kP": 0.0,
+            "kI": 0.0,
+            "kD": 0.0,
+            "kF": 0.0,
+            "integralZone": 0,
+            "allowableClosedloopError": 0,
+            "maxIntegralAccumulator": 0.0,
+            "closedLoopPeakOutput": 1.0,
+            "closedLoopPeriod": 1
+        },
+        "auxPIDPolarity": false,
+        "remoteFilter0": {
+            "remoteSensorDeviceID": 0,
+            "remoteSensorSource": "Off"
+        },
+        "remoteFilter1": {
+            "remoteSensorDeviceID": 0,
+            "remoteSensorSource": "Off"
+        },
+        "motionCruiseVelocity": 0,
+        "motionAcceleration": 0,
+        "motionCurveStrength": 0,
+        "motionProfileTrajectoryPeriod": 0,
+        "feedbackNotContinuous": false,
+        "remoteSensorClosedLoopDisableNeutralOnLOS": false,
+        "clearPositionOnLimitF": false,
+        "clearPositionOnLimitR": false,
+        "clearPositionOnQuadIdx": false,
+        "limitSwitchDisableNeutralOnLOS": false,
+        "softLimitDisableNeutralOnLOS": false,
+        "pulseWidthPeriod_EdgesPerRot": 1,
+        "pulseWidthPeriod_FilterWindowSz": 1,
+        "trajectoryInterpolationEnable": true,
+        "customParam0": 0,
+        "customParam1": 0,
+        "enableOptimizations": true
+    },
+    "victorConfig": {
+        "primaryPID": {
+            "selectedFeedbackSensor": "IntegratedSensor",
+            "selectedFeedbackCoefficient": 1.0
+        },
+        "auxiliaryPID": {
+            "selectedFeedbackSensor": "IntegratedSensor",
+            "selectedFeedbackCoefficient": 1.0
+        },
+        "forwardLimitSwitchSource": "FeedbackConnector",
+        "reverseLimitSwitchSource": "FeedbackConnector",
+        "forwardLimitSwitchDeviceID": 0,
+        "reverseLimitSwitchDeviceID": 0,
+        "forwardLimitSwitchNormal": "NormallyOpen",
+        "reverseLimitSwitchNormal": "NormallyOpen",
+        "sum0Term": "IntegratedSensor",
+        "sum1Term": "IntegratedSensor",
+        "diff0Term": "IntegratedSensor",
+        "diff1Term": "IntegratedSensor",
+        "openloopRamp": 0.0,
+        "closedloopRamp": 0.0,
+        "peakOutputForward": 1.0,
+        "peakOutputReverse": -1.0,
+        "nominalOutputForward": 0.0,
+        "nominalOutputReverse": 0.0,
+        "neutralDeadband": 0,
+        "voltageCompSaturation": 0.0,
+        "voltageMeasurementFilter": 32,
+        "velocityMeasurementPeriod": "Period_100Ms",
+        "velocityMeasurementWindow": 64,
+        "forwardSoftLimitThreshold": 0,
+        "reverseSoftLimitThreshold": 0,
+        "forwardSoftLimitEnable": false,
+        "reverseSoftLimitEnable": false,
+        "slot0": {
+            "kP": 8.04e-5,
+            "kI": 0.0,
+            "kD": 0.0,
+            "kF": 0.0,
+            "integralZone": 0,
+            "allowableClosedloopError": 0,
+            "maxIntegralAccumulator": 0.0,
+            "closedLoopPeakOutput": 1.0,
+            "closedLoopPeriod": 1
+        },
+        "slot1": {
+            "kP": 0.0,
+            "kI": 0.0,
+            "kD": 0.0,
+            "kF": 0.0,
+            "integralZone": 0,
+            "allowableClosedloopError": 0,
+            "maxIntegralAccumulator": 0.0,
+            "closedLoopPeakOutput": 1.0,
+            "closedLoopPeriod": 1
+        },
+        "slot2": {
+            "kP": 0.0,
+            "kI": 0.0,
+            "kD": 0.0,
+            "kF": 0.0,
+            "integralZone": 0,
+            "allowableClosedloopError": 0,
+            "maxIntegralAccumulator": 0.0,
+            "closedLoopPeakOutput": 1.0,
+            "closedLoopPeriod": 1
+        },
+        "slot3": {
+            "kP": 0.0,
+            "kI": 0.0,
+            "kD": 0.0,
+            "kF": 0.0,
+            "integralZone": 0,
+            "allowableClosedloopError": 0,
+            "maxIntegralAccumulator": 0.0,
+            "closedLoopPeakOutput": 1.0,
+            "closedLoopPeriod": 1
+        },
+        "auxPIDPolarity": false,
+        "remoteFilter0": {
+            "remoteSensorDeviceID": 0,
+            "remoteSensorSource": "Off"
+        },
+        "remoteFilter1": {
+            "remoteSensorDeviceID": 0,
+            "remoteSensorSource": "Off"
+        },
+        "motionCruiseVelocity": 0,
+        "motionAcceleration": 0,
+        "motionCurveStrength": 0,
+        "motionProfileTrajectoryPeriod": 0,
+        "feedbackNotContinuous": false,
+        "remoteSensorClosedLoopDisableNeutralOnLOS": false,
+        "clearPositionOnLimitF": false,
+        "clearPositionOnLimitR": false,
+        "clearPositionOnQuadIdx": false,
+        "limitSwitchDisableNeutralOnLOS": false,
+        "softLimitDisableNeutralOnLOS": false,
+        "pulseWidthPeriod_EdgesPerRot": 1,
+        "pulseWidthPeriod_FilterWindowSz": 1,
+        "trajectoryInterpolationEnable": true,
+        "customParam0": 0,
+        "customParam1": 0,
+        "enableOptimizations": true
+    },
+    "kSLinear": 0.802,
+    "kVLinear": 3.1,
+    "kALinear": 0.385,
+    "kSAngular": 1.39,
+    "kVAngular": 3.2,
+    "kAAngular": 0.254
+}

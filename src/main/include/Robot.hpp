@@ -15,10 +15,12 @@
 #include <frc/geometry/Rotation2d.h>
 #include <frc/trajectory/TrajectoryConfig.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
-#include <units/units.h>
+#include <iostream>
+// #include <units/units.h>
+#include <thread>
 #include <wpi/raw_ostream.h>
 
-#include "lib/Configuration.hpp"
+// #include "lib/Configuration.hpp"
 
 class Robot : public frc::TimedRobot
 {
@@ -26,6 +28,7 @@ private:
   Robotmap IO;
   double autoStartTime;
   frc::Trajectory currentTrajectory;
+  std::thread logger;
 
 public:
   void RobotInit() override;

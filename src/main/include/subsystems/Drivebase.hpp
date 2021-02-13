@@ -1,46 +1,75 @@
 #pragma once
 
 #include <AHRS.h>
+
 #include <ctre/Phoenix.h>
+
+#include <adi/ADIS16470_IMU.h>
 #include <frc/SPI.h>
-#include <frc/Timer.h>
 #include <frc/controller/RamseteController.h>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Rotation2d.h>
-#include <frc/kinematics/ChassisSpeeds.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
-#include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
-#include <units/units.h>
-#include <wpi/json.h>
-#include <wpi/raw_ostream.h>
+#include <frc/trajectory/Trajectory.h>
+#include <lib/CTREUtil.hpp>
+#include <lib/DrivebaseConfig.hpp>
 
-#include <iostream>
-#include <string>
+// #include <units/units.h>
 
 #include "Constants.hpp"
+#include "lib/Loggable.hpp"
+#include <UDPLogger.hpp>
 
-using namespace ctre::phoenix::motorcontrol::can;
-using namespace ctre::phoenix::motorcontrol;
-using namespace frc;
-using namespace units;
-using namespace units::angle;
-
-class Drivebase
+class Drivebase : public rj::Loggable
 {
 public:
-  Drivebase();
+  Drivebase(rj::DrivebaseConfig& config)
+    : config(config)
+    , motorLeft1(
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX{ config.driveLeft1.id })
+    , motorLeft2(
+        ctre::phoenix::motorcontrol::can::WPI_VictorSPX{ config.driveLeft2.id })
+    , motorRight1(
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX{ config.driveRight1.id })
+    , motorRight2(ctre::phoenix::motorcontrol::can::WPI_VictorSPX{
+        config.driveRight2.id })
+    , imu{ config.imu.yaw_axis, config.imu.port, config.imu.cal_time }
+  {
+    rj::ConfigureWPI_TalonSRX(
+      motorLeft1, config.driveLeft1, config.talonConfig);
+    rj::ConfigureWPI_VictorSPX(
+      motorLeft2, config.driveLeft2, config.victorConfig);
+    rj::ConfigureWPI_TalonSRX(
+      motorRight1, config.driveRight1, config.talonConfig);
+    rj::ConfigureWPI_VictorSPX(
+      motorRight2, config.driveRight2, config.victorConfig);
+    Configure();
+  };
+
+  void Configure();
+
+  void Log(UDPLogger& logger)
+  {
+    logger.LogExternalDevice(motorLeft1);
+    logger.LogExternalDevice(motorLeft2);
+    logger.LogExternalDevice(motorRight1);
+    logger.LogExternalDevice(motorRight2);
+  }
 
   void Arcade(double forward, double rotate);
 
   frc::Rotation2d GetGyroHeading()
   {
-    return frc::Rotation2d(angle::degree_t(-navx.GetAngle()));
+    return frc::Rotation2d(units::angle::degree_t(imu.GetAngle()));
   }
 
   void ResetOdometry()
   {
+    imu.Reset();
     auto heading = GetGyroHeading();
+    motorLeft1.SetSelectedSensorPosition(0);
+    motorRight1.SetSelectedSensorPosition(0);
     odometry.ResetPosition(frc::Pose2d(0_m, 0_m, heading), heading);
   }
 
@@ -62,27 +91,18 @@ public:
   void SetOpenLoop(double left, double right);
 
 private:
-  // Hardware setup
-  enum motors
-  {
-    L1 = 0,
-    L2,
-    L3,
-    R1,
-    R2,
-    R3
-  };
+  rj::DrivebaseConfig& config;
 
-  WPI_TalonSRX motorLeft1{ 11 };
-  WPI_VictorSPX motorLeft2{ 13 };
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorLeft1;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorLeft2;
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX motorRight1;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX motorRight2;
 
-  WPI_TalonSRX motorRight1{ 12 };
-  WPI_VictorSPX motorRight2{ 14 };
+  // AHRS &navx;
+  frc::ADIS16470_IMU imu;
 
-  AHRS navx{ frc::SPI::Port::kMXP };
-
-  DifferentialDriveKinematics kinematics{ 25_in };
-  DifferentialDriveOdometry odometry{ GetGyroHeading() };
+  frc::DifferentialDriveKinematics kinematics{ 25_in };
+  frc::DifferentialDriveOdometry odometry{ GetGyroHeading() };
 
   frc::Trajectory currentTrajectory;
   double trajectoryStartTime;
