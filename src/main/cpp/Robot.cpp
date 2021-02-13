@@ -37,9 +37,9 @@ Robot::RobotInit()
   auto time = std::chrono::system_clock::to_time_t(time_point);
   IO.logger.SetTitle(std::ctime(&time));
 
-  logger =
-    std::thread(logToUDPLogger, std::ref(IO.logger), std::ref(IO.loggables));
-  logger.detach();
+  // logger =
+  //   std::thread(logToUDPLogger, std::ref(IO.logger), std::ref(IO.loggables));
+  // logger.detach();
   IO.drivebase.ResetOdometry();
 }
 void

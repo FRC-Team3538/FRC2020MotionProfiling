@@ -49,7 +49,13 @@ public:
 
   void Configure();
 
-  void Log(UDPLogger& logger) {}
+  void Log(UDPLogger& logger)
+  {
+    logger.LogExternalDevice(motorLeft1);
+    logger.LogExternalDevice(motorLeft2);
+    logger.LogExternalDevice(motorRight1);
+    logger.LogExternalDevice(motorRight2);
+  }
 
   void Arcade(double forward, double rotate);
 

@@ -5,20 +5,22 @@
 
 #include "UDPLogger.hpp"
 #include "lib/Configuration.hpp"
-#include <vector>
 
 class Robotmap
 {
 private:
   Configuration config;
   std::string systemMapFile{ "DrivebaseConfig.json" };
-  rj::DrivebaseConfig map{ config.Get<rj::DrivebaseConfig>(systemMapFile) };
+  rj::DrivebaseConfig driveConfig{ config.Get<rj::DrivebaseConfig>(
+    systemMapFile) };
 
 public:
   UDPLogger logger;
 
   DS ds;
-  Drivebase drivebase{ map };
+  Drivebase drivebase{ driveConfig };
 
-  std::vector<rj::Loggable> loggables{ drivebase };
+  std::vector<std::shared_ptr<const rj::Loggable>> loggables{
+    std::shared_ptr<const rj::Loggable>(&drivebase)
+  };
 };
