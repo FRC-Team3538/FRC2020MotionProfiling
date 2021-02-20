@@ -25,40 +25,8 @@
 void
 Drivebase::Configure()
 {
-  motorLeft1.ConfigFactoryDefault();
-  motorLeft2.ConfigFactoryDefault();
-  motorRight1.ConfigFactoryDefault();
-  motorRight2.ConfigFactoryDefault();
-
-  motorRight1.SetInverted(true);
-  motorRight2.SetInverted(true);
-
   motorLeft2.Follow(motorLeft1);
   motorRight2.Follow(motorRight1);
-
-  ctre::phoenix::motorcontrol::can::TalonSRXConfiguration config;
-  motorLeft1.GetAllConfigs(config);
-
-  // do the thing
-  config.primaryPID.selectedFeedbackSensor = FeedbackDevice::QuadEncoder;
-  config.slot0.kF = 0.964 / 12.0;
-  config.slot0.kP = 3.02 / 12.0 / 1023.0;
-
-  motorLeft1.ConfigAllSettings(config);
-
-  motorRight1.GetAllConfigs(config);
-
-  // do it again
-  config.primaryPID.selectedFeedbackSensor = FeedbackDevice::QuadEncoder;
-  // based on observations kF is on a scale from 0 to 1, it may be from 0 to
-  // 1023.
-  config.slot0.kF = 0.964 / 12.0;
-  // PID controller output is for sure on a scale from 0 to 1023,
-  // so the kP that FRC-characterization gives us needs to be scaled
-  // appropriately
-  config.slot0.kP = 3.02 / 12.0 / 1023.0;
-
-  motorRight1.ConfigAllSettings(config);
 
   imu.Reset();
   imu.Calibrate();
@@ -120,8 +88,14 @@ Drivebase::StepRamsete()
   wpi::outs() << "\tleft: " << wheelSpeeds.left.to<double>()
               << " right: " << wheelSpeeds.right.to<double>() << "\n";
 
-  motorLeft1.Set(motorcontrol::ControlMode::Velocity, left);
-  motorRight1.Set(motorcontrol::ControlMode::Velocity, right);
+  motorLeft1.Set(motorcontrol::ControlMode::Velocity,
+                 left,
+                 motorcontrol::DemandType::DemandType_ArbitraryFeedForward,
+                 config.kSLinear / 12.0);
+  motorRight1.Set(motorcontrol::ControlMode::Velocity,
+                  right,
+                  motorcontrol::DemandType::DemandType_ArbitraryFeedForward,
+                  config.kSLinear / 12.0);
 }
 
 void
@@ -134,6 +108,12 @@ void
 Drivebase::SetOpenLoop(double left, double right)
 {
   // wpi::outs() << "left: " << left << " right: " << right << "\n";
-  motorLeft1.Set(motorcontrol::ControlMode::PercentOutput, left);
-  motorRight1.Set(motorcontrol::ControlMode::PercentOutput, right);
+  motorLeft1.Set(motorcontrol::ControlMode::PercentOutput,
+                 left,
+                 motorcontrol::DemandType::DemandType_ArbitraryFeedForward,
+                 config.kSLinear / 12.0);
+  motorRight1.Set(motorcontrol::ControlMode::PercentOutput,
+                  right,
+                  motorcontrol::DemandType::DemandType_ArbitraryFeedForward,
+                  config.kSLinear / 12.0);
 }

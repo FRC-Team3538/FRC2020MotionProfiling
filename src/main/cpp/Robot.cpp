@@ -12,14 +12,18 @@
 #include <functional>
 
 void
-logToUDPLogger(UDPLogger& logger, ExternalDeviceProvider& provider)
+logToUDPLogger(UDPLogger& logger, std::vector<std::shared_ptr<rj::Loggable>>& loggables)
 {
   auto target =
     std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
   logger.InitLogger();
   while (true) {
     logger.CheckForNewClient();
-    provider.PopulateLogBuffer(logger);
+
+    for (auto& loggable : loggables) {
+      loggable->Log(logger);
+    }
+
     logger.FlushLogBuffer();
     std::this_thread::sleep_until(target);
     target = std::chrono::steady_clock::now() + std::chrono::milliseconds(20);
@@ -33,8 +37,8 @@ Robot::RobotInit()
   auto time = std::chrono::system_clock::to_time_t(time_point);
   IO.logger.SetTitle(std::ctime(&time));
 
-  logger = std::thread(
-    logToUDPLogger, std::ref(IO.logger), std::ref(IO.externalDeviceProvider));
+  logger =
+    std::thread(logToUDPLogger, std::ref(IO.logger), std::ref(IO.loggables));
   logger.detach();
   IO.drivebase.ResetOdometry();
 }
@@ -55,7 +59,7 @@ void
 Robot::AutonomousInit()
 {
   const frc::Pose2d zero(0_ft, 0_ft, frc::Rotation2d(0_deg));
-  const frc::Pose2d forward_5(5_ft, 0_ft, frc::Rotation2d(0_deg));
+  const frc::Pose2d forward_5(10_ft, 0_ft, frc::Rotation2d(0_deg));
 
   std::vector<frc::Translation2d> interiorWaypoints{
     // frc::Translation2d(8_ft, -5_ft),
@@ -64,10 +68,10 @@ Robot::AutonomousInit()
     // frc::Translation2d(10_ft, 0_ft)
   };
 
-  frc::TrajectoryConfig config(5_fps, 6_fps_sq);
+  frc::TrajectoryConfig config(5_fps, 1_fps_sq);
 
   currentTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-    zero, interiorWaypoints, forward_5, config);
+    zero, { frc::Translation2d(5_ft, -5_ft) }, forward_5, config);
 
   auto states = currentTrajectory.States();
 

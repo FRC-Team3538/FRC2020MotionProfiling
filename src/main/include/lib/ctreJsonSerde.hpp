@@ -1,5 +1,6 @@
 #pragma once
 #include <ctre/Phoenix.h>
+#include <wpi/json.h>
 
 namespace ctre {
 namespace phoenix {
